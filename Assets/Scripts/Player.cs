@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed, verticalInput, horizonInput;
+    public float verticalInput, horizonInput;
+    public float speed, runSpeed;
     private Vector3 vector;
     private bool keyDown = false;
     int walkCount = 10;
@@ -19,12 +20,17 @@ public class Player : MonoBehaviour
     {
        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
+            if (Input.GetKey(KeyCode.LeftShift)) //달리기
+                runSpeed = speed * 0.5f;
+            else
+                runSpeed = 0;
+
             verticalInput = Input.GetAxisRaw("Vertical");
             horizonInput = Input.GetAxisRaw("Horizontal");
-            vector.Set(horizonInput * speed, verticalInput * speed, transform.position.z);
+            vector.Set(horizonInput * (speed + runSpeed), verticalInput * (speed + runSpeed), transform.position.z);
 
-            if (vector.x != 0)
-                vector.y = 0;
+            //if (vector.x != 0)  //대각선 이동 방지
+            //    vector.y = 0;
          
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", vector.y);
@@ -43,9 +49,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if(!keyDown)
         {
+            
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
             {
                 animator.SetBool("Walking", true);
