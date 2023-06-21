@@ -21,9 +21,15 @@ public class Player : MonoBehaviour
        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
             if (Input.GetKey(KeyCode.LeftShift)) //´Þ¸®±â
+            {
+                animator.SetBool("Running", true);
                 runSpeed = speed * 0.5f;
+            }
             else
+            {
                 runSpeed = 0;
+                animator.SetBool("Running", false);
+            }
 
             verticalInput = Input.GetAxisRaw("Vertical");
             horizonInput = Input.GetAxisRaw("Horizontal");
@@ -43,6 +49,7 @@ public class Player : MonoBehaviour
         }
 
         animator.SetBool("Walking", false);
+        animator.SetBool("Running", false);
         keyDown = false;
     }
 
