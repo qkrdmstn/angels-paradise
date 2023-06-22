@@ -4,16 +4,61 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private UIManager uiManager;
+    //Player Movment
     public float verticalInput, horizonInput;
     public float speed, runSpeed;
     private Vector3 vector;
     private bool keyDown = false;
     int walkCount = 10;
     private Animator animator;
+
+    //Player Ability
+    public enum PlayerAbility
+    {
+        normal,
+        superPower,
+        electricity,
+        magnetic,
+        hacking
+    }
+    private PlayerAbility currentAbility;
+    public void SetPlayerAbility(PlayerAbility a)
+    {
+        currentAbility = a;
+        Debug.Log(currentAbility);
+    }
+    public PlayerAbility GetPlayerAbility()
+    {
+        return currentAbility;
+    }
+
+    //Player Emotion
+    public enum PlayerEmotion
+    {
+        fine,
+        glad,
+        sad,
+        joy,
+        angry
+    }
+    private PlayerEmotion currentEmotion;
+
+    public void SetPlayerAbility(PlayerEmotion e)
+    {
+        currentEmotion = e;
+        Debug.Log(currentEmotion);
+    }
+    public PlayerEmotion GetPlayerEmotion()
+    {
+        return currentEmotion;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     IEnumerator MoveCoroutine()
@@ -56,7 +101,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!keyDown)
+        if(!keyDown && !uiManager.isActiveUI)
         {
             
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
@@ -66,5 +111,17 @@ public class Player : MonoBehaviour
                 StartCoroutine(MoveCoroutine());
             }
         }
+
+        if (Input.GetKey(KeyCode.Escape) && currentAbility != PlayerAbility.normal)
+            SetPlayerAbility(PlayerAbility.normal);
+
+        if (Input.GetKey(KeyCode.Alpha1))
+            SetPlayerAbility(PlayerAbility.superPower);
+        else if (Input.GetKey(KeyCode.Alpha2))
+            SetPlayerAbility(PlayerAbility.electricity);
+        else if (Input.GetKey(KeyCode.Alpha3))
+            SetPlayerAbility(PlayerAbility.magnetic);
+        else if (Input.GetKey(KeyCode.Alpha4))
+            SetPlayerAbility(PlayerAbility.hacking);
     }
 }
