@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.U2D.Animation;
 public class Player : MonoBehaviour
 {
     private UIManager uiManager;
@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     private bool keyDown = false;
     int walkCount = 10;
     private Animator animator;
+
+    //Change Character
+    private SpriteLibrary spriteLibrary;
+    public SpriteLibraryAsset [] abilitySkin;
 
     //Player Ability
     public enum PlayerAbility
@@ -27,6 +31,16 @@ public class Player : MonoBehaviour
     {
         currentAbility = a;
         Debug.Log(currentAbility);
+        if(currentAbility == PlayerAbility.normal)
+            spriteLibrary.spriteLibraryAsset = abilitySkin[0];
+        else if (currentAbility == PlayerAbility.superPower)
+            spriteLibrary.spriteLibraryAsset = abilitySkin[1];
+        else if (currentAbility == PlayerAbility.electricity)
+            spriteLibrary.spriteLibraryAsset = abilitySkin[2];
+        else if (currentAbility == PlayerAbility.magnetic)
+            spriteLibrary.spriteLibraryAsset = abilitySkin[3];
+        else if (currentAbility == PlayerAbility.hacking)
+            spriteLibrary.spriteLibraryAsset = abilitySkin[4];
     }
     public PlayerAbility GetPlayerAbility()
     {
@@ -44,7 +58,7 @@ public class Player : MonoBehaviour
     }
     private PlayerEmotion currentEmotion;
 
-    public void SetPlayerAbility(PlayerEmotion e)
+    public void SetPlayerEmotion(PlayerEmotion e)
     {
         currentEmotion = e;
         Debug.Log(currentEmotion);
@@ -59,6 +73,8 @@ public class Player : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         uiManager = FindObjectOfType<UIManager>();
+        spriteLibrary = GetComponent<SpriteLibrary>();
+        SetPlayerAbility(PlayerAbility.normal);
     }
 
     IEnumerator MoveCoroutine()

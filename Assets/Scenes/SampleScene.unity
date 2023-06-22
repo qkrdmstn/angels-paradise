@@ -2629,8 +2629,8 @@ GameObject:
   - component: {fileID: 1889083628}
   - component: {fileID: 1889083630}
   - component: {fileID: 1889083629}
-  - component: {fileID: 1889083631}
   - component: {fileID: 1889083632}
+  - component: {fileID: 1889083631}
   m_Layer: 0
   m_Name: $Main_Character_1_0
   m_TagString: Player
@@ -2654,6 +2654,12 @@ MonoBehaviour:
   horizonInput: 0
   speed: 0.1
   runSpeed: 0
+  abilitySkin:
+  - {fileID: 7108339969198208228, guid: 2d37e186db510544b8e8dbd7f5beb685, type: 3}
+  - {fileID: 7108339969198208228, guid: 259305af3a56b7a449d24b4491aa327c, type: 3}
+  - {fileID: 7108339969198208228, guid: b0fdfdc260b37ad47b45d80253d9ed34, type: 3}
+  - {fileID: 7108339969198208228, guid: d1b772376312ed6419cfb286ea067bba, type: 3}
+  - {fileID: 7108339969198208228, guid: acc96a0de59976344b13eb66083c61b4, type: 3}
 --- !u!212 &1889083626
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2695,7 +2701,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300002, guid: 460d20c957d56964b9aaf3458cb2bb92, type: 3}
+  m_Sprite: {fileID: 21300020, guid: 2b3d3c13c40bf3e40b3606df121530e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2788,11 +2794,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1889083624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Library: []
-  m_SpriteLibraryAsset: {fileID: 0}
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 1.2925134e-28
 --- !u!114 &1889083632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2802,12 +2809,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1889083624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0
-  m_labelHash: 0
-  m_SpriteKey: 0
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: d1b772376312ed6419cfb286ea067bba, type: 3}
 --- !u!1001 &1901959104
 PrefabInstance:
   m_ObjectHideFlags: 0

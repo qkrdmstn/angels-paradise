@@ -30,22 +30,22 @@ public class EmotionUI : MonoBehaviour
     }
     public void SetPlayerEmotionGlad()
     {
-        player.SetPlayerAbility(Player.PlayerEmotion.glad);
+        player.SetPlayerEmotion(Player.PlayerEmotion.glad);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerEmotionSad()
     {
-        player.SetPlayerAbility(Player.PlayerEmotion.sad);
+        player.SetPlayerEmotion(Player.PlayerEmotion.sad);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerEmotionJoy()
     {
-        player.SetPlayerAbility(Player.PlayerEmotion.joy);
+        player.SetPlayerEmotion(Player.PlayerEmotion.joy);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerEmotionAngry()
     {
-        player.SetPlayerAbility(Player.PlayerEmotion.angry);
+        player.SetPlayerEmotion(Player.PlayerEmotion.angry);
         StartCoroutine(InactiveUIcoroutine());
     }
 
