@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     //Change Character
     private SpriteLibrary spriteLibrary;
-    public SpriteLibraryAsset [] abilitySkin;
+    public SpriteLibraryAsset[] abilitySkin;
 
     //Player Ability
     public enum PlayerAbility
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     {
         currentAbility = a;
         Debug.Log(currentAbility);
-        if(currentAbility == PlayerAbility.normal)
+        if (currentAbility == PlayerAbility.normal)
             spriteLibrary.spriteLibraryAsset = abilitySkin[0];
         else if (currentAbility == PlayerAbility.superPower)
             spriteLibrary.spriteLibraryAsset = abilitySkin[1];
@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
-            if (Input.GetKey(KeyCode.LeftShift)) //´Ş¸®±â
+            if (Input.GetKey(KeyCode.LeftShift)) //ï¿½Ş¸ï¿½ï¿½ï¿½
             {
                 animator.SetBool("Running", true);
                 runSpeed = speed * 0.5f;
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
             horizonInput = Input.GetAxisRaw("Horizontal");
             vector.Set(horizonInput * (speed + runSpeed), verticalInput * (speed + runSpeed), transform.position.z);
 
-            //if (vector.x != 0)  //´ë°¢¼± ÀÌµ¿ ¹æÁö
+            //if (vector.x != 0)  //ï¿½ë°¢ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
             //    vector.y = 0;
 
             animator.SetFloat("DirX", vector.x);
@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!keyDown && !uiManager.isActiveUI)
+        if (!keyDown && !uiManager.isActiveUI)
         {
 
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
@@ -147,39 +147,32 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             manager.Action();
 
-        // Direction
-        if (vector.y > 0)
-            vector = Vector3.up * (speed + runSpeed);
-        else if (vector.y < 0)
-            vector = Vector3.down * (speed + runSpeed);
-        else if (vector.x < 0)
-            vector = Vector3.left * (speed + runSpeed);
-        else if (vector.x > 0)
-            vector = Vector3.right * (speed + runSpeed);
-
-
-        //Scan Object
-        if (Input.GetButtonDown("Jump") && scanObject != null)
+        if (Input.GetMouseButtonDown(0)) // ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ í´ë¦­ í™•ì¸
         {
-            Debug.Log(scanObject.name);
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.CompareTag("NPC"))
+            {
+                Debug.Log("NPC ë§ˆìš°ìŠ¤í´ë¦­");
+            }
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("í…ŒìŠ¤íŠ¸íŠ¸");
         }
     }
 
     void FixedUpdate()
-{
-    // Ray (¾ÆÀÌÅÛ, NPC Á¶»ç)
-    RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector.normalized, 2f, LayerMask.GetMask("Object"));
-    Debug.DrawRay(rigid.position, vector.normalized * 2f, Color.green);
+    {
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector.normalized, 2f);
+        Debug.DrawRay(rigid.position, vector.normalized * 2f, Color.green);
 
-    if (rayHit.collider != null)
-    {
-        scanObject = rayHit.collider.gameObject;
-        // RaycastµÈ ¿ÀºêÁ§Æ®¸¦ º¯¼ö·Î ÀúÀåÇÏ¿© È°¿ë
+        if (rayHit.collider != null && rayHit.collider.CompareTag("NPC"))
+        {
+            Debug.Log("NPC ìŠ¤í˜ì´ìŠ¤ë°”");
+        }
     }
-    else
-    {
-        scanObject = null;
-    }
-}
 
 }

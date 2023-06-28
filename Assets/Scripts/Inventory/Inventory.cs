@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     public void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
@@ -43,22 +43,35 @@ public class Inventory : MonoBehaviour
         if (items.Count < SlotCnt)
         {
             items.Add(_item);
-            if(onChangeItem != null)
-            onChangeItem.Invoke();
+            if (onChangeItem != null)
+                onChangeItem.Invoke();
             return true;
         }
         return false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if(collision.CompareTag("FieldItem"))
+        if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 클릭 확인
         {
-            FieldItems fieldItems = collision.GetComponent<FieldItems>();
-            if (AddItem(fieldItems.GetItem()))
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.CompareTag("FieldItem"))
             {
-                fieldItems.DestroyItem();
+                FieldItems fieldItems = hit.collider.GetComponent<FieldItems>();
+                if (AddItem(fieldItems.GetItem()))
+                {
+                    fieldItems.DestroyItem();
+                }
             }
         }
+
+        
     }
+
+    
+
+
+
 }
