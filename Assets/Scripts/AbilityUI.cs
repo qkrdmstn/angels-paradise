@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AbilityUI : MonoBehaviour
 {
-    private Player player;
+    private PlayerAbility playerAbility;
     private UIManager uiManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        playerAbility = FindObjectOfType<PlayerAbility>();
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -38,22 +38,22 @@ public class AbilityUI : MonoBehaviour
 
     public void SetPlayerAbilitySuperPower()
     {
-        player.SetPlayerAbility(Player.PlayerAbility.superPower);
+        playerAbility.SetPlayerAbility(PlayerAbility.playerAbilities.superPower);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerAbilityElectricity()
     {
-        player.SetPlayerAbility(Player.PlayerAbility.electricity);
+        playerAbility.SetPlayerAbility(PlayerAbility.playerAbilities.electricity);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerAbilityMagnetic()
     {
-        player.SetPlayerAbility(Player.PlayerAbility.magnetic);
+        playerAbility.SetPlayerAbility(PlayerAbility.playerAbilities.magnetic);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerAbilityHacking()
     {
-        player.SetPlayerAbility(Player.PlayerAbility.hacking);
+        playerAbility.SetPlayerAbility(PlayerAbility.playerAbilities.hacking);
         StartCoroutine(InactiveUIcoroutine());
     }
 

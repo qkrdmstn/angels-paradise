@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D.Animation;
+
 public class Player : MonoBehaviour
 {
     public GameManager manager;
@@ -16,70 +16,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigid;
     GameObject scanObject;
 
-    //Change Character
-    private SpriteLibrary spriteLibrary;
-    public SpriteLibraryAsset[] abilitySkin;
-
-    //Player Ability
-    public enum PlayerAbility
-    {
-        normal,
-        superPower,
-        electricity,
-        magnetic,
-        hacking
-    }
-    private PlayerAbility currentAbility;
-    public void SetPlayerAbility(PlayerAbility a)
-    {
-        currentAbility = a;
-        Debug.Log(currentAbility);
-        if (currentAbility == PlayerAbility.normal)
-            spriteLibrary.spriteLibraryAsset = abilitySkin[0];
-        else if (currentAbility == PlayerAbility.superPower)
-            spriteLibrary.spriteLibraryAsset = abilitySkin[1];
-        else if (currentAbility == PlayerAbility.electricity)
-            spriteLibrary.spriteLibraryAsset = abilitySkin[2];
-        else if (currentAbility == PlayerAbility.magnetic)
-            spriteLibrary.spriteLibraryAsset = abilitySkin[3];
-        else if (currentAbility == PlayerAbility.hacking)
-            spriteLibrary.spriteLibraryAsset = abilitySkin[4];
-    }
-    public PlayerAbility GetPlayerAbility()
-    {
-        return currentAbility;
-    }
-
-    //Player Emotion
-    public enum PlayerEmotion
-    {
-        fine,
-        glad,
-        sad,
-        joy,
-        angry
-    }
-    private PlayerEmotion currentEmotion;
-
-    public void SetPlayerEmotion(PlayerEmotion e)
-    {
-        currentEmotion = e;
-        Debug.Log(currentEmotion);
-    }
-    public PlayerEmotion GetPlayerEmotion()
-    {
-        return currentEmotion;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-        rigid = GetComponent<Rigidbody2D>();
-        uiManager = FindObjectOfType<UIManager>();
-        spriteLibrary = GetComponent<SpriteLibrary>();
-        SetPlayerAbility(PlayerAbility.normal);
-    }
+    //Camera Setting
+    Camera theCamera;
+    public bool cameraSetting;
 
     IEnumerator MoveCoroutine()
     {
@@ -118,6 +57,16 @@ public class Player : MonoBehaviour
         keyDown = false;
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
+        uiManager = FindObjectOfType<UIManager>();
+        theCamera = FindObjectOfType<Camera>();
+        cameraSetting = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -131,18 +80,6 @@ public class Player : MonoBehaviour
                 StartCoroutine(MoveCoroutine());
             }
         }
-
-        if (Input.GetKey(KeyCode.Escape) && currentAbility != PlayerAbility.normal)
-            SetPlayerAbility(PlayerAbility.normal);
-
-        if (Input.GetKey(KeyCode.Alpha1))
-            SetPlayerAbility(PlayerAbility.superPower);
-        else if (Input.GetKey(KeyCode.Alpha2))
-            SetPlayerAbility(PlayerAbility.electricity);
-        else if (Input.GetKey(KeyCode.Alpha3))
-            SetPlayerAbility(PlayerAbility.magnetic);
-        else if (Input.GetKey(KeyCode.Alpha4))
-            SetPlayerAbility(PlayerAbility.hacking);
 
         if (Input.GetKeyDown(KeyCode.Space))
             manager.Action();
@@ -162,6 +99,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("테스트트");
         }
+
     }
 
     void FixedUpdate()
@@ -175,4 +113,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!cameraSetting && collision.CompareTag("CameraBound"))
+        {
+            theCamera.GetComponent<CameraManager>().SetBound(collision.GetComponent<BoxCollider2D>());
+        }
+
+    }
 }
