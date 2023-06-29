@@ -8,10 +8,12 @@ public class PlayerAbility : MonoBehaviour
     //Change Character
     private SpriteLibrary spriteLibrary;
     public SpriteLibraryAsset[] abilitySkin;
+    public Sprite[] standSkin;
 
     //Player Ability
     public GameObject hackingObjParent;
     public GameObject hackingObj;
+
     public enum playerAbilities
     {
         normal,
@@ -20,6 +22,7 @@ public class PlayerAbility : MonoBehaviour
         magnetic,
         hacking
     }
+
     private playerAbilities currentAbility;
     public void SetPlayerAbility(playerAbilities a)
     {
@@ -28,22 +31,28 @@ public class PlayerAbility : MonoBehaviour
         if (currentAbility == playerAbilities.normal)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[0];
+            gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[0];
         }
         else if (currentAbility == playerAbilities.superPower)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[1];
+            gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[1];
         }
         else if (currentAbility == playerAbilities.electricity)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[2];
+            gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[2];
         }
         else if (currentAbility == playerAbilities.magnetic)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[3];
+            gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[3];
         }
         else if (currentAbility == playerAbilities.hacking)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[4];
+            gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[4];
+
             hackingObjParent = GameObject.FindGameObjectWithTag("HackingObj");
             if (hackingObjParent != null)
             {
