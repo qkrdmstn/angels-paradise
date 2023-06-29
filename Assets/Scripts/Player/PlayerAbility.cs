@@ -10,7 +10,8 @@ public class PlayerAbility : MonoBehaviour
     public SpriteLibraryAsset[] abilitySkin;
 
     //Player Ability
-    private GameObject hackingObj;
+    public GameObject hackingObjParent;
+    public GameObject hackingObj;
     public enum playerAbilities
     {
         normal,
@@ -27,7 +28,6 @@ public class PlayerAbility : MonoBehaviour
         if (currentAbility == playerAbilities.normal)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[0];
-            hackingObj = GameObject.FindGameObjectWithTag("HackingObj");
         }
         else if (currentAbility == playerAbilities.superPower)
         {
@@ -44,6 +44,20 @@ public class PlayerAbility : MonoBehaviour
         else if (currentAbility == playerAbilities.hacking)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[4];
+            hackingObjParent = GameObject.FindGameObjectWithTag("HackingObj");
+            if (hackingObjParent != null)
+            {
+                hackingObj = hackingObjParent.transform.GetChild(0).gameObject;
+                hackingObj.SetActive(true);
+            }
+        }
+
+        if(currentAbility != playerAbilities.hacking)
+        {
+            if (hackingObjParent != null)
+            {
+                hackingObj.SetActive(false);
+            }
         }
 
     }
@@ -73,5 +87,7 @@ public class PlayerAbility : MonoBehaviour
             SetPlayerAbility(playerAbilities.magnetic);
         else if (Input.GetKey(KeyCode.Alpha4))
             SetPlayerAbility(playerAbilities.hacking);
+
+
     }
 }
