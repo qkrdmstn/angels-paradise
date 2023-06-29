@@ -16,5 +16,15 @@ public class ChangeScene : MonoBehaviour
         {
             SceneManager.LoadScene("SampleScene");
         }
+
+        if (Input.GetKey(KeyCode.O))
+        {
+            SceneManager.LoadScene("ElectricityScene");
+        }
+
+        if (Input.GetKey(KeyCode.I))
+        {
+            SceneManager.LoadScene("HackingScene");
+        }
     }
 }

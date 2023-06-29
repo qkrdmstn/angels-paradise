@@ -71,6 +71,10 @@ public class Player : MonoBehaviour
         return currentEmotion;
     }
 
+    //Camera Setting
+    Camera theCamera;
+    public bool cameraSetting;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +83,8 @@ public class Player : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         spriteLibrary = GetComponent<SpriteLibrary>();
         SetPlayerAbility(PlayerAbility.normal);
+        theCamera = FindObjectOfType<Camera>();
+        cameraSetting = false;
     }
 
     IEnumerator MoveCoroutine()
@@ -162,6 +168,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("테스트트");
         }
+
     }
 
     void FixedUpdate()
@@ -175,4 +182,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!cameraSetting && collision.CompareTag("CameraBound"))
+        {
+            Debug.Log("asdasd");
+            theCamera.GetComponent<CameraManager>().SetBound(collision.GetComponent<BoxCollider2D>());
+        }
+
+    }
 }

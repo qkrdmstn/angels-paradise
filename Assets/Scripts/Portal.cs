@@ -7,7 +7,8 @@ public class Portal : MonoBehaviour
     private Transform targetPos;
     private GameObject player;
     private FadeManager theFade;
-    private Player playerScript; 
+    private Player playerScript;
+    public BoxCollider2D Bound;
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +25,13 @@ public class Portal : MonoBehaviour
         
     }
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")
         {
             StartCoroutine(TransferCoroutine());
+            collision.GetComponent<Player>().cameraSetting = false;
         }
     }
 
