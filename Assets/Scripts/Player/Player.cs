@@ -16,21 +16,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigid;
     GameObject scanObject;
 
-   
-
     //Camera Setting
     Camera theCamera;
     public bool cameraSetting;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-        rigid = GetComponent<Rigidbody2D>();
-        uiManager = FindObjectOfType<UIManager>(); 
-        theCamera = FindObjectOfType<Camera>();
-        cameraSetting = false;
-    }
 
     IEnumerator MoveCoroutine()
     {
@@ -67,6 +55,16 @@ public class Player : MonoBehaviour
         animator.SetBool("Walking", false);
         animator.SetBool("Running", false);
         keyDown = false;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
+        uiManager = FindObjectOfType<UIManager>();
+        theCamera = FindObjectOfType<Camera>();
+        cameraSetting = false;
     }
 
     // Update is called once per frame
