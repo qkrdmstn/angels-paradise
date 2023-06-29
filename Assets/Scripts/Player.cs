@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.U2D.Animation;
 public class Player : MonoBehaviour
 {
+    public GameManager manager;
     private UIManager uiManager;
     //Player Movment
     public float verticalInput, horizonInput;
@@ -12,10 +13,12 @@ public class Player : MonoBehaviour
     private bool keyDown = false;
     int walkCount = 10;
     private Animator animator;
+    private Rigidbody2D rigid;
+    GameObject scanObject;
 
     //Change Character
     private SpriteLibrary spriteLibrary;
-    public SpriteLibraryAsset [] abilitySkin;
+    public SpriteLibraryAsset[] abilitySkin;
 
     //Player Ability
     public enum PlayerAbility
@@ -31,7 +34,7 @@ public class Player : MonoBehaviour
     {
         currentAbility = a;
         Debug.Log(currentAbility);
-        if(currentAbility == PlayerAbility.normal)
+        if (currentAbility == PlayerAbility.normal)
             spriteLibrary.spriteLibraryAsset = abilitySkin[0];
         else if (currentAbility == PlayerAbility.superPower)
             spriteLibrary.spriteLibraryAsset = abilitySkin[1];
@@ -72,6 +75,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
         uiManager = FindObjectOfType<UIManager>();
         spriteLibrary = GetComponent<SpriteLibrary>();
         SetPlayerAbility(PlayerAbility.normal);
@@ -79,9 +83,9 @@ public class Player : MonoBehaviour
 
     IEnumerator MoveCoroutine()
     {
-       while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
+        while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
-            if (Input.GetKey(KeyCode.LeftShift)) //�޸���
+            if (Input.GetKey(KeyCode.LeftShift)) //�޸���
             {
                 animator.SetBool("Running", true);
                 runSpeed = speed * 0.5f;
@@ -96,9 +100,9 @@ public class Player : MonoBehaviour
             horizonInput = Input.GetAxisRaw("Horizontal");
             vector.Set(horizonInput * (speed + runSpeed), verticalInput * (speed + runSpeed), transform.position.z);
 
-            //if (vector.x != 0)  //�밢�� �̵� ����
+            //if (vector.x != 0)  //�밢�� �̵� ����
             //    vector.y = 0;
-         
+
             animator.SetFloat("DirX", vector.x);
             animator.SetFloat("DirY", vector.y);
 
@@ -117,9 +121,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!keyDown && !uiManager.isActiveUI)
+        if (!keyDown && !uiManager.isActiveUI)
         {
-            
+
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
             {
                 animator.SetBool("Walking", true);
@@ -139,5 +143,36 @@ public class Player : MonoBehaviour
             SetPlayerAbility(PlayerAbility.magnetic);
         else if (Input.GetKey(KeyCode.Alpha4))
             SetPlayerAbility(PlayerAbility.hacking);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            manager.Action();
+
+        if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 클릭 확인
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.CompareTag("NPC"))
+            {
+                Debug.Log("NPC 마우스클릭");
+            }
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("테스트트");
+        }
     }
+
+    void FixedUpdate()
+    {
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector.normalized, 2f);
+        Debug.DrawRay(rigid.position, vector.normalized * 2f, Color.green);
+
+        if (rayHit.collider != null && rayHit.collider.CompareTag("NPC"))
+        {
+            Debug.Log("NPC 스페이스바");
+        }
+    }
+
 }

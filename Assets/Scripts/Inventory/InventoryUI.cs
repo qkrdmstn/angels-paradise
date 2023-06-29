@@ -35,8 +35,14 @@ public class InventoryUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            activeInventory = !activeInventory;
-            inventoryPanel.SetActive(activeInventory);
+            inventoryPanel.SetActive(true);
+            Time.timeScale=0.001f;
+        }
+        
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            inventoryPanel.SetActive(false);
+            Time.timeScale=1;
         }
     }
 
