@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EmotionUI : MonoBehaviour
 {
-    private Player player;
+    private PlayerEmotion playerEmotion;
     private UIManager uiManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        playerEmotion = FindObjectOfType<PlayerEmotion>();
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -25,27 +25,25 @@ public class EmotionUI : MonoBehaviour
             SetPlayerEmotionJoy();
         else if (Input.GetKey(KeyCode.A))
             SetPlayerEmotionAngry();
-
-
     }
     public void SetPlayerEmotionGlad()
     {
-        player.SetPlayerEmotion(Player.PlayerEmotion.glad);
+        playerEmotion.SetPlayerEmotion(PlayerEmotion.playerEmotions.glad);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerEmotionSad()
     {
-        player.SetPlayerEmotion(Player.PlayerEmotion.sad);
+        playerEmotion.SetPlayerEmotion(PlayerEmotion.playerEmotions.sad);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerEmotionJoy()
     {
-        player.SetPlayerEmotion(Player.PlayerEmotion.joy);
+        playerEmotion.SetPlayerEmotion(PlayerEmotion.playerEmotions.joy);
         StartCoroutine(InactiveUIcoroutine());
     }
     public void SetPlayerEmotionAngry()
     {
-        player.SetPlayerEmotion(Player.PlayerEmotion.angry);
+        playerEmotion.SetPlayerEmotion(PlayerEmotion.playerEmotions.angry);
         StartCoroutine(InactiveUIcoroutine());
     }
 
