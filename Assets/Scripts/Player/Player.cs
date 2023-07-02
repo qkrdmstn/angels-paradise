@@ -9,12 +9,13 @@ public class Player : MonoBehaviour
     //Player Movment
     public float verticalInput, horizonInput;
     public float speed, runSpeed;
-    private Vector3 vector;
+    private static Vector3 vector;
     private bool keyDown = false;
     int walkCount = 10;
     private Animator animator;
-    private Rigidbody2D rigid;
+    private static Rigidbody2D rigid;
     GameObject scanObject;
+    Inventory inventory;
 
     //Camera Setting
     Camera theCamera;
@@ -65,6 +66,7 @@ public class Player : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         theCamera = FindObjectOfType<Camera>();
         cameraSetting = false;
+        inventory = GetComponent<Inventory>();
     }
 
     // Update is called once per frame
@@ -81,9 +83,6 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            manager.Action();
-
         if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 클릭 확인
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -93,23 +92,35 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("NPC 마우스클릭");
             }
+
+            else if (hit.collider != null && hit.collider.CompareTag("FieldItem"))
+            {
+                FieldItems fieldItems = hit.collider.GetComponent<FieldItems>();
+                if (inventory.AddItem(fieldItems.GetItem()))
+                {
+                    fieldItems.DestroyItem();
+                }
+            }            
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Space)) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
         {
-            Debug.Log("테스트트");
-        }
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector, 3f, LayerMask.GetMask("Object"));
+            Debug.DrawRay(rigid.position, vector * 3f, Color.green);
 
-    }
+            if (rayHit.collider != null && rayHit.collider.CompareTag("NPC"))
+            {
+                Debug.Log("NPC 스페이스바");
+            }
 
-    void FixedUpdate()
-    {
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector.normalized, 2f);
-        Debug.DrawRay(rigid.position, vector.normalized * 2f, Color.green);
-
-        if (rayHit.collider != null && rayHit.collider.CompareTag("NPC"))
-        {
-            Debug.Log("NPC 스페이스바");
+            else if (rayHit.collider != null && rayHit.collider.CompareTag("FieldItem"))
+            {
+                FieldItems fieldItems = rayHit.collider.GetComponent<FieldItems>();
+                if (inventory.AddItem(fieldItems.GetItem()))
+                {
+                    fieldItems.DestroyItem();
+                }
+            }
         }
     }
 

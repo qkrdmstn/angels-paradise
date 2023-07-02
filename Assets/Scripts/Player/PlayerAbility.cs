@@ -5,12 +5,15 @@ using UnityEngine.U2D.Animation;
 
 public class PlayerAbility : MonoBehaviour
 {
+    private Player player;
+
     //Change Character
     private SpriteLibrary spriteLibrary;
     public SpriteLibraryAsset[] abilitySkin;
 
     //Player Ability
     private GameObject hackingObj;
+    private GameObject superPowerObj;
     public enum playerAbilities
     {
         normal,
@@ -32,6 +35,8 @@ public class PlayerAbility : MonoBehaviour
         else if (currentAbility == playerAbilities.superPower)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[1];
+            superPowerObj = GameObject.FindGameObjectWithTag("SuperPowerObj");
+            SuperPowerAbility();
         }
         else if (currentAbility == playerAbilities.electricity)
         {
@@ -73,5 +78,20 @@ public class PlayerAbility : MonoBehaviour
             SetPlayerAbility(playerAbilities.magnetic);
         else if (Input.GetKey(KeyCode.Alpha4))
             SetPlayerAbility(playerAbilities.hacking);
+    }
+
+    void SuperPowerAbility()
+    {
+        /* 스페이스바 눌러서 SuperPowerObj를 부수기 */
+        // if (Input.GetKeyDown(KeyCode.Space)) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
+        // {
+        //     RaycastHit2D rayHit = Physics2D.Raycast(player.rigid.position, player.vector, 3f, LayerMask.GetMask("Object"));
+        //     Debug.DrawRay(player.rigid.position, player.vector * 3f, Color.green);
+
+        //     if (rayHit.collider != null && rayHit.collider.CompareTag("SuperPowerObj"))
+        //     {
+        //         Destroy(gameObject);
+        //     }
+        // }
     }
 }
