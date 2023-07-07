@@ -5,6 +5,9 @@ using UnityEngine.U2D.Animation;
 
 public class PlayerAbility : MonoBehaviour
 {
+    private Player player;
+    GameObject magnet;
+
     //Change Character
     private SpriteLibrary spriteLibrary;
     public SpriteLibraryAsset[] abilitySkin;
@@ -13,7 +16,7 @@ public class PlayerAbility : MonoBehaviour
     //Player Ability
     public GameObject hackingObjParent;
     public GameObject hackingObj;
-
+    private GameObject superPowerObj;
     public enum playerAbilities
     {
         normal,
@@ -60,7 +63,6 @@ public class PlayerAbility : MonoBehaviour
         {
             hackingObj.SetActive(false);
         }
-
     }
 
     public playerAbilities GetPlayerAbility()
@@ -93,6 +95,9 @@ public class PlayerAbility : MonoBehaviour
     {
         spriteLibrary = GetComponent<UnityEngine.U2D.Animation.SpriteLibrary>();
         SetPlayerAbility(playerAbilities.normal);
+        player = GameObject.Find("Player").GetComponent<Player>();
+        superPowerObj = GameObject.FindGameObjectWithTag("SuperPowerObj");
+        magnet = GameObject.FindGameObjectWithTag("MagnetObj");
     }
 
     // Update is called once per frame
@@ -103,7 +108,9 @@ public class PlayerAbility : MonoBehaviour
             SetPlayerAbility(playerAbilities.normal);
 
         if (Input.GetKey(KeyCode.Alpha1))
+        {
             SetPlayerAbility(playerAbilities.superPower);
+        }
         else if (Input.GetKey(KeyCode.Alpha2))
             SetPlayerAbility(playerAbilities.electricity);
         else if (Input.GetKey(KeyCode.Alpha3))
@@ -113,4 +120,14 @@ public class PlayerAbility : MonoBehaviour
 
         //ElectricityProcess();
     }
+
+    public void SuperPowerInteraction(RaycastHit2D hit)
+    {
+        if (hit.collider != null && hit.collider.CompareTag("SuperPowerObj"))
+        {
+            Destroy(hit.collider.gameObject);
+            Debug.Log("오브젝트 파괴");
+        }
+    }
+
 }
