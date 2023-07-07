@@ -9,6 +9,9 @@ TagManager:
   - NPC
   - CameraBound
   - HackingObj
+  - SuperPowerObj
+  - MagnetObj
+  - Obstacle
   layers:
   - Default
   - TransparentFX

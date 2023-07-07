@@ -52,25 +52,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // 마우스 왼쪽 버튼 클릭 확인
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
-            if (hit.collider != null && hit.collider.CompareTag("FieldItem"))
-            {
-                FieldItems fieldItems = hit.collider.GetComponent<FieldItems>();
-                if (AddItem(fieldItems.GetItem()))
-                {
-                    fieldItems.DestroyItem();
-                }
-            }
-        }
-
-        
-    }
-
-    
+    } 
 
 
 

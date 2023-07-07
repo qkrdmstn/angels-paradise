@@ -5,12 +5,16 @@ using UnityEngine.U2D.Animation;
 
 public class PlayerAbility : MonoBehaviour
 {
+    private Player player;
+    GameObject magnet;
+
     //Change Character
     private SpriteLibrary spriteLibrary;
     public SpriteLibraryAsset[] abilitySkin;
 
     //Player Ability
     private GameObject hackingObj;
+    private GameObject superPowerObj;
     public enum playerAbilities
     {
         normal,
@@ -36,16 +40,16 @@ public class PlayerAbility : MonoBehaviour
         else if (currentAbility == playerAbilities.electricity)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[2];
+
         }
         else if (currentAbility == playerAbilities.magnetic)
         {
-            spriteLibrary.spriteLibraryAsset = abilitySkin[3];
+            spriteLibrary.spriteLibraryAsset = abilitySkin[3];            
         }
         else if (currentAbility == playerAbilities.hacking)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[4];
         }
-
     }
     public playerAbilities GetPlayerAbility()
     {
@@ -57,6 +61,9 @@ public class PlayerAbility : MonoBehaviour
     {
         spriteLibrary = GetComponent<UnityEngine.U2D.Animation.SpriteLibrary>();
         SetPlayerAbility(playerAbilities.normal);
+        player = GameObject.Find("Player").GetComponent<Player>();
+        superPowerObj = GameObject.FindGameObjectWithTag("SuperPowerObj");
+        magnet = GameObject.FindGameObjectWithTag("MagnetObj");
     }
 
     // Update is called once per frame
@@ -66,7 +73,9 @@ public class PlayerAbility : MonoBehaviour
             SetPlayerAbility(playerAbilities.normal);
 
         if (Input.GetKey(KeyCode.Alpha1))
+        {
             SetPlayerAbility(playerAbilities.superPower);
+        }
         else if (Input.GetKey(KeyCode.Alpha2))
             SetPlayerAbility(playerAbilities.electricity);
         else if (Input.GetKey(KeyCode.Alpha3))
@@ -74,4 +83,14 @@ public class PlayerAbility : MonoBehaviour
         else if (Input.GetKey(KeyCode.Alpha4))
             SetPlayerAbility(playerAbilities.hacking);
     }
+
+    public void SuperPowerInteraction(RaycastHit2D hit)
+    {
+        if (hit.collider != null && hit.collider.CompareTag("SuperPowerObj"))
+        {
+            Destroy(hit.collider.gameObject);
+            Debug.Log("오브젝트 파괴");
+        }
+    }
+
 }
