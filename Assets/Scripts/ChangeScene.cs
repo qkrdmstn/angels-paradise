@@ -18,9 +18,14 @@ public class ChangeScene : MonoBehaviour
             SceneManager.LoadScene("SuperPowerScene");
         }
 
+        if (Input.GetKey(KeyCode.B))
+        {
+            SceneManager.LoadScene("MagnetScene");
+        }
+
         if (Input.GetKey(KeyCode.N))
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("1. StartScene");
         }
 
         if (Input.GetKey(KeyCode.O))
