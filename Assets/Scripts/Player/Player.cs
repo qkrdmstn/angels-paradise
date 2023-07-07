@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rigid;
     GameObject scanObject;
-
+    
     //Camera Setting
     Camera theCamera;
     public bool cameraSetting;
@@ -95,10 +95,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            Debug.Log("테스트트");
-        }
+        //if (Input.GetButtonDown("Jump"))
+        //{
+        //    Debug.Log("테스트트");
+        //}
 
     }
 

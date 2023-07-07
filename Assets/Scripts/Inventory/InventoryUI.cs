@@ -10,7 +10,7 @@ public class InventoryUI : MonoBehaviour
     bool activeInventory = false;
     public Slot[] slots; // 슬롯 확장
     public Transform slotHolder;
-
+    // 슬롯 확장, UI 끄고 켜기
     void Start()
     {
         inven = Inventory.instance;

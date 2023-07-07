@@ -48,31 +48,44 @@ public class PlayerAbility : MonoBehaviour
             spriteLibrary.spriteLibraryAsset = abilitySkin[3];
             gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[3];
         }
-        else if (currentAbility == playerAbilities.hacking)
+        else if (currentAbility == playerAbilities.hacking)  
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[4];
             gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[4];
+            HackingProcess();
 
-            hackingObjParent = GameObject.FindGameObjectWithTag("HackingObj");
-            if (hackingObjParent != null)
-            {
-                hackingObj = hackingObjParent.transform.GetChild(0).gameObject;
-                hackingObj.SetActive(true);
-            }
         }
 
-        if(currentAbility != playerAbilities.hacking)
+        if(currentAbility != playerAbilities.hacking && hackingObjParent != null) //if(not hakcing mode)
         {
-            if (hackingObjParent != null)
-            {
-                hackingObj.SetActive(false);
-            }
+            hackingObj.SetActive(false);
         }
 
     }
+
     public playerAbilities GetPlayerAbility()
     {
         return currentAbility;
+    }
+
+    private void HackingProcess()
+    {
+        //find invisible obj & setActive true
+        hackingObjParent = GameObject.FindGameObjectWithTag("HackingObj");
+        if (hackingObjParent != null)
+        {
+            hackingObj = hackingObjParent.transform.GetChild(0).gameObject;
+            hackingObj.SetActive(true);
+        }
+    }
+
+    private void ElectricityProcess()
+    {
+        // electricity ability use & electronic device interaction (Interaction is within range)
+        if (currentAbility == playerAbilities.electricity && Input.GetKey(KeyCode.Space))
+        {
+            //Accessing & Activating GameObj
+        }
     }
 
     // Start is called before the first frame update
@@ -85,6 +98,7 @@ public class PlayerAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKey(KeyCode.Escape) && currentAbility != playerAbilities.normal)
             SetPlayerAbility(playerAbilities.normal);
 
@@ -97,6 +111,6 @@ public class PlayerAbility : MonoBehaviour
         else if (Input.GetKey(KeyCode.Alpha4))
             SetPlayerAbility(playerAbilities.hacking);
 
-
+        //ElectricityProcess();
     }
 }
