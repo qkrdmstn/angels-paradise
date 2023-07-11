@@ -38,8 +38,8 @@ public class UIManager : MonoBehaviour
         else if (uiType == UIType.currentDispenser)
             ui = currentDispenserUI;
 
-        if(uiType == UIType.ability || uiType == UIType.emotion)
-            ui.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, 0.75f, 0));
+        //if(uiType == UIType.ability || uiType == UIType.emotion) //follow Player
+        //    ui.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, 0.75f, 0));
         if(uiType == UIType.inventory)
             Time.timeScale = 0.001f;
 
