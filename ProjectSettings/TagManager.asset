@@ -7,12 +7,12 @@ TagManager:
   - FieldItem
   - Object
   - NPC
-  - CameraBound
   - HackingObj
   - ElectronicObj
   - SuperPowerObj
   - MagnetObj
   - Obstacle
+  - MapBound
   layers:
   - Default
   - TransparentFX

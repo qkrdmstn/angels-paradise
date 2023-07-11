@@ -31,7 +31,6 @@ public class Portal : MonoBehaviour
         if(collision.tag == "Player")
         {
             StartCoroutine(TransferCoroutine());
-            collision.GetComponent<Player>().cameraSetting = false;
         }
     }
 

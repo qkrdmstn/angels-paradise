@@ -13,6 +13,7 @@ public class DontDestroy : MonoBehaviour
         }
         else
         {
+            Debug.Log(gameObject);
             Destroy(gameObject);
         }
     }

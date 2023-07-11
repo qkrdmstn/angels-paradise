@@ -1739,7 +1739,7 @@ GameObject:
   - component: {fileID: 266598973}
   m_Layer: 0
   m_Name: Bound (6)
-  m_TagString: CameraBound
+  m_TagString: MapBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2712,7 +2712,7 @@ GameObject:
   - component: {fileID: 414053997}
   m_Layer: 0
   m_Name: Bound (4)
-  m_TagString: CameraBound
+  m_TagString: MapBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3294,12 +3294,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8842105, z: -1}
-  m_LocalScale: {x: 1.4806316, y: 1.4806316, z: 1.4806316}
+  m_LocalPosition: {x: -1.76, y: -6.49, z: -0.95}
+  m_LocalScale: {x: 1.4066, y: 1.4066, z: 1.4066}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1889083627}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -3755,7 +3755,7 @@ GameObject:
   - component: {fileID: 632078616}
   m_Layer: 0
   m_Name: Bound (5)
-  m_TagString: CameraBound
+  m_TagString: MapBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3921,7 +3921,7 @@ Transform:
   - {fileID: 632078615}
   - {fileID: 266598972}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &668244890 stripped
 RectTransform:
@@ -3940,7 +3940,7 @@ GameObject:
   - component: {fileID: 680651687}
   m_Layer: 0
   m_Name: Bound (1)
-  m_TagString: CameraBound
+  m_TagString: MapBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4515,7 +4515,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &822679609
 CapsuleCollider2D:
@@ -5765,7 +5765,6 @@ Transform:
   - {fileID: 1598050471}
   - {fileID: 83168197}
   - {fileID: 943078803}
-  - {fileID: 765428280}
   m_Father: {fileID: 1889083627}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6381,7 +6380,7 @@ Transform:
   m_GameObject: {fileID: 1326700307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 30}
+  m_LocalScale: {x: 1.0022324, y: 1.0022324, z: 1.0022324}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 603963206}
@@ -6397,7 +6396,7 @@ Transform:
   - {fileID: 2041768982}
   - {fileID: 1243187071}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1344700050 stripped
 Transform:
@@ -6569,7 +6568,7 @@ Transform:
   - {fileID: 2034245015}
   - {fileID: 555547400}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1436108152 stripped
 RectTransform:
@@ -6612,7 +6611,7 @@ Transform:
   - {fileID: 915175300}
   - {fileID: 129582876}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1472595983
 GameObject:
@@ -7780,7 +7779,7 @@ GameObject:
   - component: {fileID: 1796387059}
   m_Layer: 0
   m_Name: Bound (2)
-  m_TagString: CameraBound
+  m_TagString: MapBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8240,7 +8239,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13127,7 +13126,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1879688068
 GameObject:
@@ -17939,7 +17938,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1882878199
 GameObject:
@@ -18211,7 +18210,6 @@ GameObject:
   - component: {fileID: 1889083632}
   - component: {fileID: 1889083634}
   - component: {fileID: 1889083636}
-  - component: {fileID: 1889083638}
   - component: {fileID: 1889083637}
   m_Layer: 0
   m_Name: Player
@@ -18237,8 +18235,7 @@ MonoBehaviour:
   horizonInput: 0
   speed: 0.1
   runSpeed: 0
-  cameraSetting: 0
-  interactiveCheck: 0
+  bound: {fileID: 0}
 --- !u!212 &1889083626
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18299,16 +18296,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889083624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.4, y: -7.1, z: 0}
+  m_LocalPosition: {x: -2.44, y: -6.38, z: 0}
   m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1479720488}
   - {fileID: 757350375}
   - {fileID: 1105243972}
-  - {fileID: 519420032}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1889083628
 Animator:
@@ -18457,18 +18453,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627406b1c6916794693f6265866db60e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1889083638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889083624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f28bd8ede46946341ac36fb6bb9f7472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1901959104
@@ -18654,7 +18638,7 @@ GameObject:
   - component: {fileID: 1949113591}
   m_Layer: 0
   m_Name: Bound
-  m_TagString: CameraBound
+  m_TagString: MapBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19011,7 +18995,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022198158
 GameObject:
@@ -19272,10 +19256,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1422845849}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2048711683
 MonoBehaviour:
@@ -19366,7 +19349,7 @@ GameObject:
   - component: {fileID: 2075180960}
   m_Layer: 0
   m_Name: Bound (3)
-  m_TagString: CameraBound
+  m_TagString: MapBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
