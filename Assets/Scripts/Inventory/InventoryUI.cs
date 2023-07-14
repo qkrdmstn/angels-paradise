@@ -24,6 +24,9 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i=0; i<slots.Length; i++)
         {
+            // Slot의 slotnum을 차례로 번호 부여
+            slots[i].slotnum = i;
+
             if (i < inven.SlotCnt)
                 slots[i].GetComponent<Button>().interactable = true;
             else
@@ -51,7 +54,7 @@ public class InventoryUI : MonoBehaviour
         inven.SlotCnt++;
     }
 
-    void RedrawSlotUI()
+    void RedrawSlotUI() // 아이템의 개수만큼 슬롯을 채워넣음
     {
         for (int i=0; i < slots.Length; i++)
         {

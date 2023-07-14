@@ -12,14 +12,15 @@ public class FieldItems : MonoBehaviour
         item.itemName = _item.itemName;
         item.itemImage = _item.itemImage;
         item.itemType = _item.itemType;
+        item.efts = _item.efts;
 
         image.sprite = item.itemImage;
     }
-    public Item GetItem()
+    public Item GetItem() // æ∆¿Ã≈€ »πµÊ
     {
         return item;
     }
-    public void DestroyItem()
+    public void DestroyItem() // »πµÊ«œ∏È « µÂ æ∆¿Ã≈€ ∆ƒ±´
     {
         Destroy(gameObject);
     }

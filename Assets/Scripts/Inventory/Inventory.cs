@@ -17,11 +17,14 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    public delegate void OnChangeItem();
+    public delegate void OnChangeItem(); // 아이템이 추가되면 슬롯UI에도 추가되도록
     public OnChangeItem onChangeItem;
+    
     public List<Item> items = new List<Item>(); // 획득한 아이템 담기
-    public delegate void OnSlotCountChange(int val); // 대리자 정의
+    
+    public delegate void OnSlotCountChange(int val); // 대리자 정의. 
     public OnSlotCountChange onSlotCountChange; // 대리자 인스턴스화
+    
     private int slotCnt;
     public int SlotCnt
     {
@@ -45,9 +48,17 @@ public class Inventory : MonoBehaviour
             items.Add(_item);
             if (onChangeItem != null)
                 onChangeItem.Invoke();
-            return true;
+            return true; // 아이템 획득에 성공하면 true, 아니면 false
         }
         return false;
+    }
+
+    public void RemoveItem(int _index)
+    {
+        // index에 맞는 items의 속성 제거
+        items.RemoveAt(_index);
+        // OnChangeItem을 호출해서 화면을 다시 그림
+        onChangeItem.Invoke();
     }
 
     private void Update()
