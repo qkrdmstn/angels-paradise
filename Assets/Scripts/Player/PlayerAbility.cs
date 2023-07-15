@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
+using UnityEngine.EventSystems;
 
 public class PlayerAbility : MonoBehaviour
 {
     private Player player;
-    GameObject magnet;
+    private GameObject magnet;
+    public AbilityUI abilityUI;
 
     //Change Character
     private SpriteLibrary spriteLibrary;
@@ -35,26 +37,31 @@ public class PlayerAbility : MonoBehaviour
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[0];
             gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[0];
+            EventSystem.current.SetSelectedGameObject(abilityUI.superPowerUI); //UI 포커스 설정
         }
         else if (currentAbility == playerAbilities.superPower)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[1];
             gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[1];
+            EventSystem.current.SetSelectedGameObject(abilityUI.superPowerUI);
         }
         else if (currentAbility == playerAbilities.electricity)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[2];
             gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[2];
+            EventSystem.current.SetSelectedGameObject(abilityUI.electricityUI);
         }
         else if (currentAbility == playerAbilities.magnetic)
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[3];
             gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[3];
+            EventSystem.current.SetSelectedGameObject(abilityUI.magneticUI);
         }
         else if (currentAbility == playerAbilities.hacking)  
         {
             spriteLibrary.spriteLibraryAsset = abilitySkin[4];
             gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[4];
+            EventSystem.current.SetSelectedGameObject(abilityUI.hackingUI);
             HackingProcess();
 
         }
@@ -91,7 +98,7 @@ public class PlayerAbility : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         spriteLibrary = GetComponent<UnityEngine.U2D.Animation.SpriteLibrary>();
         SetPlayerAbility(playerAbilities.normal);

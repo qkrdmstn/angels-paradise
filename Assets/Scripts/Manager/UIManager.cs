@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject inventoryUI;
     GameObject player;
     public bool isActiveUI = false;
+    GameObject ui;
 
     //inventory variable
     private Inventory inven;
@@ -28,7 +29,6 @@ public class UIManager : MonoBehaviour
 
     public void setActiveUI(UIType uiType)
     {
-        GameObject ui = new GameObject();
         if (uiType == UIType.ability)
             ui = abilityUI;
         else if (uiType == UIType.emotion)
@@ -45,6 +45,17 @@ public class UIManager : MonoBehaviour
 
         isActiveUI = true;
         ui.gameObject.SetActive(true);
+    }
+
+    public void setInActiveUI()
+    {
+        abilityUI.SetActive(false);
+        emotionUI.SetActive(false);
+        currentDispenserUI.SetActive(false);
+        inventoryUI.SetActive(false);
+
+        Time.timeScale = 1;
+        isActiveUI = false;
     }
 
     void SlotChange(int val)
@@ -110,13 +121,7 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Escape) && isActiveUI)
         {
-            abilityUI.SetActive(false);
-            emotionUI.SetActive(false);
-            currentDispenserUI.SetActive(false);
-            inventoryUI.SetActive(false);
-
-            Time.timeScale = 1;
-            isActiveUI = false;
+            setInActiveUI();
         }
     }
 
