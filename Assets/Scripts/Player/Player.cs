@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     static public Player Instance;
-    public GameManager manager;
+    //public GameManager gameManager;
     private UIManager uiManager;
 
     //Player Movment
@@ -90,12 +90,13 @@ public class Player : MonoBehaviour
         theCamera = FindObjectOfType<Camera>();
         inventory = GetComponent<Inventory>();
         playerAbility = GameObject.Find("Player").GetComponent<PlayerAbility>();
+        uiManager.currentUI = UIType.none;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!keyDown && !uiManager.isActiveUI)
+        if (!keyDown && uiManager.currentUI == UIType.none) //Player 이동
         {
 
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
@@ -125,9 +126,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
         {
             // NPC 상호작용
-            if (rayHit.collider != null && rayHit.collider.CompareTag("NPC"))
+            if (rayHit.collider != null && (rayHit.collider.CompareTag("NPC") || rayHit.collider.CompareTag("EventObj")) && uiManager.currentUI == UIType.none) //이벤트 Obj이거나 NPC일 때 && UI가 비활성화일 때
             {
-                Debug.Log("NPC 스페이스바");
+                string eventName = rayHit.collider.GetComponent<DialogueInteraction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+                
+                uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
+                uiManager.setActiveUI(UIType.talk); //UI 활성화
             }
 
             if (playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)

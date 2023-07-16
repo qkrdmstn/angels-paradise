@@ -51,4 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityUI: {fileID: 0}
   emotionUI: {fileID: 0}
+  currentDispenserUI: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  talkUI: {fileID: 0}
   isActiveUI: 0
+  slots: []
+  slotHolder: {fileID: 0}

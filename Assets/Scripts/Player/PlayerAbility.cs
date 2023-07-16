@@ -9,6 +9,7 @@ public class PlayerAbility : MonoBehaviour
     private Player player;
     private GameObject magnet;
     public AbilityUI abilityUI;
+    private UIManager uiManager;
 
     //Change Character
     private SpriteLibrary spriteLibrary;
@@ -19,6 +20,7 @@ public class PlayerAbility : MonoBehaviour
     public GameObject hackingObjParent;
     public GameObject hackingObj;
     private GameObject superPowerObj;
+
     public enum playerAbilities
     {
         normal,
@@ -105,13 +107,14 @@ public class PlayerAbility : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         superPowerObj = GameObject.FindGameObjectWithTag("SuperPowerObj");
         magnet = GameObject.FindGameObjectWithTag("MagnetObj");
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.Escape) && currentAbility != playerAbilities.normal)
+        if (Input.GetKey(KeyCode.Escape) && currentAbility != playerAbilities.normal && !uiManager.isActiveUI)
             SetPlayerAbility(playerAbilities.normal);
 
         if (Input.GetKey(KeyCode.Alpha1))

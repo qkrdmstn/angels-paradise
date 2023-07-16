@@ -51,7 +51,7 @@ public class EmotionUI : MonoBehaviour
     IEnumerator InactiveUIcoroutine()
     {
         yield return new WaitForSeconds(0.1f);
-        uiManager.isActiveUI = false;
+        uiManager.currentUI = UIType.none;
         gameObject.SetActive(false);
     }
 }

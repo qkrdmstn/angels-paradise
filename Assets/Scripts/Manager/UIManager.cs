@@ -3,14 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public enum UIType
 {
+    none,
+    ability,
+    emotion,
+    inventory,
+    talk,
+    currentDispenser
+}
+
+public class UIManager : MonoBehaviour //UI on/off 담당
+{
+    //ui 변수
     public GameObject abilityUI;
     public GameObject emotionUI;
     public GameObject currentDispenserUI;
     public GameObject inventoryUI;
-    GameObject player;
+    public GameObject dialogueUI;
     public bool isActiveUI = false;
+    public UIType currentUI;
+    GameObject player;
     GameObject ui;
 
     //inventory variable
@@ -19,13 +32,7 @@ public class UIManager : MonoBehaviour
     public Transform slotHolder;
     private bool activeInventory = false;
 
-    public enum UIType
-    {
-        ability,
-        emotion,
-        inventory,
-        currentDispenser
-    }
+   
 
     public void setActiveUI(UIType uiType)
     {
@@ -35,6 +42,8 @@ public class UIManager : MonoBehaviour
             ui = emotionUI;
         else if (uiType == UIType.inventory)
             ui = inventoryUI;
+        else if (uiType == UIType.talk)
+            ui = dialogueUI;
         else if (uiType == UIType.currentDispenser)
             ui = currentDispenserUI;
 
@@ -43,8 +52,9 @@ public class UIManager : MonoBehaviour
         if(uiType == UIType.inventory)
             Time.timeScale = 0.001f;
 
-        isActiveUI = true;
         ui.gameObject.SetActive(true);
+        currentUI = uiType;
+        Debug.Log(currentUI);
     }
 
     public void setInActiveUI()
@@ -54,8 +64,11 @@ public class UIManager : MonoBehaviour
         currentDispenserUI.SetActive(false);
         inventoryUI.SetActive(false);
 
+        dialogueUI.SetActive(false);
+        dialogueUI.GetComponent<DialogueUI>().IndexInit(); //UI 비활성화시, 대사 인덱스 초기화
+
         Time.timeScale = 1;
-        isActiveUI = false;
+        currentUI = UIType.none;
     }
 
     void SlotChange(int val)
@@ -102,24 +115,24 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         //abilityUI
-        if(Input.GetKey(KeyCode.E) && !isActiveUI)
+        if(Input.GetKey(KeyCode.E) && currentUI == UIType.none)
         {
             setActiveUI(UIType.ability);    
         }
 
         //emotionUI
-        if (Input.GetKey(KeyCode.F) && !isActiveUI)
+        if (Input.GetKey(KeyCode.F) && currentUI == UIType.none)
         {
             setActiveUI(UIType.emotion);   
         }
 
         //inventory
-        if (Input.GetKeyDown(KeyCode.Q) && !isActiveUI)
+        if (Input.GetKeyDown(KeyCode.Q) && currentUI == UIType.none)
         {
             setActiveUI(UIType.inventory);
         }
 
-        if (Input.GetKey(KeyCode.Escape) && isActiveUI)
+        if (Input.GetKey(KeyCode.Escape) && currentUI != UIType.none)
         {
             setInActiveUI();
         }
