@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: dd4eac718b4aab948aa81414aabc5837, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -125,7 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
+    itemDesc: "\uC544\uC774\uD15C \uC124\uBA85\uC785\uB2C8\uB3E0\n\uB3E0\uB3E0\uB3E0\uB3E0\uB3E0\uB3E0\uB3E0\uB3E0"
     itemType: 0
-    itemName: 
+    itemName: "\uC544\uC774\uD15C1"
     itemImage: {fileID: 0}
+    efts: []
   image: {fileID: 8682422215023113197}
