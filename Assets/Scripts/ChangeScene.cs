@@ -36,7 +36,6 @@ public class ChangeScene : MonoBehaviour
         if (Input.GetKey(KeyCode.I))
         {
             SceneManager.LoadScene("HackingScene");
-            thePlayer.cameraSetting = false;
         }
     }
 }

@@ -17,10 +17,18 @@ public class CameraManager : MonoBehaviour
     private float halfHeight;
     private Camera theCamera;
 
+    public static CameraManager Instance;
     private void Awake()
     {
-        
-            
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -43,15 +51,13 @@ public class CameraManager : MonoBehaviour
             float clampedY = Mathf.Clamp(this.transform.position.y, minBound.y + halfHeight, maxBound.y - halfHeight);
 
             this.transform.position = new Vector3(clampedX, clampedY, transform.position.z);
-      
         }
     }
 
-    public void SetBound(BoxCollider2D newBound)
+    public void SetCameraBound(BoxCollider2D newBound)
     {
         bound = newBound;
         minBound = bound.bounds.min;
         maxBound = bound.bounds.max;
-        target.GetComponent<Player>().cameraSetting = true;
     }
 }

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 1205164734}
   m_Layer: 0
   m_Name: Bound
-  m_TagString: CameraBound
+  m_TagString: MapBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

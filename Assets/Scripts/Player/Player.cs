@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameManager manager;
+    static public Player Instance;
+    //public GameManager gameManager;
     private UIManager uiManager;
+
     //Player Movment
     public float verticalInput, horizonInput;
     public float speed, runSpeed;
@@ -16,17 +18,22 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigid;
     Inventory inventory;
 
+    //Player Bound
+    public BoxCollider2D bound;
+    private Vector3 minBound;
+    private Vector3 maxBound;
+    private float playerHalfHeight = 1.0f;
+    private float playerHalfWidth = 0.5f;
+
     //Camera Setting
     Camera theCamera;
-    public bool cameraSetting;
-
     private PlayerAbility playerAbility;
 
     IEnumerator MoveCoroutine()
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
-            if (Input.GetKey(KeyCode.LeftShift)) //�޸���
+            if (Input.GetKey(KeyCode.LeftShift)) //running
             {
                 animator.SetBool("Running", true);
                 runSpeed = speed * 0.5f;
@@ -41,7 +48,7 @@ public class Player : MonoBehaviour
             horizonInput = Input.GetAxisRaw("Horizontal");
             vector.Set(horizonInput * (speed + runSpeed), verticalInput * (speed + runSpeed), transform.position.z);
 
-            //if (vector.x != 0)  //�밢�� �̵� ����
+            //if (vector.x != 0)  //대각선 이동 방지
             //    vector.y = 0;
 
             animator.SetFloat("DirX", vector.x);
@@ -49,7 +56,10 @@ public class Player : MonoBehaviour
 
             for (int i = 0; i < walkCount; i++)
             {
-                transform.Translate(vector);
+                //Player Bound Set
+                float clampedX = Mathf.Clamp(this.transform.position.x + vector.x, minBound.x + playerHalfWidth, maxBound.x - playerHalfWidth);
+                float clampedY = Mathf.Clamp(this.transform.position.y + vector.y, minBound.y + playerHalfHeight, maxBound.y - playerHalfHeight);
+                transform.transform.position = new Vector3(clampedX, clampedY, transform.position.z);
                 yield return new WaitForSeconds(0.01f);
             }
         }
@@ -57,6 +67,18 @@ public class Player : MonoBehaviour
         animator.SetBool("Walking", false);
         animator.SetBool("Running", false);
         keyDown = false;
+    }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -66,15 +88,15 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         uiManager = FindObjectOfType<UIManager>();
         theCamera = FindObjectOfType<Camera>();
-        cameraSetting = false;
         inventory = GetComponent<Inventory>();
         playerAbility = GameObject.Find("Player").GetComponent<PlayerAbility>();
+        uiManager.currentUI = UIType.none;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!keyDown && !uiManager.isActiveUI)
+        if (!keyDown && uiManager.currentUI == UIType.none) //Player 이동
         {
 
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
@@ -104,21 +126,39 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
         {
             // NPC 상호작용
-            if (rayHit.collider != null && rayHit.collider.CompareTag("NPC"))
+            if (rayHit.collider != null && (rayHit.collider.CompareTag("NPC") || rayHit.collider.CompareTag("EventObj")) && uiManager.currentUI == UIType.none) //이벤트 Obj이거나 NPC일 때 && UI가 비활성화일 때
             {
-                Debug.Log("NPC 스페이스바");
+                string eventName = rayHit.collider.GetComponent<DialogueInteraction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+                
+                uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
+                uiManager.setActiveUI(UIType.talk); //UI 활성화
             }
 
             if (playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)
                 playerAbility.SuperPowerInteraction(rayHit);
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!cameraSetting && collision.CompareTag("CameraBound"))
+        if (collision.CompareTag("MapBound"))
         {
-            theCamera.GetComponent<CameraManager>().SetBound(collision.GetComponent<BoxCollider2D>());
+            SetBound(collision.GetComponent<BoxCollider2D>());
         }
+   
+    }
+
+    public void SetBound(BoxCollider2D newBound)
+    {
+        theCamera.GetComponent<CameraManager>().SetCameraBound(newBound);
+        SetPlayerBound(newBound);
+    }
+
+    public void SetPlayerBound(BoxCollider2D newBound)
+    {
+        bound = newBound;
+        minBound = bound.bounds.min;
+        maxBound = bound.bounds.max;
     }
 }
