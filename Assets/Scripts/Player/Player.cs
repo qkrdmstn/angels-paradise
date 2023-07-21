@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     Camera theCamera;
     private PlayerAbility playerAbility;
 
+    //Interaction
+    private float interactionDistance = 1.5f;
     IEnumerator MoveCoroutine()
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
@@ -91,6 +93,10 @@ public class Player : MonoBehaviour
         inventory = GetComponent<Inventory>();
         playerAbility = GameObject.Find("Player").GetComponent<PlayerAbility>();
         uiManager.currentUI = UIType.none;
+
+        string eventName = this.GetComponent<DialogueInteraction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
+        uiManager.setActiveUI(UIType.talk); //UI 활성화
     }
 
     // Update is called once per frame
@@ -107,8 +113,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector, 3f, LayerMask.GetMask("Object"));
-        Debug.DrawRay(rigid.position, vector * 3f, Color.green);
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector, interactionDistance, LayerMask.GetMask("Object"));
+        Debug.DrawRay(rigid.position, vector.normalized * interactionDistance, Color.green);
 
         // 아이템 줍기
         if (Input.GetKeyDown(KeyCode.Z))

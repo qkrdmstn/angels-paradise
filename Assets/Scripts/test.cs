@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class test : MonoBehaviour
 {
-    TalkData[] a;
+    public string inputText;
+    public string outputText;
     // Start is called before the first frame update
     void Start()
     {
-        a = DialogueData.GetDialogue("¸ô¸® Ã³À½");
-        for(int i=0; i<a.Length; i++)
-        {
-            Debug.Log(a[i].name);
-            foreach (string context in a[i].constexts)
-                Debug.Log(context);
-        }
+
+        //inputText.Replace("\n", "<br>");
+
+        outputText = inputText.Replace("\\n", "\n");
+        this.GetComponent<Text>().text = inputText;
+        //Debug.Log(this.GetComponent<Text>().text);
+        //ttext = this.GetComponent<Text>().text;
     }
 
     // Update is called once per frame

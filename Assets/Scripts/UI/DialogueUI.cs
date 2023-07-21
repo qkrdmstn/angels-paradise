@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
+[System.Serializable]
 public class DialogueUI : MonoBehaviour //대화 UI
 {
     //대화 UI (TalkUI)
-    public Text talkText;
+    public Text name;
+    public Text context;
     public GameObject scanObject;
     private UIManager uiManager;
 
     //대화 data
-    TalkData[] talkData; //이름, 대사 배열 로 이루어진 구조체
+    [SerializeField] TalkData[] talkData; //이름, 대사 배열 로 이루어진 구조체
     private string currentEvent; //현재 이벤트 상태
     private int index1 = 0;
     private int index2 = 0;
@@ -27,12 +30,14 @@ public class DialogueUI : MonoBehaviour //대화 UI
         IndexInit();
         currentEvent = eventName;
         talkData = DialogueData.GetDialogue(currentEvent); //대화 데이터 로드
-        talkText.text = talkData[index1].name + ": " + talkData[index1].constexts[index2];
+        name.text = talkData[index1].name + ": ";
+        context.text = talkData[index1].constexts[index2];
     }
 
     public void SetSentence(int index1, int index2)
     {
-        talkText.text = talkData[index1].name + ": " + talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
+        name.text = talkData[index1].name + ": ";
+        context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
     }
 
     // Start is called before the first frame update
