@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
+[System.Serializable]
 public class DialogueUI : MonoBehaviour //대화 UI
 {
     //대화 UI (TalkUI)
@@ -11,7 +13,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
     private UIManager uiManager;
 
     //대화 data
-    TalkData[] talkData; //이름, 대사 배열 로 이루어진 구조체
+    [SerializeField] TalkData[] talkData; //이름, 대사 배열 로 이루어진 구조체
     private string currentEvent; //현재 이벤트 상태
     private int index1 = 0;
     private int index2 = 0;

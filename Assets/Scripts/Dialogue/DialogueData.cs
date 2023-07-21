@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[System.Serializable]
+[Serializable]
 public struct TalkData
 {
     public string name;
     public string[] constexts;
 }
 
+[System.Serializable]
 public class DialogueData : MonoBehaviour
 {
     ////대화 이벤트 이름
@@ -16,7 +18,8 @@ public class DialogueData : MonoBehaviour
     //위에서 선언한 TalkData 배열
     TalkData[] talkDatas;
     public static Dictionary<string, TalkData[]> DialogueDictionary = new Dictionary<string, TalkData[]>();
-    public TextAsset csvFile = null;
+    public TextAsset[] csvFile = null;
+    public string tempText;
     public string csvText;
     public string[] rows;
 
@@ -28,12 +31,21 @@ public class DialogueData : MonoBehaviour
 
     public void SetDialogueDictionary()
     {
-        csvText = csvFile.text.Substring(0, csvFile.text.Length - 1); //마지막 빈 줄 제거
+        
+        for(int i=0; i<csvFile.Length; i++)
+        {
+            csvText = csvFile[i].text.Substring(0, csvFile[i].text.Length - 1); //마지막 빈 줄 제거
+            if (i > 0)
+                tempText += '\n';
+            tempText += csvText;
+        }
+        csvText = tempText;
+
         rows = csvText.Split(new char[] { '\n' }); //줄 단위로 나누기
         for (int i = 1; i < rows.Length; i++)
         {
             string[] rowValues = rows[i].Split(new char[] { ',' });
-            if (rowValues[0].Trim() == "" || rowValues[0].Trim() == "end") //유효 이벤트 이름이 아닐 경우 continue;
+            if (rowValues[0].Trim() == "" || rowValues[0].Trim() == "end" || rowValues[0].Trim() == "EventName") //유효 이벤트 이름이 아닐 경우 continue;
                 continue;
 
             List<TalkData> talkDataList = new List<TalkData>();

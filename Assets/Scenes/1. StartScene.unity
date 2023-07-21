@@ -8431,7 +8431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e500082cbc0a924484e8b528229c2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvFile: {fileID: 4900000, guid: 70e2a2f80aab14f439b2949698fdc931, type: 3}
+  csvFile:
+  - {fileID: 4900000, guid: c51f3a85d90faaa419f852f18c5f3132, type: 3}
+  - {fileID: 4900000, guid: c9aa20b0023347641bc66d605bae38aa, type: 3}
+  tempText: 
   csvText: 
   rows: []
 --- !u!1001 &1139521054
@@ -68771,6 +68774,7 @@ GameObject:
   - component: {fileID: 1889083636}
   - component: {fileID: 1889083638}
   - component: {fileID: 1889083637}
+  - component: {fileID: 1889083639}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -69027,6 +69031,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28bd8ede46946341ac36fb6bb9f7472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1889083639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889083624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4840bf2f5ab9bfc4a865bf2c45875d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventName: "\uAC8C\uC784 \uC2DC\uC791"
 --- !u!1001 &1901959104
 PrefabInstance:
   m_ObjectHideFlags: 0
