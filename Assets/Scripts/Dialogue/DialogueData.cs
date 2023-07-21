@@ -42,6 +42,13 @@ public class DialogueData : MonoBehaviour
         csvText = tempText;
 
         rows = csvText.Split(new char[] { '\n' }); //줄 단위로 나누기
+        
+        for(int i=0; i<rows.Length; i++)
+        {
+            rows[i] = rows[i].Replace("\\n", "\n");
+            rows[i] = rows[i].Replace("\"\"\"", "\"");
+        }
+
         for (int i = 1; i < rows.Length; i++)
         {
             string[] rowValues = rows[i].Split(new char[] { ',' });
