@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     Camera theCamera;
     private PlayerAbility playerAbility;
 
+    //Interaction
+    private float interactionDistance = 1.5f;
     IEnumerator MoveCoroutine()
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
@@ -111,8 +113,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector, 3f, LayerMask.GetMask("Object"));
-        Debug.DrawRay(rigid.position, vector * 3f, Color.green);
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector, interactionDistance, LayerMask.GetMask("Object"));
+        Debug.DrawRay(rigid.position, vector.normalized * interactionDistance, Color.green);
 
         // 아이템 줍기
         if (Input.GetKeyDown(KeyCode.Z))
