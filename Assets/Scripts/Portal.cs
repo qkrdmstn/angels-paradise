@@ -34,6 +34,14 @@ public class Portal : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            StartCoroutine(TransferCoroutine());
+        }
+    }
+
     IEnumerator TransferCoroutine()
     {
         playerScript.speed = 0;
