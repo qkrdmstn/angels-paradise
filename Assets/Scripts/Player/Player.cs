@@ -31,6 +31,9 @@ public class Player : MonoBehaviour
 
     //Interaction
     private float interactionDistance = 1.5f;
+
+    public int favorability = 0;
+
     IEnumerator MoveCoroutine()
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
@@ -97,7 +100,9 @@ public class Player : MonoBehaviour
         string eventName = this.GetComponent<DialogueInteraction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
         uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
-    }
+
+        //favorability = DataManager.instance.nowPlayer.favorability;
+}
 
     // Update is called once per frame
     void Update()
@@ -166,5 +171,11 @@ public class Player : MonoBehaviour
         bound = newBound;
         minBound = bound.bounds.min;
         maxBound = bound.bounds.max;
+    }
+
+    // 저장 테스트용 함수
+    public void Save()
+    {
+        DataManager.instance.SaveData();
     }
 }
