@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +23,9 @@ public class PlayerData
 }
 public class DataManager : MonoBehaviour
 {
-    // 싱글톤
-    public static DataManager instance;
+    public PlayerData nowPlayer = new PlayerData(); // 플레이어 데이터 생성
+
+    public static DataManager instance; // 싱글톤
     public string path; // 저장 경로
     public int nowSlot; // 슬롯 번호
     private void Awake()
@@ -43,20 +45,6 @@ public class DataManager : MonoBehaviour
         path = Application.persistentDataPath + "/save"; // 유니티에서 지정해주는 경로, /는 filename 오류가 있을 수 있기 때문에 작성
         // 아마 여기 저장 될거임
         // C:\Users\사용자\AppData\LocalLow\DefaultCompany
-    }
-
-    public PlayerData nowPlayer = new PlayerData(); // 테스트용
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SaveData()

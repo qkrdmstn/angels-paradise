@@ -35,7 +35,10 @@ public class MainSceneUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            loadSlot.gameObject.SetActive(false);
+        }
     }
 
     public void Slot(int number) // 슬롯 숫자 매개변수
@@ -48,9 +51,14 @@ public class MainSceneUI : MonoBehaviour
             DataManager.instance.LoadData();
             GoGame();
         }
-        else
+        else // 데이터가 없다면 그 슬롯은 저장 가능 상태
         {
             // 불러오기 창 비활성화 상태
+            DataManager.instance.SaveData();
+            saveFile[number] = true;
+            slotText[number].text = "저장됨";
+            GoGame();
+            Debug.Log("저장");
         }      
         
     }
@@ -63,5 +71,10 @@ public class MainSceneUI : MonoBehaviour
     public void GoGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void Save()
+    {
+        DataManager.instance.SaveData();
     }
 }
