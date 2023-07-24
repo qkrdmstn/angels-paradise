@@ -61,7 +61,7 @@ public class Inventory : MonoBehaviour
         onChangeItem.Invoke();
     }
 
-    public int SearchInventory(string _itemName)
+    public int SearchInventory(string _itemName) //인벤토리 탐색
     {
         int num = 0;
         foreach (Item item in items)
@@ -69,7 +69,7 @@ public class Inventory : MonoBehaviour
             if (item.itemName == _itemName)
                 num++;
         }
-        return num;
+        return num; //개수 반환
     }
 
     private void Update()
