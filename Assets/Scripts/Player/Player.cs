@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     int walkCount = 10;
     private Animator animator;
     private Rigidbody2D rigid;
+
+    //inventory
     Inventory inventory;
 
     //Player Bound
@@ -102,6 +104,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log(inventory.SearchInventory("item0"));
+        }
+
         if (!keyDown && uiManager.currentUI == UIType.none) //Player 이동
         {
 

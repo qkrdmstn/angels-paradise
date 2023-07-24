@@ -8,7 +8,7 @@ using System;
 public class DialogueUI : MonoBehaviour //대화 UI
 {
     //대화 UI (TalkUI)
-    public Text name;
+    public Text speaker;
     public Text context;
     public GameObject scanObject;
     private UIManager uiManager;
@@ -30,13 +30,13 @@ public class DialogueUI : MonoBehaviour //대화 UI
         IndexInit();
         currentEvent = eventName;
         talkData = DialogueData.GetDialogue(currentEvent); //대화 데이터 로드
-        name.text = talkData[index1].name + ": ";
+        speaker.text = talkData[index1].name + ": ";
         context.text = talkData[index1].constexts[index2];
     }
 
     public void SetSentence(int index1, int index2)
     {
-        name.text = talkData[index1].name + ": ";
+        speaker.text = talkData[index1].name + ": ";
         context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
     }
 
