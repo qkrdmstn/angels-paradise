@@ -89,6 +89,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        favorability += DataManager.instance.nowPlayer.favorability;
+        //inventory.items = DataManager.instance.nowPlayer.items;
+
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         uiManager = FindObjectOfType<UIManager>();
@@ -100,16 +103,20 @@ public class Player : MonoBehaviour
         string eventName = this.GetComponent<DialogueInteraction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
         uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
-
-        //favorability = DataManager.instance.nowPlayer.favorability;
 }
+    public void favorbilityUp()
+    {
+        DataManager.instance.nowPlayer.favorability++;
+        Debug.Log("호감도 : " + DataManager.instance.nowPlayer.favorability);
+    }
 
     // Update is called once per frame
     void Update()
     {
+        //favorability += DataManager.instance.nowPlayer.favorability;
+
         if (!keyDown && uiManager.currentUI == UIType.none) //Player 이동
         {
-
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
             {
                 animator.SetBool("Walking", true);
@@ -148,7 +155,6 @@ public class Player : MonoBehaviour
             if (playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)
                 playerAbility.SuperPowerInteraction(rayHit);
         }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

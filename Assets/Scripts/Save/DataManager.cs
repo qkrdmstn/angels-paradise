@@ -15,11 +15,12 @@ using System.IO;
 // 3. 불러온 데이터를 사용
 
 // 저장할 데이터 : 플레이어 위치, 인벤토리 아이템, 호감도
+[System.Serializable]
 public class PlayerData
 {
     public Vector3 position;
-    public List<Item> item = new List<Item>();
-    public int favorability = 0;
+    public List<Item> items;
+    public int favorability;
 }
 public class DataManager : MonoBehaviour
 {

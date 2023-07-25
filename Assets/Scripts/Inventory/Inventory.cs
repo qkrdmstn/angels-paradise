@@ -39,7 +39,6 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         SlotCnt = 4;
-        DataManager.instance.nowPlayer.item = items;
     }
 
     public bool AddItem(Item _item) // 아이템창 개수만큼 아이템 먹을 수 있도록
@@ -61,11 +60,4 @@ public class Inventory : MonoBehaviour
         // OnChangeItem을 호출해서 화면을 다시 그림
         onChangeItem.Invoke();
     }
-
-    private void Update()
-    {
-    } 
-
-
-
 }
