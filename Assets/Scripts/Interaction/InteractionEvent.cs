@@ -6,7 +6,7 @@ public enum InteractionType
 {
     Dialogue,
     Image,
-    Ability
+    ImageDialogue
 }
 
 [System.Serializable]

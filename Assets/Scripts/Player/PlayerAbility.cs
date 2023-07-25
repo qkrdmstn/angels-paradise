@@ -133,7 +133,7 @@ public class PlayerAbility : MonoBehaviour
 
     public void SuperPowerInteraction(RaycastHit2D hit)
     {
-        if (hit.collider != null && hit.collider.CompareTag("SuperPowerObj"))
+        if (hit.collider != null)
         {
             Destroy(hit.collider.gameObject);
             Debug.Log("오브젝트 파괴");

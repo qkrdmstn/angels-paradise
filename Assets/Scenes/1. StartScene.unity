@@ -1199,7 +1199,7 @@ GameObject:
   - component: {fileID: 92839091}
   m_Layer: 6
   m_Name: PhotoFrame
-  m_TagString: EventObj
+  m_TagString: FieldItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46968,7 +46968,7 @@ GameObject:
   - component: {fileID: 1500673383}
   m_Layer: 6
   m_Name: Mirror
-  m_TagString: Untagged
+  m_TagString: EventObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65052,6 +65052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1905012441}
+  - component: {fileID: 1905012442}
   m_Layer: 5
   m_Name: ImageUI
   m_TagString: Untagged
@@ -65068,7 +65069,7 @@ RectTransform:
   m_GameObject: {fileID: 1905012440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 9.578926, y: 4.7301, z: 4.7301}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1243322125}
@@ -65077,9 +65078,29 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -392, y: 0}
+  m_SizeDelta: {x: 1920, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1905012442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905012440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5675d2af67359745a986636c44e982a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: e8cc1233614ffaf438331a9afb15362e, type: 3}
+  - {fileID: 21300000, guid: bc5a74460fecfff4497fcfda9304bb07, type: 3}
+  - {fileID: 21300000, guid: 25c39e4da6a8a554f967be4287f107e9, type: 3}
+  - {fileID: 21300000, guid: 25c39e4da6a8a554f967be4287f107e9, type: 3}
+  - {fileID: 21300000, guid: e8cc1233614ffaf438331a9afb15362e, type: 3}
+  image: {fileID: 1243322126}
+  ability: {fileID: 1889083636}
 --- !u!1 &1915333260 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8904563782872287935, guid: 5f8efbf2ecdf19d4981077f4a166c246, type: 3}

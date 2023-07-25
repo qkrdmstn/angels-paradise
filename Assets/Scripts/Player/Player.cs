@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private PlayerAbility playerAbility;
 
     //Interaction
-    private float interactionDistance = 1.5f;
+    public float interactionDistance = 1.5f;
     IEnumerator MoveCoroutine()
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
@@ -119,44 +119,67 @@ public class Player : MonoBehaviour
             }
         }
 
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, vector, interactionDistance, LayerMask.GetMask("Object"));
+        RaycastHit2D []rayHit = Physics2D.RaycastAll(rigid.position, vector, interactionDistance, LayerMask.GetMask("Object")); //레이에 닿는 모든 콜라이더 정보 저장
         Debug.DrawRay(rigid.position, vector.normalized * interactionDistance, Color.green);
 
         // 아이템 줍기
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (rayHit.collider != null && rayHit.collider.CompareTag("FieldItem"))
+            if (rayHit.Length != 0)
             {
-                FieldItems fieldItems = rayHit.collider.GetComponent<FieldItems>();
-                if (inventory.AddItem(fieldItems.GetItem()))
+                for (int i = 0; i < rayHit.Length; i++) //아래의 spacebar 처리와 동일
                 {
-                    fieldItems.DestroyItem();
+                    if(rayHit[i].collider.CompareTag("FieldItem"))
+                    {
+                        FieldItems fieldItems = rayHit[i].collider.GetComponent<FieldItems>();
+                        if (inventory.AddItem(fieldItems.GetItem()))
+                        {
+                            fieldItems.DestroyItem();
+                        }
+                        break;
+                    }
                 }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
         {
-            // NPC 상호작용
-            if (rayHit.collider != null && (rayHit.collider.CompareTag("NPC") || rayHit.collider.CompareTag("EventObj")) && uiManager.currentUI == UIType.none) //이벤트 Obj이거나 NPC일 때 && UI가 비활성화일 때
+            if (rayHit.Length != 0 && uiManager.currentUI == UIType.none)
             {
-                InteractionEvent Event = rayHit.collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
-
-                if (Event.eventType == InteractionType.Dialogue)
+                for (int i = 0; i < rayHit.Length; i++) //닿은 콜라이더 반복문으로 조사
                 {
-                    uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
-                    uiManager.setActiveUI(UIType.talk); //UI 활성화
-                }
-                else if (Event.eventType == InteractionType.Image)
-                {
-                    uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
-                    uiManager.setActiveUI(UIType.image); //UI 활성화
-                }
+                    if (rayHit[i].collider.CompareTag("NPC") || rayHit[i].collider.CompareTag("EventObj")) //NPC나 EventObj가 있다면,
+                    {
+                        InteractionEvent Event = rayHit[i].collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+                        if (Event.eventType == InteractionType.Dialogue)
+                        {
+                            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+                            uiManager.setActiveUI(UIType.talk); //UI 활성화
+                        }
+                        else if (Event.eventType == InteractionType.Image)
+                        {
+                            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+                            uiManager.setActiveUI(UIType.image); //UI 활성화
+                        }
+                        else if (Event.eventType == InteractionType.ImageDialogue)
+                        {
+                            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+                            uiManager.setActiveUI(UIType.talk); //UI 활성화
+                            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+                            uiManager.setActiveUI(UIType.image); //UI 활성화
+                        }
+                        break; //처리 후 반복문 종료하기
+                    }
 
+                    if (rayHit[i].collider.CompareTag("SuperPowerObj") && playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)
+                    {
+                        playerAbility.SuperPowerInteraction(rayHit[i]);
+                        break;
+                    }
+                    
+                }
             }
-
-            if (playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)
-                playerAbility.SuperPowerInteraction(rayHit);
+            
         }
 
     }
@@ -166,7 +189,6 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("CameraBound"))
         {
             theCamera.GetComponent<CameraManager>().SetCameraBound(collision.GetComponent<BoxCollider2D>());
-            //SetBound(collision.GetComponent<BoxCollider2D>());
         }
         
         if(collision.CompareTag("PlayerBound"))
