@@ -69,7 +69,14 @@ public class DialogueData : MonoBehaviour
                 {
                     contextList.Add(rowValues[2].ToString());  //대사 저장
                     if (++i < rows.Length)
+                    {
                         rowValues = rows[i].Split(new char[] { ',' });  //다음 대사도 나누기
+                        for(int j=0; j<rowValues.Length; j++)
+                        {
+                            rowValues[j] = rowValues[j].Replace("@", ",");
+                        }
+                    }
+                        
                     else break;
 
                 } while (rowValues[1] == "" && rowValues[0] != "end"); //같은 인물이 말하는 동안 반복
