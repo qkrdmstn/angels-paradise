@@ -132,9 +132,14 @@ public class Player : MonoBehaviour
                     if(rayHit[i].collider.CompareTag("FieldItem"))
                     {
                         FieldItems fieldItems = rayHit[i].collider.GetComponent<FieldItems>();
+                        Interaction interaction = rayHit[i].collider.GetComponent<Interaction>();
                         if (inventory.AddItem(fieldItems.GetItem()))
                         {
                             fieldItems.DestroyItem();
+                        }
+                        if(interaction != null)
+                        {
+                            SetInteractionUI(rayHit[i]);
                         }
                         break;
                     }
@@ -150,38 +155,43 @@ public class Player : MonoBehaviour
                 {
                     if (rayHit[i].collider.CompareTag("NPC") || rayHit[i].collider.CompareTag("EventObj")) //NPC나 EventObj가 있다면,
                     {
-                        InteractionEvent Event = rayHit[i].collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
-                        if (Event.eventType == InteractionType.Dialogue)
-                        {
-                            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
-                            uiManager.setActiveUI(UIType.talk); //UI 활성화
-                        }
-                        else if (Event.eventType == InteractionType.Image)
-                        {
-                            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
-                            uiManager.setActiveUI(UIType.image); //UI 활성화
-                        }
-                        else if (Event.eventType == InteractionType.ImageDialogue)
-                        {
-                            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
-                            uiManager.setActiveUI(UIType.talk); //UI 활성화
-                            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
-                            uiManager.setActiveUI(UIType.image); //UI 활성화
-                        }
+                        SetInteractionUI(rayHit[i]);
                         break; //처리 후 반복문 종료하기
-                    }
+                    } //NPC, 이벤트 오브젝트 상호작용
 
                     if (rayHit[i].collider.CompareTag("SuperPowerObj") && playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)
                     {
                         playerAbility.SuperPowerInteraction(rayHit[i]);
                         break;
-                    }
+                    } //괴력 상호작용
                     
                 }
             }
             
         }
 
+    }
+
+    private void SetInteractionUI(RaycastHit2D hit)
+    {
+        InteractionEvent Event = hit.collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+        if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
+        {
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.setActiveUI(UIType.talk); //UI 활성화
+        }
+        else if (Event.eventType == InteractionType.Image)
+        {
+            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.setActiveUI(UIType.image); //UI 활성화
+        }
+        else if (Event.eventType == InteractionType.ImageDialogue)
+        {
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.setActiveUI(UIType.talk); //UI 활성화
+            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.setActiveUI(UIType.image); //UI 활성화
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -196,12 +206,6 @@ public class Player : MonoBehaviour
             SetPlayerBound(collision.GetComponent<BoxCollider2D>());
         }
    
-    }
-
-    public void SetBound(BoxCollider2D newBound)
-    {
-        theCamera.GetComponent<CameraManager>().SetCameraBound(newBound);
-        SetPlayerBound(newBound);
     }
 
     public void SetPlayerBound(BoxCollider2D newBound)
