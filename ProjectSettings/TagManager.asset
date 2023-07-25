@@ -14,6 +14,8 @@ TagManager:
   - Obstacle
   - MapBound
   - EventObj
+  - CameraBound
+  - PlayerBound
   layers:
   - Default
   - TransparentFX

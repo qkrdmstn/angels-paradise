@@ -155,9 +155,15 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("MapBound"))
+        if (collision.CompareTag("CameraBound"))
         {
-            SetBound(collision.GetComponent<BoxCollider2D>());
+            theCamera.GetComponent<CameraManager>().SetCameraBound(collision.GetComponent<BoxCollider2D>());
+            //SetBound(collision.GetComponent<BoxCollider2D>());
+        }
+        
+        if(collision.CompareTag("PlayerBound"))
+        {
+            SetPlayerBound(collision.GetComponent<BoxCollider2D>());
         }
    
     }
