@@ -96,8 +96,8 @@ public class Player : MonoBehaviour
         playerAbility = GameObject.Find("Player").GetComponent<PlayerAbility>();
         uiManager.currentUI = UIType.none;
 
-        string eventName = this.GetComponent<DialogueInteraction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
+        InteractionEvent Event = this.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
     }
 
@@ -111,7 +111,6 @@ public class Player : MonoBehaviour
 
         if (!keyDown && uiManager.currentUI == UIType.none) //Player 이동
         {
-
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
             {
                 animator.SetBool("Walking", true);
@@ -141,10 +140,19 @@ public class Player : MonoBehaviour
             // NPC 상호작용
             if (rayHit.collider != null && (rayHit.collider.CompareTag("NPC") || rayHit.collider.CompareTag("EventObj")) && uiManager.currentUI == UIType.none) //이벤트 Obj이거나 NPC일 때 && UI가 비활성화일 때
             {
-                string eventName = rayHit.collider.GetComponent<DialogueInteraction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
-                
-                uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
-                uiManager.setActiveUI(UIType.talk); //UI 활성화
+                InteractionEvent Event = rayHit.collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+
+                if (Event.eventType == InteractionType.Dialogue)
+                {
+                    uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+                    uiManager.setActiveUI(UIType.talk); //UI 활성화
+                }
+                else if (Event.eventType == InteractionType.Image)
+                {
+                    uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+                    uiManager.setActiveUI(UIType.image); //UI 활성화
+                }
+
             }
 
             if (playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)
