@@ -6779,7 +6779,7 @@ GameObject:
   - component: {fileID: 758816909}
   - component: {fileID: 758816910}
   - component: {fileID: 758816911}
-  - component: {fileID: 758816913}
+  - component: {fileID: 758816912}
   m_Layer: 6
   m_Name: Door
   m_TagString: EventObj
@@ -6880,7 +6880,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &758816913
+--- !u!114 &758816912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6889,12 +6889,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 758816908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93fb65c165754564787ac5b4868a523f, type: 3}
+  m_Script: {fileID: 11500000, guid: 315f070c6c7ba9e49831dcfbba16f1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
   - eventType: 0
-    eventName: "\uB098\uAC00\uB294 \uBB38"
+    eventName: "\uB098\uAC00\uB294 \uBB381"
+  - eventType: 0
+    eventName: "\uB098\uAC00\uB294 \uBB382"
 --- !u!1 &772998092
 GameObject:
   m_ObjectHideFlags: 0
@@ -7294,12 +7296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d8274d443eaec41bb9deccd568d3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventName: 
-  events:
-  - "\uB0A1\uC740 \uCEF4\uD4E8\uD130"
-  - "\uBAB0\uB9AC2"
-  condition: 0
-  time: 0
 --- !u!1 &832437704
 GameObject:
   m_ObjectHideFlags: 0
@@ -68668,7 +68664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8979270376086075179, guid: 7336dfe112a9e1149b7886c32df9c6e3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9130010492813618136, guid: 7336dfe112a9e1149b7886c32df9c6e3, type: 3}
       propertyPath: m_Size.x
