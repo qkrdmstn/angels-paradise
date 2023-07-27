@@ -30,14 +30,17 @@ public class DialogueUI : MonoBehaviour //대화 UI
         IndexInit();
         currentEvent = eventName;
         talkData = DialogueData.GetDialogue(currentEvent); //대화 데이터 로드
-        speaker.text = talkData[index1].name + ": ";
-        context.text = talkData[index1].constexts[index2];
+        SetSentence(index1, index2);
+
     }
 
     public void SetSentence(int index1, int index2)
     {
         speaker.text = talkData[index1].name + ": ";
         context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
+
+        if (talkData[index1].options[index2].Trim() != "") //선택지 있으면 디버그로 출력
+            Debug.Log(talkData[index1].options[index2]);
     }
 
     // Start is called before the first frame update
