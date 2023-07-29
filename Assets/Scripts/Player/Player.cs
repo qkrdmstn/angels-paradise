@@ -97,8 +97,9 @@ public class Player : MonoBehaviour
         uiManager.currentUI = UIType.none;
 
         InteractionEvent Event = this.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
+        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+
     }
 
     // Update is called once per frame
