@@ -17,6 +17,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
     public GameObject optionsParent;
     public GameObject[] optionButtons;
     private Text[] buttonText;
+    public StartEventSet eventData1;
 
     //대화 data
     [SerializeField] TalkData[] talkData; //이름, 대사 배열 로 이루어진 구조체
@@ -55,15 +56,17 @@ public class DialogueUI : MonoBehaviour //대화 UI
             string[] option = options.Split("/"); //옵션 나누기
             for (int i = 0; i < option.Length; i++) //나눠진 옵션 개수만큼 버튼 활성화
             {
-                
                 optionButtons[i].GetComponentInChildren<Text>().text = option[option.Length - i - 1]; //텍스트는 위부터 적용
                 optionButtons[i].SetActive(true);
+                //버튼 이벤트 설정
             }
             for (int i = numOption - 1; i > option.Length - 1; i--) //나머지 버튼 비활성화
             {
                 optionButtons[i] = optionsParent.transform.GetChild(i).gameObject;
                 optionButtons[i].SetActive(false);
             }
+            //버튼 이벤트 설정
+            eventData1.SetOptionEvent(currentEvent, option.Length);
         }
         else
             optionsParent.SetActive(false); //선택지 없으면 부모 비활성화
