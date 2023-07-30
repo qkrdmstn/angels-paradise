@@ -30,7 +30,7 @@ public class PlayerAbility : MonoBehaviour
         hacking
     }
 
-    private playerAbilities currentAbility;
+    public playerAbilities currentAbility;
     public void SetPlayerAbility(playerAbilities a)
     {
         currentAbility = a;

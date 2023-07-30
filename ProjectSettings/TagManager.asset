@@ -16,6 +16,7 @@ TagManager:
   - EventObj
   - CameraBound
   - PlayerBound
+  - Portal
   layers:
   - Default
   - TransparentFX

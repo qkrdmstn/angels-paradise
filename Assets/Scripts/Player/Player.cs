@@ -160,6 +160,11 @@ public class Player : MonoBehaviour
                     if (rayHit[i].collider.CompareTag("SuperPowerObj") && playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)
                     {
                         playerAbility.SuperPowerInteraction(rayHit[i]);
+                        Interaction interaction = rayHit[i].collider.GetComponent<Interaction>(); //괴력 오브젝트에 상호작용이 있다면,,
+                        if (interaction != null)
+                        {
+                            SetInteractionUI(rayHit[i]);
+                        }
                         break;
                     } //괴력 상호작용
                     

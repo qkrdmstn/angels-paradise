@@ -9,6 +9,7 @@ public class Portal : MonoBehaviour
     private FadeManager theFade;
     private Player playerScript;
     public BoxCollider2D Bound;
+    public bool flag;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class Portal : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.tag == "Player" && flag)
         {
             StartCoroutine(TransferCoroutine());
         }
@@ -36,7 +37,7 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && flag)
         {
             StartCoroutine(TransferCoroutine());
         }
