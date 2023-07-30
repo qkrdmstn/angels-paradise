@@ -96,7 +96,13 @@ public class DialogueData : MonoBehaviour
 
     public static TalkData[] GetDialogue(string eventName)
     {
-        return DialogueDictionary[eventName];
+        if(DialogueDictionary.ContainsKey(eventName))
+            return DialogueDictionary[eventName];
+        else
+        {
+            Debug.LogWarning("유효하지 않은 이벤트 이름 :" + eventName);
+            return null;
+        }
     }
 
     // Update is called once per frame

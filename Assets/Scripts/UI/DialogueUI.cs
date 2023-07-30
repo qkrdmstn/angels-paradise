@@ -11,6 +11,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
     public Text speaker;
     public Text context;
     private UIManager uiManager;
+    public bool isKeyDown = false;
 
     //선택지
     private int numOption = 5;
@@ -82,8 +83,9 @@ public class DialogueUI : MonoBehaviour //대화 UI
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk) 
+        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk)
         {
+            isKeyDown = true;
             if (index1 < talkData.Length && index2 + 1 < talkData[index1].constexts.Length) //대사 업데이트
             {
                 index2++;
@@ -99,6 +101,9 @@ public class DialogueUI : MonoBehaviour //대화 UI
             {
                 uiManager.setInActiveUI(); //UI 비활성화
             }
-        }    
+
+        }
+        else
+            isKeyDown = false;
     }
 }

@@ -8,22 +8,18 @@ public class StartEventSet: MonoBehaviour
 {
     public Button[] optionButton;
     private UIManager uiManager;
-    //UnityAction[] actionNames;
+    private GameObject player;
+
+   
     public void SetOptionEvent(string eventName, int num)
     {
         InitOptionEvent(); //이전에 등록된 OnClickEvent 제거
         UnityAction[] actionNames = new UnityAction[num];
         switch (eventName)
         {
-            case "나가는 문1":
-                actionNames[0] = ExitDoor1;
+            case "창고 나가기":
+                actionNames[0] = ExitStorage;
                 actionNames[1] = UIClose;
-                break;
-            case "창문":
-                actionNames[0] = UIClose;
-                actionNames[1] = ExitDoor1;
-                actionNames[2] = ExitDoor1;
-                actionNames[3] = ExitDoor1;
                 break;
             default:
                 for (int i = 0; i < num; i++)
@@ -38,18 +34,6 @@ public class StartEventSet: MonoBehaviour
         }
     }
 
-    public void UIClose()
-    {
-        uiManager.setInActiveUI();
-        Debug.Log("UI 닫힘");
-        
-    }
-
-    public void ExitDoor1()
-    {
-        Debug.Log("나갔다");
-    }
-
     public void InitOptionEvent()
     {
         for (int i = 0; i < 5; i++)
@@ -57,9 +41,33 @@ public class StartEventSet: MonoBehaviour
             optionButton[i].onClick.RemoveAllListeners(); //버튼에 등록된 함수 초기화
         }
     }
+
+    public void UIClose()
+    {
+        uiManager.setInActiveUI();
+        Debug.Log("UI 닫힘");
+        
+    }
+
+    public void ExitStorage()
+    {
+        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("창고를 나서다"); //UI로 event 전달
+        uiManager.setActiveUI(UIType.talk); //UI 활성화
+        StartCoroutine(ExitStorageCoroutine());        
+        Debug.Log("나갓다");
+
+    }
+
+    IEnumerator ExitStorageCoroutine()
+    {
+        yield return new WaitUntil(() => Input.GetKey(KeyCode.Space));
+        player.transform.position = new Vector3(-10, 15, 0);
+    }
+
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
+        player = GameObject.FindGameObjectWithTag("Player");
 
     }
 }

@@ -96,10 +96,6 @@ public class Player : MonoBehaviour
         playerAbility = GameObject.Find("Player").GetComponent<PlayerAbility>();
         uiManager.currentUI = UIType.none;
 
-        InteractionEvent Event = this.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
-        uiManager.setActiveUI(UIType.talk); //UI 활성화
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
-
     }
 
     // Update is called once per frame
@@ -157,6 +153,7 @@ public class Player : MonoBehaviour
                     if (rayHit[i].collider.CompareTag("NPC") || rayHit[i].collider.CompareTag("EventObj")) //NPC나 EventObj가 있다면,
                     {
                         SetInteractionUI(rayHit[i]);
+                        Debug.Log("이벤트 상호작용");
                         break; //처리 후 반복문 종료하기
                     } //NPC, 이벤트 오브젝트 상호작용
 
@@ -173,9 +170,30 @@ public class Player : MonoBehaviour
 
     }
 
-    private void SetInteractionUI(RaycastHit2D hit)
+    public void SetInteractionUI(RaycastHit2D hit)
     {
         InteractionEvent Event = hit.collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+        if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
+        {
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.setActiveUI(UIType.talk); //UI 활성화
+        }
+        else if (Event.eventType == InteractionType.Image)
+        {
+            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.setActiveUI(UIType.image); //UI 활성화
+        }
+        else if (Event.eventType == InteractionType.ImageDialogue)
+        {
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.setActiveUI(UIType.talk); //UI 활성화
+            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.setActiveUI(UIType.image); //UI 활성화
+        }
+    }
+
+    public void SetInteractionUI(InteractionEvent Event)
+    {
         if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
         {
             uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달

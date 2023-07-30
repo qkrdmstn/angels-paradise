@@ -5814,7 +5814,7 @@ GameObject:
   - component: {fileID: 528312328}
   - component: {fileID: 528312329}
   m_Layer: 0
-  m_Name: Bound (4)
+  m_Name: BaseMent
   m_TagString: PlayerBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6517,7 +6517,7 @@ GameObject:
   - component: {fileID: 709287659}
   - component: {fileID: 709287660}
   m_Layer: 0
-  m_Name: Bound (2)
+  m_Name: StorageFRoad2
   m_TagString: PlayerBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6926,9 +6926,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Events:
   - eventType: 0
-    eventName: "\uB098\uAC00\uB294 \uBB381"
+    eventName: "\uCC3D\uACE0 \uB098\uAC00\uAE30"
   - eventType: 0
-    eventName: "\uB098\uAC00\uB294 \uBB382"
+    eventName: "\uCC3D\uACE0 \uBABB \uB098\uAC10"
 --- !u!1 &772998092
 GameObject:
   m_ObjectHideFlags: 0
@@ -7051,7 +7051,7 @@ GameObject:
   - component: {fileID: 773781814}
   - component: {fileID: 773781815}
   m_Layer: 0
-  m_Name: Bound
+  m_Name: Storage
   m_TagString: PlayerBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7225,7 +7225,6 @@ GameObject:
   - component: {fileID: 822679608}
   - component: {fileID: 822679607}
   - component: {fileID: 822679609}
-  - component: {fileID: 822679610}
   m_Layer: 6
   m_Name: Molly
   m_TagString: NPC
@@ -7316,18 +7315,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0208987, y: 0.7700051}
   m_Size: {x: 0.7332494, y: 1.621557}
   m_Direction: 0
---- !u!114 &822679610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 822679606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6d8274d443eaec41bb9deccd568d3d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &832437704
 GameObject:
   m_ObjectHideFlags: 0
@@ -7386,7 +7373,7 @@ GameObject:
   - component: {fileID: 839408960}
   - component: {fileID: 839408961}
   m_Layer: 0
-  m_Name: Bound (5)
+  m_Name: Vacant
   m_TagString: PlayerBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7613,7 +7600,7 @@ GameObject:
   - component: {fileID: 901066606}
   - component: {fileID: 901066607}
   m_Layer: 0
-  m_Name: Bound (3)
+  m_Name: BaseMentFRoad
   m_TagString: PlayerBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12655,10 +12642,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1312694206}
   - component: {fileID: 1312694207}
+  - component: {fileID: 1312694209}
   - component: {fileID: 1312694208}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 9-Sliced
-  m_TagString: Untagged
+  m_TagString: EventObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12756,6 +12744,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1312694209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312694205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93fb65c165754564787ac5b4868a523f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - eventType: 0
+    eventName: "\uAC70\uB300\uD55C \uB098\uBB34"
 --- !u!1 &1326700307
 GameObject:
   m_ObjectHideFlags: 0
@@ -12850,7 +12853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   csvFile:
   - {fileID: 4900000, guid: 67a9d2a91291f914f9ecde6f546a8a34, type: 3}
-  - {fileID: 4900000, guid: fa25f9de64c26ac4b926caadfe5d4524, type: 3}
+  - {fileID: 4900000, guid: 30d04f31b6a86dc4fb003c20f8a631df, type: 3}
   tempText: 
   csvText: 
   rows: []
@@ -47195,7 +47198,7 @@ GameObject:
   - component: {fileID: 1524076345}
   - component: {fileID: 1524076346}
   m_Layer: 0
-  m_Name: Bound (1)
+  m_Name: StorageFRoad1
   m_TagString: PlayerBound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64889,7 +64892,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889083624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.8, y: -2.6, z: 0}
+  m_LocalPosition: {x: 2.87, y: 0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -65064,6 +65067,8 @@ MonoBehaviour:
   Events:
   - eventType: 0
     eventName: "\uAC8C\uC784 \uC2DC\uC791"
+  - eventType: 0
+    eventName: "\uBAA9\uC18C\uB9AC\uAC00 \uB4E4\uB9B0\uB2E4"
 --- !u!1001 &1901959104
 PrefabInstance:
   m_ObjectHideFlags: 0
