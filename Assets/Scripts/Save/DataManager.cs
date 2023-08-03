@@ -18,9 +18,10 @@ using System.IO;
 [System.Serializable]
 public class PlayerData
 {
-    public Vector3 position;
-    public List<Item> items;
-    public int favorability;
+    public Vector3 playerPosition; // 플레이어 위치
+    public List<Item> items; // 인벤토리 안 아이템
+    public int favorability; // 호감도
+    public int story; // 스토리 진행도
 }
 public class DataManager : MonoBehaviour
 {

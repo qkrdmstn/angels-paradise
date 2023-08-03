@@ -16,7 +16,7 @@ public class MainSceneUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SlotSaveData();
+        
     }
 
     void SlotSaveData()
@@ -42,6 +42,8 @@ public class MainSceneUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SlotSaveData();
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             loadSlot.gameObject.SetActive(false);
