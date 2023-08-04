@@ -30,6 +30,10 @@ public class StartEventSet: MonoBehaviour //스타트 씬의 선택지 관리
                 actionNames[0] = InsertBattery;
                 actionNames[1] = UIClose;
                 break;
+            case "심장 건네주기":
+                actionNames[0] = GiveHeart;
+                actionNames[1] = UIClose;
+                break;
             default:
                 for (int i = 0; i < num; i++)
                     actionNames[i] = UIClose;
@@ -89,6 +93,14 @@ public class StartEventSet: MonoBehaviour //스타트 씬의 선택지 관리
         inventory.RemoveItem("배터리");
         uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("몰리 재가동"); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
+    }
+
+    public void GiveHeart()
+    {
+        inventory.RemoveItem("인공 심장");
+        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("몰리 재가동"); //UI로 event 전달
+        uiManager.setActiveUI(UIType.talk); //UI 활성화
+        //수술 기계 위에 심장 올려놓는 애니메이션 추가
     }
 
     void Start()
