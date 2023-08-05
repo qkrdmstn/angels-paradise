@@ -7,8 +7,10 @@ public class PlayerInteraction : Interaction
     private UIManager uiManager;
     private Player player;
     private PlayerAbility playerAbility;
-    Inventory inventory;
+    private Inventory inventory;
+    private FadeManager theFade;
     bool tempFlag = false;
+
     public override InteractionEvent GetEvent()
     {
         return Events[0];
@@ -21,6 +23,7 @@ public class PlayerInteraction : Interaction
         player = this.GetComponent<Player>();
         playerAbility = this.GetComponent<PlayerAbility>();
         inventory = GameObject.FindObjectOfType<Inventory>();
+        theFade = FindObjectOfType<FadeManager>();
         tempFlag = false;
 
         GameStartEvent();
@@ -28,9 +31,10 @@ public class PlayerInteraction : Interaction
 
     private void Update()
     {
-        if (playerAbility.currentAbility == PlayerAbility.playerAbilities.superPower && !tempFlag) //tempFlag 변수 나중에 스크립트 번호로 바꾸기
+        if (playerAbility.currentAbility == PlayerAbility.playerAbilities.superPower && uiManager.currentUI == UIType.none && !tempFlag) //tempFlag 변수 나중에 스크립트 번호로 바꾸기
         {
             Tutorial_Use_SuperPower();
+            Debug.Log("asd");
             tempFlag = true;
         }
 
@@ -73,14 +77,17 @@ public class PlayerInteraction : Interaction
     {
         player.SetInteractionUI(Events[2]);
         yield return new WaitUntil(() => uiManager.currentUI == UIType.none);
-        collision.GetComponent<Portal>().flag = true;
+        theFade.FadeOut();
+        yield return new WaitForSeconds(1f);
+        player.transform.position = new Vector3(55, 95, 0);
+        theFade.FadeIn();
     }
 
     IEnumerator BaseMent()
     {
+        //걷는 거 추가
         player.SetInteractionUI(Events[3]);
         yield return new WaitUntil(() => uiManager.currentUI == UIType.none);
-        Debug.Log("거래 긋");
         
     }
 

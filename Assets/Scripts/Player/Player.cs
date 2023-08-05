@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     int walkCount = 10;
     private Animator animator;
     private Rigidbody2D rigid;
-
+    
     //inventory
     Inventory inventory;
 
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
     //Interaction
     public float interactionDistance = 1.5f;
-    IEnumerator MoveCoroutine()
+    public IEnumerator MoveCoroutine()
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
@@ -180,19 +180,19 @@ public class Player : MonoBehaviour
         InteractionEvent Event = hit.collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
         if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
         {
-            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.talk); //UI 활성화
         }
         else if (Event.eventType == InteractionType.Image)
         {
-            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.image); //UI 활성화
         }
         else if (Event.eventType == InteractionType.ImageDialogue)
         {
-            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.talk); //UI 활성화
-            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.image); //UI 활성화
         }
     }
@@ -201,19 +201,19 @@ public class Player : MonoBehaviour
     {
         if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
         {
-            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.talk); //UI 활성화
         }
         else if (Event.eventType == InteractionType.Image)
         {
-            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.image); //UI 활성화
         }
         else if (Event.eventType == InteractionType.ImageDialogue)
         {
-            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.talk); //UI 활성화
-            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event.eventName); //UI로 event 전달
+            uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.image); //UI 활성화
         }
     }

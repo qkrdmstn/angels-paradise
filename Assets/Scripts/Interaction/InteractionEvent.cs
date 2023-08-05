@@ -14,5 +14,6 @@ public class InteractionEvent
 {
     public InteractionType eventType;
     public string eventName;
+    //public int scriptNumber;
 
 }

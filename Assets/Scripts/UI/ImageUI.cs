@@ -10,9 +10,9 @@ public class ImageUI : MonoBehaviour
     public Image image;
     public PlayerAbility ability;
 
-    public void SetCurrentEvent(string eventName)
+    public void SetCurrentEvent(InteractionEvent _event)
     {
-        currentEvent = eventName;
+        currentEvent = _event.eventName;
         image.sprite = GetImage(currentEvent);
     }
 

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class StartEventSet: MonoBehaviour //스타트 씬의 선택지 관리
+public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
 {
     public Button[] optionButton;
     private UIManager uiManager;
@@ -18,21 +19,33 @@ public class StartEventSet: MonoBehaviour //스타트 씬의 선택지 관리
         UnityAction[] actionNames = new UnityAction[num];
         switch (eventName)
         {
+            case "게임시작1":
+                actionNames[0] = () => LoadNewDialogue("게임시작3"); //응
+                actionNames[1] = () => LoadNewDialogue("게임시작2"); //아니
+                break;
+            case "게임시작2":
+                actionNames[0] = () => LoadNewDialogue("게임시작3"); //응
+                actionNames[1] = () => LoadNewDialogue("게임시작2"); //아니
+                break;
+            case "안젤라의 개발 일지1":
+                actionNames[0] = () => LoadNewDialogue("안젤라의 개발 일지2");
+                break;
+            case "안젤라의 개발 일지2":
+                actionNames[0] = () => LoadNewDialogue("안젤라의 개발 일지3"); //안젤라가 개발을 중도포기한 것 같다
+                actionNames[1] = () => LoadNewDialogue("안젤라의 개발 일지4"); //안젤라에게 무슨 일이 생긴 것 같다
+                break;
             case "창고 나가기":
-                actionNames[0] = ExitStorage;
-                actionNames[1] = UIClose;
+                actionNames[0] = ExitStorage; //응
+                actionNames[1] = UIClose; //아니
                 break;
             case "거래":
-                actionNames[0] = Transaction;
-                actionNames[1] = UIClose;
+                actionNames[0] = Transaction; //응
                 break;
             case "배터리 넣기":
-                actionNames[0] = InsertBattery;
-                actionNames[1] = UIClose;
+                actionNames[0] = InsertBattery; //응
                 break;
             case "심장 건네주기":
-                actionNames[0] = GiveHeart;
-                actionNames[1] = UIClose;
+                actionNames[0] = GiveHeart; //응
                 break;
             default:
                 for (int i = 0; i < num; i++)
@@ -41,7 +54,8 @@ public class StartEventSet: MonoBehaviour //스타트 씬의 선택지 관리
                 break;
         }
 
-        for(int i=0; i<num; i++)
+        EventSystem.current.SetSelectedGameObject(optionButton[num - 1].gameObject); //UI 포커스 설정
+        for (int i = 0; i < num; i++)
         {
             optionButton[i].onClick.AddListener(actionNames[num - i - 1]); //버튼 순서 -> 아래에서 위, 이벤트 순서 -> 위에서 아래
         }
@@ -59,7 +73,13 @@ public class StartEventSet: MonoBehaviour //스타트 씬의 선택지 관리
     {
         uiManager.setInActiveUI();
         Debug.Log("UI 닫힘");
-        
+
+    }
+
+    public void LoadNewDialogue(string eventName)
+    {
+        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
+        uiManager.setActiveUI(UIType.talk); //UI 활성화
     }
 
     public void ExitStorage() //창고 나가기
@@ -73,7 +93,7 @@ public class StartEventSet: MonoBehaviour //스타트 씬의 선택지 관리
 
     IEnumerator ExitStorageCoroutine() //스크립트 끝나고 바로 나가기 위한 코루틴
     {
-        yield return new WaitUntil(() => Input.GetKey(KeyCode.Space));
+        yield return new WaitUntil(() => (uiManager.currentUI == UIType.none));
         theFade.FadeOut();
         yield return new WaitForSeconds(1f);
         player.transform.position = new Vector3(-10, 15, 0);
@@ -95,7 +115,7 @@ public class StartEventSet: MonoBehaviour //스타트 씬의 선택지 관리
         uiManager.setActiveUI(UIType.talk); //UI 활성화
     }
 
-    public void GiveHeart()
+    public void GiveHeart() //심장 건네주기 선택지
     {
         inventory.RemoveItem("인공 심장");
         uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("몰리 재가동"); //UI로 event 전달

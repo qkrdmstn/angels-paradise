@@ -24,6 +24,7 @@ public class DialogueData : MonoBehaviour
     public string csvText;
     public string[] rows;
 
+    //public List<string> optionList = new List<string>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -58,6 +59,7 @@ public class DialogueData : MonoBehaviour
 
             List<TalkData> talkDataList = new List<TalkData>();
             string eventName = rowValues[0]; //유효 이벤트 이름일 경우 저장
+            rowValues[2] = rowValues[2].Replace("@", ",");
 
             while (rowValues[0].Trim() != "end")
             {
@@ -70,17 +72,13 @@ public class DialogueData : MonoBehaviour
                 do
                 {
                     contextList.Add(rowValues[2].ToString());  //대사 저장
-                    optionList.Add(rowValues[3].ToString());
-                    if (rowValues[3].Trim() != "") //선택지
-                        Debug.Log("선택지");
+                    optionList.Add(rowValues[3].ToString()); //선택지 저장
+                    //Debug.Log(i); 에러 찾기
 
                     if (++i < rows.Length)
                     {
                         rowValues = rows[i].Split(new char[] { ',' });  //다음 대사도 나누기
-                        for (int j=0; j<rowValues.Length; j++)
-                        {
-                            rowValues[j] = rowValues[j].Replace("@", ",");
-                        }
+                        rowValues[2] = rowValues[2].Replace("@", ","); //대사의 골뱅이를 쉼표로 변환
                     }  
                     else break;
 

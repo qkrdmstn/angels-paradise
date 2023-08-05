@@ -15,7 +15,7 @@ public class MachineInteraction : Interaction
         if (inventory.SearchInventory("인공 심장") == 0)
             return Events[0];
         else
-            return null;
+            return Events[1];
 
     }
 }

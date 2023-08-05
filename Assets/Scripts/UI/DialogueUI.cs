@@ -19,6 +19,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
     public GameObject[] optionButtons;
     private Text[] buttonText;
     public StartEventSet eventData1;
+    bool haveOption;
 
     //대화 data
     [SerializeField] TalkData[] talkData; //이름, 대사 배열 로 이루어진 구조체
@@ -30,6 +31,15 @@ public class DialogueUI : MonoBehaviour //대화 UI
     {
         index1 = 0;
         index2 = 0;
+    }
+
+    public void SetCurrentEvent(InteractionEvent _event)
+    {
+        IndexInit();
+        currentEvent = _event.eventName;
+        talkData = DialogueData.GetDialogue(currentEvent); //대화 데이터 로드
+        SetSentence(index1, index2);
+
     }
 
     public void SetCurrentEvent(string eventName)
@@ -68,9 +78,14 @@ public class DialogueUI : MonoBehaviour //대화 UI
             }
             //버튼 이벤트 설정
             eventData1.SetOptionEvent(currentEvent, option.Length);
+            haveOption = true;
         }
         else
+        {
             optionsParent.SetActive(false); //선택지 없으면 부모 비활성화
+            haveOption = false;
+        }
+            
     }
 
     // Start is called before the first frame update
@@ -97,7 +112,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
                 index2 = 0;
                 SetSentence(index1, index2);
             }
-            else //대사 끝
+            else if(!haveOption)//대사 끝 && 선택지가 없다면
             {
                 uiManager.setInActiveUI(); //UI 비활성화
             }
