@@ -47,6 +47,22 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
             case "심장 건네주기":
                 actionNames[0] = GiveHeart; //응
                 break;
+            case "기쁨 감정 받기":
+                actionNames[0] = gladEmotionComplete; //응
+                actionNames[1] = UIClose; //아니
+                break;
+            case "노아 대화 1":
+                actionNames[0] = () => LoadNewDialogue("노아 대화 2");
+                actionNames[1] = () => LoadNewDialogue("노아 대화 3");
+                actionNames[2] = () => LoadNewDialogue("노아 대화 4");
+                actionNames[3] = () => LoadNewDialogue("노아 대화 5");
+                break;
+            case "노아 대화 1.5":
+                actionNames[0] = () => LoadNewDialogue("노아 대화 2");
+                actionNames[1] = () => LoadNewDialogue("노아 대화 3");
+                actionNames[2] = () => LoadNewDialogue("노아 대화 4");
+                actionNames[3] = () => LoadNewDialogue("노아 대화 5");
+                break;
             default:
                 for (int i = 0; i < num; i++)
                     actionNames[i] = UIClose;
@@ -84,16 +100,23 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
 
     public void ExitStorage() //창고 나가기
     {
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("창고를 나서다"); //UI로 event 전달
-        uiManager.setActiveUI(UIType.talk); //UI 활성화
-        StartCoroutine(ExitStorageCoroutine());        
-        Debug.Log("나갓다");
-
+        if (GameManager.Instance.progress < 2)
+        {
+            LoadNewDialogue("창고를 나서다");           
+        }     
+  
+        StartCoroutine(ExitStorageCoroutine());    
     }
 
     IEnumerator ExitStorageCoroutine() //스크립트 끝나고 바로 나가기 위한 코루틴
     {
-        yield return new WaitUntil(() => (uiManager.currentUI == UIType.none));
+        if (GameManager.Instance.progress < 2)
+        {
+            yield return new WaitUntil(() => (uiManager.currentUI == UIType.none)); //스크립트 끝날 때까지 기다리기
+            GameManager.Instance.progress = 2;
+        }          
+        else
+            UIClose();
         theFade.FadeOut();
         yield return new WaitForSeconds(1f);
         player.transform.position = new Vector3(-10, 15, 0);
@@ -111,6 +134,8 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     public void InsertBattery() //배터리 넣기 선택지
     {
         inventory.RemoveItem("배터리");
+        if (GameManager.Instance.progress < 5)
+            GameManager.Instance.progress = 5;
         uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("몰리 재가동"); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
     }
@@ -118,9 +143,17 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     public void GiveHeart() //심장 건네주기 선택지
     {
         inventory.RemoveItem("인공 심장");
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("몰리 재가동"); //UI로 event 전달
-        uiManager.setActiveUI(UIType.talk); //UI 활성화
+        if (GameManager.Instance.progress < 8)
+            GameManager.Instance.progress = 8;
+        UIClose();
         //수술 기계 위에 심장 올려놓는 애니메이션 추가
+    }
+
+    public void gladEmotionComplete()
+    {
+        LoadNewDialogue("기쁨 감정 받기 완료");
+        if(GameManager.Instance.progress < 10)
+            GameManager.Instance.progress = 10;
     }
 
     void Start()

@@ -11,6 +11,7 @@ public enum UIType
     inventory,
     talk,
     image,
+    textInput,
     currentDispenser
 }
 
@@ -23,7 +24,7 @@ public class UIManager : MonoBehaviour //UI on/off 담당
     public GameObject inventoryUI;
     public GameObject dialogueUI;
     public GameObject imageUI;
-    public bool isActiveUI = false;
+    public GameObject textInputUI;
     public UIType currentUI;
     GameObject player;
     GameObject ui;
@@ -46,6 +47,8 @@ public class UIManager : MonoBehaviour //UI on/off 담당
             ui = dialogueUI;
         else if (uiType == UIType.image)
             ui = imageUI;
+        else if (uiType == UIType.textInput)
+            ui = textInputUI;
         else if (uiType == UIType.currentDispenser)
             ui = currentDispenserUI;
 
@@ -65,6 +68,7 @@ public class UIManager : MonoBehaviour //UI on/off 담당
         emotionUI.SetActive(false);
         currentDispenserUI.SetActive(false);
         inventoryUI.SetActive(false);
+        textInputUI.SetActive(false);
 
         dialogueUI.SetActive(false);
         dialogueUI.GetComponent<DialogueUI>().IndexInit(); //UI 비활성화시, 대사 인덱스 초기화

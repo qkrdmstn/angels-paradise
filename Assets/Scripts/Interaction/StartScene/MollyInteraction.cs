@@ -13,10 +13,12 @@ public class MollyInteraction :NPCInteraction
 
     public override InteractionEvent GetEvent()
     {
-        if (inventory.SearchInventory("배터리") == 0)
+        if (inventory.SearchInventory("배터리") == 0 && GameManager.Instance.progress < 5)
             return Events[0];
-        else if (inventory.SearchInventory("배터리") != 0)
+        else if (inventory.SearchInventory("배터리") != 0 && GameManager.Instance.progress < 5)
             return Events[1];
+        else if (GameManager.Instance.progress >= 5)
+            return Events[2];
         else
             return null;
 

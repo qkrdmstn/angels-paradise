@@ -6,6 +6,9 @@ public class BaseMentComputer : Interaction
 {
     public override InteractionEvent GetEvent()
     {
-        return Events[0];
+        if (GameManager.Instance.progress >= 8 && GameManager.Instance.progress < 10)
+            return Events[1];
+        else
+            return Events[0];
     }
 }

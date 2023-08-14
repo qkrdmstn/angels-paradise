@@ -24,18 +24,17 @@ public class PlayerInteraction : Interaction
         playerAbility = this.GetComponent<PlayerAbility>();
         inventory = GameObject.FindObjectOfType<Inventory>();
         theFade = FindObjectOfType<FadeManager>();
-        tempFlag = false;
 
-        GameStartEvent();
+        if (GameManager.Instance.progress < 1)
+            GameStartEvent();
     }
 
     private void Update()
     {
         if (playerAbility.currentAbility == PlayerAbility.playerAbilities.superPower && uiManager.currentUI == UIType.none && !tempFlag) //tempFlag 변수 나중에 스크립트 번호로 바꾸기
         {
-            Tutorial_Use_SuperPower();
-            Debug.Log("asd");
-            tempFlag = true;
+            if (GameManager.Instance.progress >= 5 && GameManager.Instance.progress < 6)
+                Tutorial_Use_SuperPower();      
         }
 
     }
@@ -43,7 +42,8 @@ public class PlayerInteraction : Interaction
     {
         if (collision.CompareTag("PlayerBound") && collision.name == "StorageFRoad2")
         {
-            StorageFRoad2();
+            if (GameManager.Instance.progress < 3)
+                StorageFRoad2();
         }
         if (collision.CompareTag("Portal") && collision.name == "BasementEntrance")
         {
@@ -51,44 +51,107 @@ public class PlayerInteraction : Interaction
         }
         if (collision.CompareTag("PlayerBound") && collision.name == "BaseMent")
         {
-            StartCoroutine(BaseMent());
+            if (GameManager.Instance.progress < 4)
+                StartCoroutine(BaseMent());
         }
         if (collision.CompareTag("PlayerBound") && collision.name == "Vacant")
         {
-            Tutorial_Use_E();
+            if (GameManager.Instance.progress < 6)
+                Tutorial_Use_E();
         }
-        if (collision.CompareTag("PlayerBound") && collision.name == "BaseMentFRoad" && inventory.SearchInventory("인공 심장") != 0)
+        if (collision.CompareTag("Portal") && collision.name == "VacantEntrance")
+        {
+            StartCoroutine(VacantEntrance(collision));
+        }
+        if (collision.CompareTag("Portal") && collision.name == "VacantExit")
+        {
+            StartCoroutine(VacantExit(collision));
+        }
+        if (collision.CompareTag("PlayerBound") && collision.name == "BaseMentFRoad" && inventory.SearchInventory("인공 심장") != 0 && GameManager.Instance.progress < 7)
         {
             Molly_Tutorial_End();
+        }
+        if (collision.CompareTag("Portal") && collision.name == "BaseMentExit")
+        {
+            StartCoroutine(BaseMentExit(collision));
         }
     }
 
     public void GameStartEvent()
     {
         player.SetInteractionUI(Events[0]);
+
+        GameManager.Instance.progress = 1;
     }
 
     public void StorageFRoad2()
     {
         player.SetInteractionUI(Events[1]);
+        GameManager.Instance.progress = 3;
     }
 
     IEnumerator BaseMentEntrance(Collider2D collision)
     {
-        player.SetInteractionUI(Events[2]);
-        yield return new WaitUntil(() => uiManager.currentUI == UIType.none);
+        if(GameManager.Instance.progress < 4)
+        {
+            player.SetInteractionUI(Events[2]);
+            yield return new WaitUntil(() => uiManager.currentUI == UIType.none);
+        }
+
         theFade.FadeOut();
         yield return new WaitForSeconds(1f);
-        player.transform.position = new Vector3(55, 95, 0);
+        player.transform.position = collision.transform.GetChild(0).position; //portal 자식에 있는 Target의 Pos로 이동
         theFade.FadeIn();
     }
 
     IEnumerator BaseMent()
     {
         //걷는 거 추가
+        GameManager.Instance.progress = 4;
         player.SetInteractionUI(Events[3]);
         yield return new WaitUntil(() => uiManager.currentUI == UIType.none);
         
+    }
+    IEnumerator VacantEntrance(Collider2D collision)
+    {
+        if (GameManager.Instance.progress >= 5)
+        {
+            theFade.FadeOut();
+            yield return new WaitForSeconds(1f);
+            player.transform.position = collision.transform.GetChild(0).position; //portal 자식에 있는 Target의 Pos로 이동
+            theFade.FadeIn();
+        }
+    }
+
+    IEnumerator VacantExit(Collider2D collision)
+    {
+        
+        if (inventory.SearchInventory("인공 심장") != 0 || GameManager.Instance.progress >= 7)
+        {
+            theFade.FadeOut();
+            yield return new WaitForSeconds(1f);
+            player.transform.position = collision.transform.GetChild(0).position; //portal 자식에 있는 Target의 Pos로 이동
+            theFade.FadeIn();
+        }
+        else
+        {
+            player.SetInteractionUI(Events[5]);
+        }
+    }
+
+    IEnumerator BaseMentExit(Collider2D collision)
+    {
+        if (GameManager.Instance.progress >= 8 && GameManager.Instance.progress < 10)
+        {
+            player.SetInteractionUI(Events[8]); //잊은 것
+        }
+        else
+        {
+            theFade.FadeOut();
+            yield return new WaitForSeconds(1f);
+            player.transform.position = collision.transform.GetChild(0).position; //portal 자식에 있는 Target의 Pos로 이동
+            theFade.FadeIn();
+        }
     }
 
     public void Tutorial_Use_E()
@@ -99,10 +162,13 @@ public class PlayerInteraction : Interaction
     public void Tutorial_Use_SuperPower()
     {
         player.SetInteractionUI(Events[6]);
+        if (GameManager.Instance.progress < 6)
+            GameManager.Instance.progress = 6;
     }
 
     public void Molly_Tutorial_End()
     {
+        GameManager.Instance.progress = 7;
         player.SetInteractionUI(Events[7]);
     }
 }

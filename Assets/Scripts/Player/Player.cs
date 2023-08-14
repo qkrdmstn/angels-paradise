@@ -195,6 +195,13 @@ public class Player : MonoBehaviour
             uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.image); //UI 활성화
         }
+        else if (Event.eventType == InteractionType.TextInput)
+        {
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
+            uiManager.setActiveUI(UIType.talk); //UI 활성화
+            uiManager.textInputUI.GetComponent<TextInputUI>().SetCurrentEvent(Event); //UI로 event 전달
+            uiManager.setActiveUI(UIType.textInput); //UI 활성화
+        }
     }
 
     public void SetInteractionUI(InteractionEvent Event)
@@ -215,6 +222,13 @@ public class Player : MonoBehaviour
             uiManager.setActiveUI(UIType.talk); //UI 활성화
             uiManager.imageUI.GetComponent<ImageUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.image); //UI 활성화
+        }
+        else if (Event.eventType == InteractionType.TextInput)
+        {
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
+            uiManager.setActiveUI(UIType.talk); //UI 활성화
+            uiManager.textInputUI.GetComponent<TextInputUI>().SetCurrentEvent(Event); //UI로 event 전달
+            uiManager.setActiveUI(UIType.textInput); //UI 활성화
         }
     }
 

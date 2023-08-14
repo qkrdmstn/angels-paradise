@@ -40,6 +40,8 @@ public class DialogueUI : MonoBehaviour //대화 UI
         talkData = DialogueData.GetDialogue(currentEvent); //대화 데이터 로드
         SetSentence(index1, index2);
 
+        //if(GameManager.progress < _event.scriptNumber)
+        //    GameManager.progress = _event.scriptNumber;
     }
 
     public void SetCurrentEvent(string eventName)
