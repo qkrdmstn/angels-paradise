@@ -26,6 +26,7 @@ public class Inventory : MonoBehaviour
     public OnSlotCountChange onSlotCountChange; // 대리자 인스턴스화
     
     private int slotCnt;
+
     public int SlotCnt
     {
         get => slotCnt;
@@ -39,6 +40,8 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         SlotCnt = 4;
+        items = DataManager.instance.nowPlayer.items; // 아이템 불러오기
+        onChangeItem.Invoke(); // 불러온 아이템 인벤토리에 그리기
     }
 
     public bool AddItem(Item _item) // 아이템창 개수만큼 아이템 먹을 수 있도록
@@ -47,7 +50,7 @@ public class Inventory : MonoBehaviour
         {
             items.Add(_item);
             if (onChangeItem != null)
-                onChangeItem.Invoke();
+                onChangeItem.Invoke();                
             return true; // 아이템 획득에 성공하면 true, 아니면 false
         }
         return false;
@@ -63,8 +66,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-    } 
-
-
-
+        // 아이템 저장 및 인벤토리 화면 저장
+        DataManager.instance.nowPlayer.items = items;
+    }
 }

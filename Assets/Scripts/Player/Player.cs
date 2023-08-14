@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rigid;
     Inventory inventory;
+    //PlayerPosition playerPosition;
 
     //Player Bound
     public BoxCollider2D bound;
@@ -31,10 +32,15 @@ public class Player : MonoBehaviour
 
     //Interaction
     private float interactionDistance = 1.5f;
+
+    private Vector3 playerPosition = new Vector3(0f, 0f, 0f);
+
     IEnumerator MoveCoroutine()
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
+            DataManager.instance.SaveData();
+
             if (Input.GetKey(KeyCode.LeftShift)) //running
             {
                 animator.SetBool("Running", true);
@@ -86,6 +92,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //playerPosition = GetComponent<PlayerPosition>();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         uiManager = FindObjectOfType<UIManager>();
@@ -104,7 +111,6 @@ public class Player : MonoBehaviour
     {
         if (!keyDown && uiManager.currentUI == UIType.none) //Player 이동
         {
-
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
             {
                 animator.SetBool("Walking", true);
@@ -135,7 +141,7 @@ public class Player : MonoBehaviour
             if (rayHit.collider != null && (rayHit.collider.CompareTag("NPC") || rayHit.collider.CompareTag("EventObj")) && uiManager.currentUI == UIType.none) //이벤트 Obj이거나 NPC일 때 && UI가 비활성화일 때
             {
                 string eventName = rayHit.collider.GetComponent<DialogueInteraction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
-                
+
                 uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
                 uiManager.setActiveUI(UIType.talk); //UI 활성화
             }
@@ -143,7 +149,6 @@ public class Player : MonoBehaviour
             if (playerAbility.GetPlayerAbility() == PlayerAbility.playerAbilities.superPower)
                 playerAbility.SuperPowerInteraction(rayHit);
         }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -152,7 +157,6 @@ public class Player : MonoBehaviour
         {
             SetBound(collision.GetComponent<BoxCollider2D>());
         }
-   
     }
 
     public void SetBound(BoxCollider2D newBound)
