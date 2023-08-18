@@ -36,17 +36,6 @@ public class InventoryUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            inventoryPanel.SetActive(true);
-            Time.timeScale=0f;
-        }
-        
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            inventoryPanel.SetActive(false);
-            Time.timeScale=1;
-        }
     }
 
     public void AddSlot()

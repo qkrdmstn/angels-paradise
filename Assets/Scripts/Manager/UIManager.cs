@@ -10,6 +10,8 @@ public enum UIType
     emotion,
     inventory,
     talk,
+    image,
+    textInput,
     currentDispenser
 }
 
@@ -21,7 +23,8 @@ public class UIManager : MonoBehaviour //UI on/off 담당
     public GameObject currentDispenserUI;
     public GameObject inventoryUI;
     public GameObject dialogueUI;
-    public bool isActiveUI = false;
+    public GameObject imageUI;
+    public GameObject textInputUI;
     public UIType currentUI;
     GameObject player;
     GameObject ui;
@@ -31,8 +34,6 @@ public class UIManager : MonoBehaviour //UI on/off 담당
     public Slot[] slots; // 슬롯 확장
     public Transform slotHolder;
     private bool activeInventory = false;
-
-   
 
     public void setActiveUI(UIType uiType)
     {
@@ -44,6 +45,10 @@ public class UIManager : MonoBehaviour //UI on/off 담당
             ui = inventoryUI;
         else if (uiType == UIType.talk)
             ui = dialogueUI;
+        else if (uiType == UIType.image)
+            ui = imageUI;
+        else if (uiType == UIType.textInput)
+            ui = textInputUI;
         else if (uiType == UIType.currentDispenser)
             ui = currentDispenserUI;
 
@@ -63,9 +68,12 @@ public class UIManager : MonoBehaviour //UI on/off 담당
         emotionUI.SetActive(false);
         currentDispenserUI.SetActive(false);
         inventoryUI.SetActive(false);
+        textInputUI.SetActive(false);
 
         dialogueUI.SetActive(false);
         dialogueUI.GetComponent<DialogueUI>().IndexInit(); //UI 비활성화시, 대사 인덱스 초기화
+
+        imageUI.SetActive(false);
 
         Time.timeScale = 1;
         currentUI = UIType.none;

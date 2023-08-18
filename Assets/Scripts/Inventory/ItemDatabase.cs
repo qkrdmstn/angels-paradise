@@ -19,12 +19,12 @@ public class ItemDatabase : MonoBehaviour
 
     private void Start()
     {
-        for (int i=0; i<6; i++) // 랜덤으로 생성할 아이템의 개수
-        {
-            // 생성된 FieldItem의 Item을 itemDB중 한 개로 초기화
-            GameObject go = Instantiate(filedItemPrefab, pos[i], Quaternion.identity);
-            go.GetComponent<FieldItems>().SetItem(itemDB[Random.Range(0,3)]);
-        }
+        //for (int i = 0; i < 6; i++) // 랜덤으로 생성할 아이템의 개수
+        //{
+        //    // 생성된 FieldItem의 Item을 itemDB중 한 개로 초기화
+        //    GameObject go = Instantiate(filedItemPrefab, pos[i], Quaternion.identity);
+        //    go.GetComponent<FieldItems>().SetItem(itemDB[Random.Range(0, 3)]);
+        //}
     }    
 
     // SlotToolTip.cs

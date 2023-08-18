@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
     public delegate void OnChangeItem(); // 아이템이 추가되면 슬롯UI에도 추가되도록
     public OnChangeItem onChangeItem;
     
-    public List<Item> items = new List<Item>(); // 획득한 아이템 담기
+    public List<Item> items = new List<Item>(); // 획득한 아이템 담기 ->리스트 탐색하면 될 듯 
     
     public delegate void OnSlotCountChange(int val); // 대리자 정의. 
     public OnSlotCountChange onSlotCountChange; // 대리자 인스턴스화
@@ -62,6 +62,38 @@ public class Inventory : MonoBehaviour
         items.RemoveAt(_index);
         // OnChangeItem을 호출해서 화면을 다시 그림
         onChangeItem.Invoke();
+    }
+    public void RemoveItem(string _itemName) //아이템 이름으로 아이템 제거
+    {
+        int _index = GetInventoryIndex(_itemName);
+        // index에 맞는 items의 속성 제거
+        items.RemoveAt(_index);
+        // OnChangeItem을 호출해서 화면을 다시 그림
+        onChangeItem.Invoke();
+    }
+
+    public int SearchInventory(string _itemName) //인벤토리 탐색
+    {
+        int num = 0;
+        foreach (Item item in items)
+        {
+            if (item.itemName == _itemName)
+                num++;
+        }
+        return num; //개수 반환
+    }
+
+    public int GetInventoryIndex(string _itemName) //인벤토리 탐색
+    {
+        int index = 0;
+        foreach (Item item in items)
+        {
+            if (item.itemName == _itemName)
+                break;
+            else
+                index++;
+        }
+        return index; //개수 반환
     }
 
     private void Update()

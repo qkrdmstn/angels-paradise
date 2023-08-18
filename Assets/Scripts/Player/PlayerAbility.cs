@@ -30,7 +30,7 @@ public class PlayerAbility : MonoBehaviour
         hacking
     }
 
-    private playerAbilities currentAbility;
+    public playerAbilities currentAbility;
     public void SetPlayerAbility(playerAbilities a)
     {
         currentAbility = a;
@@ -114,18 +114,18 @@ public class PlayerAbility : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.Escape) && currentAbility != playerAbilities.normal && !uiManager.isActiveUI)
+        if (Input.GetKey(KeyCode.Escape) && currentAbility != playerAbilities.normal && uiManager.currentUI == UIType.none)
             SetPlayerAbility(playerAbilities.normal);
 
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.Alpha1) && uiManager.currentUI == UIType.none)
         {
             SetPlayerAbility(playerAbilities.superPower);
         }
-        else if (Input.GetKey(KeyCode.Alpha2))
+        else if (Input.GetKey(KeyCode.Alpha2) && uiManager.currentUI == UIType.none)
             SetPlayerAbility(playerAbilities.electricity);
-        else if (Input.GetKey(KeyCode.Alpha3))
+        else if (Input.GetKey(KeyCode.Alpha3) && uiManager.currentUI == UIType.none)
             SetPlayerAbility(playerAbilities.magnetic);
-        else if (Input.GetKey(KeyCode.Alpha4))
+        else if (Input.GetKey(KeyCode.Alpha4) && uiManager.currentUI == UIType.none)
             SetPlayerAbility(playerAbilities.hacking);
 
         //ElectricityProcess();
@@ -133,7 +133,7 @@ public class PlayerAbility : MonoBehaviour
 
     public void SuperPowerInteraction(RaycastHit2D hit)
     {
-        if (hit.collider != null && hit.collider.CompareTag("SuperPowerObj"))
+        if (hit.collider != null)
         {
             Destroy(hit.collider.gameObject);
             Debug.Log("오브젝트 파괴");

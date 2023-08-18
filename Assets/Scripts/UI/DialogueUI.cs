@@ -8,10 +8,18 @@ using System;
 public class DialogueUI : MonoBehaviour //대화 UI
 {
     //대화 UI (TalkUI)
-    public Text name;
+    public Text speaker;
     public Text context;
-    public GameObject scanObject;
     private UIManager uiManager;
+    public bool isKeyDown = false;
+
+    //선택지
+    private int numOption = 5;
+    public GameObject optionsParent;
+    public GameObject[] optionButtons;
+    private Text[] buttonText;
+    public StartEventSet eventData1;
+    bool haveOption;
 
     //대화 data
     [SerializeField] TalkData[] talkData; //이름, 대사 배열 로 이루어진 구조체
@@ -25,33 +33,76 @@ public class DialogueUI : MonoBehaviour //대화 UI
         index2 = 0;
     }
 
+    public void SetCurrentEvent(InteractionEvent _event)
+    {
+        IndexInit();
+        currentEvent = _event.eventName;
+        talkData = DialogueData.GetDialogue(currentEvent); //대화 데이터 로드
+        SetSentence(index1, index2);
+
+        //if(GameManager.progress < _event.scriptNumber)
+        //    GameManager.progress = _event.scriptNumber;
+    }
+
     public void SetCurrentEvent(string eventName)
     {
         IndexInit();
         currentEvent = eventName;
         talkData = DialogueData.GetDialogue(currentEvent); //대화 데이터 로드
-        name.text = talkData[index1].name + ": ";
-        context.text = talkData[index1].constexts[index2];
+        SetSentence(index1, index2);
+
     }
 
     public void SetSentence(int index1, int index2)
     {
-        name.text = talkData[index1].name + ": ";
+        speaker.text = talkData[index1].name + ": ";
         context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
+
+        SetOption(talkData[index1].options[index2]);
+    }
+
+    public void SetOption(string options)
+    {
+        if (options.Trim() != "") //선택지가 유효하면,
+        {
+            optionsParent.SetActive(true); //부모 활성화
+            string[] option = options.Split("/"); //옵션 나누기
+            for (int i = 0; i < option.Length; i++) //나눠진 옵션 개수만큼 버튼 활성화
+            {
+                optionButtons[i].GetComponentInChildren<Text>().text = option[option.Length - i - 1]; //텍스트는 위부터 적용
+                optionButtons[i].SetActive(true);
+                //버튼 이벤트 설정
+            }
+            for (int i = numOption - 1; i > option.Length - 1; i--) //나머지 버튼 비활성화
+            {
+                optionButtons[i] = optionsParent.transform.GetChild(i).gameObject;
+                optionButtons[i].SetActive(false);
+            }
+            //버튼 이벤트 설정
+            eventData1.SetOptionEvent(currentEvent, option.Length);
+            haveOption = true;
+        }
+        else
+        {
+            optionsParent.SetActive(false); //선택지 없으면 부모 비활성화
+            haveOption = false;
+        }
+            
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        uiManager = FindObjectOfType<UIManager>();      
-        
+        uiManager = FindObjectOfType<UIManager>();
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk) 
+        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk)
         {
+            isKeyDown = true;
             if (index1 < talkData.Length && index2 + 1 < talkData[index1].constexts.Length) //대사 업데이트
             {
                 index2++;
@@ -63,10 +114,13 @@ public class DialogueUI : MonoBehaviour //대화 UI
                 index2 = 0;
                 SetSentence(index1, index2);
             }
-            else //대사 끝
+            else if(!haveOption)//대사 끝 && 선택지가 없다면
             {
                 uiManager.setInActiveUI(); //UI 비활성화
             }
-        }    
+
+        }
+        else
+            isKeyDown = false;
     }
 }

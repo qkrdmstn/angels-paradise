@@ -14,6 +14,9 @@ TagManager:
   - Obstacle
   - MapBound
   - EventObj
+  - CameraBound
+  - PlayerBound
+  - Portal
   layers:
   - Default
   - TransparentFX

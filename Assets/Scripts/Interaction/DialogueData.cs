@@ -8,6 +8,7 @@ public struct TalkData
 {
     public string name;
     public string[] constexts;
+    public string[] options;
 }
 
 [System.Serializable]
@@ -23,6 +24,7 @@ public class DialogueData : MonoBehaviour
     public string csvText;
     public string[] rows;
 
+    //public List<string> optionList = new List<string>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -57,10 +59,12 @@ public class DialogueData : MonoBehaviour
 
             List<TalkData> talkDataList = new List<TalkData>();
             string eventName = rowValues[0]; //유효 이벤트 이름일 경우 저장
+            rowValues[2] = rowValues[2].Replace("@", ",");
 
             while (rowValues[0].Trim() != "end")
             {
                 List<string> contextList = new List<string>();
+                List<string> optionList = new List<string>();
 
                 TalkData talkData;
                 talkData.name = rowValues[1]; //구조체에 이름 저장
@@ -68,13 +72,20 @@ public class DialogueData : MonoBehaviour
                 do
                 {
                     contextList.Add(rowValues[2].ToString());  //대사 저장
+                    optionList.Add(rowValues[3].ToString()); //선택지 저장
+                    //Debug.Log(i); 에러 찾기
+
                     if (++i < rows.Length)
+                    {
                         rowValues = rows[i].Split(new char[] { ',' });  //다음 대사도 나누기
+                        rowValues[2] = rowValues[2].Replace("@", ","); //대사의 골뱅이를 쉼표로 변환
+                    }  
                     else break;
 
                 } while (rowValues[1] == "" && rowValues[0] != "end"); //같은 인물이 말하는 동안 반복
 
-                talkData.constexts = contextList.ToArray(); //이름, 대사로 묶어서 talkData 구조체 완성
+                talkData.constexts = contextList.ToArray(); 
+                talkData.options = optionList.ToArray(); //이름, 대사, 선택지로 묶어서 talkData 구조체 완성
                 talkDataList.Add(talkData); //하나의 이벤트에 해당하는 대사들 저장
             }
             DialogueDictionary.Add(eventName, talkDataList.ToArray()); //이벤트 이름 - 대사들 로 key,value 묶어서 딕셔너리 추가
@@ -83,7 +94,13 @@ public class DialogueData : MonoBehaviour
 
     public static TalkData[] GetDialogue(string eventName)
     {
-        return DialogueDictionary[eventName];
+        if(DialogueDictionary.ContainsKey(eventName))
+            return DialogueDictionary[eventName];
+        else
+        {
+            Debug.LogWarning("유효하지 않은 이벤트 이름 :" + eventName);
+            return null;
+        }
     }
 
     // Update is called once per frame
