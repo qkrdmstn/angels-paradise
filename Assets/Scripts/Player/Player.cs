@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     int walkCount = 10;
     private Animator animator;
     private Rigidbody2D rigid;
-    
+    public float magnification;
     //inventory
     Inventory inventory;
 
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift)) //running
             {
                 animator.SetBool("Running", true);
-                runSpeed = speed * 0.5f;
+                runSpeed = speed * magnification;
             }
             else
             {

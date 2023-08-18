@@ -152,6 +152,7 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     public void gladEmotionComplete()
     {
         LoadNewDialogue("기쁨 감정 받기 완료");
+        //여기에서 감정 추가
         if(GameManager.Instance.progress < 10)
             GameManager.Instance.progress = 10;
     }
