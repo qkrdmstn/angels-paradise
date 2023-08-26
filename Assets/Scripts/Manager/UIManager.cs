@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour //UI on/off ´ã´ç
 
         ui.gameObject.SetActive(true);
         currentUI = uiType;
-        Debug.Log(currentUI);
+        //Debug.Log(currentUI);
     }
 
     public void setInActiveUI()
