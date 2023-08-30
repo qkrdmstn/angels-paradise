@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SaveTest : MonoBehaviour
+public class FavobilityTest : MonoBehaviour
 {
     public int favorability = 0;
 

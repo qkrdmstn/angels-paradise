@@ -32,7 +32,7 @@ public class DataManager : MonoBehaviour
     public int nowSlot; // 슬롯 번호
     private void Awake()
     {
-        #region 싱글톤
+        /*#region 싱글톤
         if (instance == null)
         {
             instance = this;
@@ -42,7 +42,7 @@ public class DataManager : MonoBehaviour
             Destroy(instance.gameObject);
         }
         DontDestroyOnLoad(this.gameObject);
-        #endregion
+        #endregion*/
 
         path = Application.persistentDataPath + "/save"; // 유니티에서 지정해주는 경로, /는 filename 오류가 있을 수 있기 때문에 작성
         // 아마 여기 저장 될거임

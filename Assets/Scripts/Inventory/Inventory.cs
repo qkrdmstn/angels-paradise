@@ -39,27 +39,37 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        SlotCnt = 4;
+        SlotCnt = 16;
         items = DataManager.instance.nowPlayer.items; // 아이템 불러오기
         onChangeItem.Invoke(); // 불러온 아이템 인벤토리에 그리기
     }
 
-    public bool AddItem(Item _item) // 아이템창 개수만큼 아이템 먹을 수 있도록
+    public virtual bool AddItem(Item item) // 아이템창 개수만큼 아이템 먹을 수 있도록
     {
         if (items.Count < SlotCnt)
         {
-            items.Add(_item);
+            items.Add(item);
             if (onChangeItem != null)
                 onChangeItem.Invoke();                
             return true; // 아이템 획득에 성공하면 true, 아니면 false
         }
+        /*else if (item.itemType == ItemType.Emotion) // Emotion 아이템은 특정 슬롯에 추가
+        {
+            if (items.Count < SlotCnt)
+            {
+                items.Add(item);
+                if (onChangeItem != null)
+                    onChangeItem.Invoke();
+                return true; // 아이템 획득에 성공하면 true, 아니면 false
+            }
+        }*/
         return false;
     }
 
-    public void RemoveItem(int _index)
+    public void RemoveItem(int index)
     {
         // index에 맞는 items의 속성 제거
-        items.RemoveAt(_index);
+        items.RemoveAt(index);
         // OnChangeItem을 호출해서 화면을 다시 그림
         onChangeItem.Invoke();
     }

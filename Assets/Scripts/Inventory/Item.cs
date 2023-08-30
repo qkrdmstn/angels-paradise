@@ -6,7 +6,16 @@ public enum ItemType
 {
     Equipment,
     Consumables,
+    Emotion,
     Etc
+}
+
+public enum EmotionType
+{
+    Joy,
+    Anger,
+    Sorrow,
+    Pleasure
 }
 
 [System.Serializable]
