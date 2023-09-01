@@ -128,7 +128,7 @@ public class UIManager : MonoBehaviour //UI on/off 담당
     void Update()
     {
         //abilityUI
-        if(Input.GetKey(KeyCode.E) && currentUI == UIType.none)
+        if (Input.GetKey(KeyCode.E) && currentUI == UIType.none && GameManager.Instance.progress >= 6)
         {
             setActiveUI(UIType.ability);    
         }
@@ -140,7 +140,7 @@ public class UIManager : MonoBehaviour //UI on/off 담당
         //}
 
         //inventory
-        if (Input.GetKeyDown(KeyCode.Q) && currentUI == UIType.none)
+        if (Input.GetKeyDown(KeyCode.I) && currentUI == UIType.none)
         {
             setActiveUI(UIType.inventory);
         }

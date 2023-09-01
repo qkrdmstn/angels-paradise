@@ -114,19 +114,22 @@ public class PlayerAbility : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.Escape) && currentAbility != playerAbilities.normal && uiManager.currentUI == UIType.none)
-            SetPlayerAbility(playerAbilities.normal);
-
-        if (Input.GetKey(KeyCode.Alpha1) && uiManager.currentUI == UIType.none)
+        if (GameManager.Instance.progress >= 6)
         {
-            SetPlayerAbility(playerAbilities.superPower);
+            if (Input.GetKey(KeyCode.Alpha4) && currentAbility != playerAbilities.normal && uiManager.currentUI == UIType.none)
+                SetPlayerAbility(playerAbilities.normal);
+
+            if (Input.GetKey(KeyCode.Alpha1) && uiManager.currentUI == UIType.none)
+            {
+                SetPlayerAbility(playerAbilities.superPower);
+            }
+            else if (Input.GetKey(KeyCode.Alpha2) && uiManager.currentUI == UIType.none)
+                SetPlayerAbility(playerAbilities.electricity);
+            else if (Input.GetKey(KeyCode.Alpha3) && uiManager.currentUI == UIType.none)
+                SetPlayerAbility(playerAbilities.magnetic);
+
         }
-        else if (Input.GetKey(KeyCode.Alpha2) && uiManager.currentUI == UIType.none)
-            SetPlayerAbility(playerAbilities.electricity);
-        else if (Input.GetKey(KeyCode.Alpha3) && uiManager.currentUI == UIType.none)
-            SetPlayerAbility(playerAbilities.magnetic);
-        else if (Input.GetKey(KeyCode.Alpha4) && uiManager.currentUI == UIType.none)
-            SetPlayerAbility(playerAbilities.hacking);
+
 
         //ElectricityProcess();
     }

@@ -118,7 +118,7 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
         UIClose();
         theFade.FadeOut();
         yield return new WaitForSeconds(1f);
-        player.transform.position = new Vector3(-10, 15, 0);
+        player.transform.position = new Vector3(-15, 15, 0);
         theFade.FadeIn();
     }
 
