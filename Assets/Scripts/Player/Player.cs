@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    static public Player Instance;
+    static public Player Instance = null;
     //public GameManager gameManager;
     private UIManager uiManager;
 
     //Player Movment
     public float verticalInput, horizonInput;
     public float speed, runSpeed;
+    public float autoSpeed;
     private Vector3 vector;
-    private bool keyDown = false;
+    public bool keyDown = false;
     int walkCount = 10;
     private Animator animator;
     private Rigidbody2D rigid;
@@ -33,7 +34,7 @@ public class Player : MonoBehaviour
 
     //Interaction
     public float interactionDistance = 1.5f;
-    public IEnumerator MoveCoroutine()
+    public IEnumerator AxisMoveCoroutine()
     {
         while (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
@@ -75,6 +76,32 @@ public class Player : MonoBehaviour
         animator.SetBool("Running", false);
         keyDown = false;
     }
+
+    public IEnumerator AutoMoveCoroutine(Vector3 targetPos)
+    {
+        animator.SetBool("Walking", true);
+        keyDown = true;
+        Vector3 temp = targetPos - this.transform.position;
+        Vector3 n = temp.normalized;
+        
+        vector.Set(n.x * autoSpeed, n.y * autoSpeed, transform.position.z);
+        Debug.Log(targetPos + " " + n + "pla" + this.transform.position);
+        Debug.Log(vector);
+        animator.SetFloat("DirX", vector.x);
+        animator.SetFloat("DirY", vector.y);
+
+        while ((this.transform.position - targetPos).magnitude > 0.5f)
+        {
+            Vector3 nxtPos = new Vector3(this.transform.position.x + vector.x, this.transform.position.y + vector.y, transform.position.z);
+            transform.transform.position = new Vector3(nxtPos.x, nxtPos.y, transform.position.z);
+
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        animator.SetBool("Walking", false);
+        keyDown = false;
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -87,6 +114,8 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -115,7 +144,7 @@ public class Player : MonoBehaviour
             {
                 animator.SetBool("Walking", true);
                 keyDown = true;
-                StartCoroutine(MoveCoroutine());
+                StartCoroutine(AxisMoveCoroutine());
             }
         }
 
