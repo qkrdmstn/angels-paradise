@@ -77,8 +77,13 @@ public class UIManager : MonoBehaviour //UI on/off 담당
 
         Time.timeScale = 1;
         currentUI = UIType.none;
+        //StartCoroutine(UITypeChangeNone());
     }
-
+    IEnumerator UITypeChangeNone() //스크립트 끝나고 바로 나가기 위한 코루틴
+    {
+        yield return new WaitForSeconds(0.1f);
+        currentUI = UIType.none;
+    }
     void SlotChange(int val)
     {
         for (int i = 0; i < slots.Length; i++)

@@ -114,12 +114,11 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
         {
             yield return new WaitUntil(() => (uiManager.currentUI == UIType.none)); //스크립트 끝날 때까지 기다리기
             GameManager.Instance.progress = 2;
-        }          
-       
+        }
+        UIClose();
         theFade.FadeOut();
         yield return new WaitForSeconds(1f);
         player.transform.position = new Vector3(-10, 15, 0);
-        UIClose();
         theFade.FadeIn();
     }
 
