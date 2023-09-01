@@ -54,11 +54,6 @@ public class AbilityUI : MonoBehaviour
         playerAbility.SetPlayerAbility(PlayerAbility.playerAbilities.magnetic);
         StartCoroutine(InactiveUIcoroutine());
     }
-    public void SetPlayerAbilityHacking()
-    {
-        playerAbility.SetPlayerAbility(PlayerAbility.playerAbilities.hacking);
-        StartCoroutine(InactiveUIcoroutine());
-    }
 
     IEnumerator InactiveUIcoroutine()
     {

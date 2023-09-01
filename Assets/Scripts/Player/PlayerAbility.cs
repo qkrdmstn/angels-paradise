@@ -17,8 +17,6 @@ public class PlayerAbility : MonoBehaviour
     public Sprite[] standSkin;
 
     //Player Ability
-    public GameObject hackingObjParent;
-    public GameObject hackingObj;
     private GameObject superPowerObj;
 
     public enum playerAbilities
@@ -26,8 +24,7 @@ public class PlayerAbility : MonoBehaviour
         normal,
         superPower,
         electricity,
-        magnetic,
-        hacking
+        magnetic
     }
 
     public playerAbilities currentAbility;
@@ -59,35 +56,11 @@ public class PlayerAbility : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[3];
             EventSystem.current.SetSelectedGameObject(abilityUI.magneticUI);
         }
-        else if (currentAbility == playerAbilities.hacking)  
-        {
-            spriteLibrary.spriteLibraryAsset = abilitySkin[4];
-            gameObject.GetComponent<SpriteRenderer>().sprite = standSkin[4];
-            EventSystem.current.SetSelectedGameObject(abilityUI.hackingUI);
-            HackingProcess();
-
-        }
-
-        if(currentAbility != playerAbilities.hacking && hackingObjParent != null) //if(not hakcing mode)
-        {
-            hackingObj.SetActive(false);
-        }
     }
 
     public playerAbilities GetPlayerAbility()
     {
         return currentAbility;
-    }
-
-    private void HackingProcess()
-    {
-        //find invisible obj & setActive true
-        hackingObjParent = GameObject.FindGameObjectWithTag("HackingObj");
-        if (hackingObjParent != null)
-        {
-            hackingObj = hackingObjParent.transform.GetChild(0).gameObject;
-            hackingObj.SetActive(true);
-        }
     }
 
     private void ElectricityProcess()
