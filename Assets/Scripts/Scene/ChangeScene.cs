@@ -33,9 +33,5 @@ public class ChangeScene : MonoBehaviour
             SceneManager.LoadScene("ElectricityScene");
         }
 
-        if (Input.GetKey(KeyCode.I))
-        {
-            SceneManager.LoadScene("HackingScene");
-        }
     }
 }

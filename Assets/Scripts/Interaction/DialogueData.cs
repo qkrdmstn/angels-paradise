@@ -48,7 +48,6 @@ public class DialogueData : MonoBehaviour
         for(int i=0; i<rows.Length; i++)
         {
             rows[i] = rows[i].Replace("\\n", "\n");
-            rows[i] = rows[i].Replace("\"\"\"", "\"");
         }
 
         for (int i = 1; i < rows.Length; i++)
@@ -59,7 +58,7 @@ public class DialogueData : MonoBehaviour
 
             List<TalkData> talkDataList = new List<TalkData>();
             string eventName = rowValues[0]; //유효 이벤트 이름일 경우 저장
-            rowValues[2] = rowValues[2].Replace("@", ",");
+            contextModify(rowValues);
 
             while (rowValues[0].Trim() != "end")
             {
@@ -78,8 +77,11 @@ public class DialogueData : MonoBehaviour
                     if (++i < rows.Length)
                     {
                         rowValues = rows[i].Split(new char[] { ',' });  //다음 대사도 나누기
-                        rowValues[2] = rowValues[2].Replace("@", ","); //대사의 골뱅이를 쉼표로 변환
-                    }  
+
+                        contextModify(rowValues);
+
+
+                    }
                     else break;
 
                 } while (rowValues[1] == "" && rowValues[0] != "end"); //같은 인물이 말하는 동안 반복
@@ -101,6 +103,21 @@ public class DialogueData : MonoBehaviour
             Debug.LogWarning("유효하지 않은 이벤트 이름 :" + eventName);
             return null;
         }
+    }
+
+    public void contextModify(string[] rowValues) //CSV 파일 예외처리 ex) 따옴표, 쉼표 처리 등
+    {
+        int lastIndex = rowValues[2].Length - 1;
+        if (lastIndex < 0)
+            return;
+        if (rowValues[2][0] == '\"' && rowValues[2][lastIndex] == '\"')//처음과 끝 시작이 ""라면 그거 제거 -> 2x+1=t, x=(t-1)/2
+        {
+            //Debug.Log(i);
+            rowValues[2] = rowValues[2].Remove(lastIndex, 1);
+            rowValues[2] = rowValues[2].Remove(0, 1);
+        }
+        rowValues[2] = rowValues[2].Replace("\"\"", "\""); //2배 된 거 제거
+        rowValues[2] = rowValues[2].Replace("@", ","); //대사의 골뱅이를 쉼표로 변환
     }
 
     // Update is called once per frame

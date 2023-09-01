@@ -63,7 +63,10 @@ public class Player : MonoBehaviour
                 //Player Bound Set
                 float clampedX = Mathf.Clamp(this.transform.position.x + vector.x, minBound.x + playerHalfWidth, maxBound.x - playerHalfWidth);
                 float clampedY = Mathf.Clamp(this.transform.position.y + vector.y, minBound.y + playerHalfHeight, maxBound.y - playerHalfHeight);
-                transform.transform.position = new Vector3(clampedX, clampedY, transform.position.z);
+                Vector3 nxtPos = new Vector3(clampedX, clampedY, transform.position.z);
+                Vector3 temp = nxtPos - transform.transform.position;
+                transform.transform.position = new Vector3(nxtPos.x, nxtPos.y, transform.position.z);
+
                 yield return new WaitForSeconds(0.01f);
             }
         }

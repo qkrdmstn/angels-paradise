@@ -45,7 +45,7 @@ public class PlayerInteraction : Interaction
             if (GameManager.Instance.progress < 3)
                 StorageFRoad2();
         }
-        if (collision.CompareTag("Portal") && collision.name == "BasementEntrance")
+        if (collision.CompareTag("Portal") && collision.name == "BaseMentEntrance")
         {
             StartCoroutine(BaseMentEntrance(collision));
         }
@@ -156,14 +156,15 @@ public class PlayerInteraction : Interaction
 
     public void Tutorial_Use_E()
     {
+        if (GameManager.Instance.progress < 6)
+            GameManager.Instance.progress = 6;
         player.SetInteractionUI(Events[4]);
     }
 
     public void Tutorial_Use_SuperPower()
     {
         player.SetInteractionUI(Events[6]);
-        if (GameManager.Instance.progress < 6)
-            GameManager.Instance.progress = 6;
+       
     }
 
     public void Molly_Tutorial_End()

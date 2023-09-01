@@ -8,10 +8,15 @@ using System;
 public class DialogueUI : MonoBehaviour //대화 UI
 {
     //대화 UI (TalkUI)
+    public GameObject nameBox;
     public Text speaker;
     public Text context;
     private UIManager uiManager;
     public bool isKeyDown = false;
+
+    //Image
+    public GameObject nextImage;
+    public GameObject faceImage;
 
     //선택지
     private int numOption = 5;
@@ -55,10 +60,28 @@ public class DialogueUI : MonoBehaviour //대화 UI
 
     public void SetSentence(int index1, int index2)
     {
-        speaker.text = talkData[index1].name + ": ";
+        if (talkData[index1].name.Trim() == ".")
+        {
+            nameBox.SetActive(false);
+            faceImage.SetActive(false);
+        }
+        else
+        {
+            nameBox.SetActive(true);
+            if(talkData[index1].name.Trim() != "도움말") //임시
+                faceImage.SetActive(true);
+            else
+                faceImage.SetActive(false);
+        }
+        speaker.text = talkData[index1].name;
         context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
 
         SetOption(talkData[index1].options[index2]);
+       
+        if (index1 + 1 >= talkData.Length && index2 + 1 >= talkData[index1].constexts.Length)
+            nextImage.SetActive(false);
+        else
+            nextImage.SetActive(true);
     }
 
     public void SetOption(string options)
@@ -100,7 +123,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk)
+        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk && !haveOption)
         {
             isKeyDown = true;
             if (index1 < talkData.Length && index2 + 1 < talkData[index1].constexts.Length) //대사 업데이트
@@ -118,7 +141,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
             {
                 uiManager.setInActiveUI(); //UI 비활성화
             }
-
+            //Debug.Log(index1 + " " + index2);
         }
         else
             isKeyDown = false;

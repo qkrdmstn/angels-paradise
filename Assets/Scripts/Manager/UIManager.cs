@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour //UI on/off 담당
 
         ui.gameObject.SetActive(true);
         currentUI = uiType;
-        Debug.Log(currentUI);
+        //Debug.Log(currentUI);
     }
 
     public void setInActiveUI()
@@ -77,8 +77,13 @@ public class UIManager : MonoBehaviour //UI on/off 담당
 
         Time.timeScale = 1;
         currentUI = UIType.none;
+        //StartCoroutine(UITypeChangeNone());
     }
-
+    IEnumerator UITypeChangeNone() //스크립트 끝나고 바로 나가기 위한 코루틴
+    {
+        yield return new WaitForSeconds(0.1f);
+        currentUI = UIType.none;
+    }
     void SlotChange(int val)
     {
         for (int i = 0; i < slots.Length; i++)
@@ -123,19 +128,19 @@ public class UIManager : MonoBehaviour //UI on/off 담당
     void Update()
     {
         //abilityUI
-        if(Input.GetKey(KeyCode.E) && currentUI == UIType.none)
+        if (Input.GetKey(KeyCode.E) && currentUI == UIType.none && GameManager.Instance.progress >= 6)
         {
             setActiveUI(UIType.ability);    
         }
 
-        //emotionUI
-        if (Input.GetKey(KeyCode.F) && currentUI == UIType.none)
-        {
-            setActiveUI(UIType.emotion);   
-        }
+        ////emotionUI
+        //if (Input.GetKey(KeyCode.F) && currentUI == UIType.none)
+        //{
+        //    setActiveUI(UIType.emotion);   
+        //}
 
         //inventory
-        if (Input.GetKeyDown(KeyCode.Q) && currentUI == UIType.none)
+        if (Input.GetKeyDown(KeyCode.I) && currentUI == UIType.none)
         {
             setActiveUI(UIType.inventory);
         }
