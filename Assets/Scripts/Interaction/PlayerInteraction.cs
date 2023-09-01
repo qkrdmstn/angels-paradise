@@ -9,7 +9,7 @@ public class PlayerInteraction : Interaction
     private PlayerAbility playerAbility;
     private Inventory inventory;
     private FadeManager theFade;
-    bool tempFlag = false;
+
 
     public override InteractionEvent GetEvent()
     {
@@ -31,7 +31,7 @@ public class PlayerInteraction : Interaction
 
     private void Update()
     {
-        if (playerAbility.currentAbility == PlayerAbility.playerAbilities.superPower && uiManager.currentUI == UIType.none && !tempFlag) //tempFlag 변수 나중에 스크립트 번호로 바꾸기
+        if (playerAbility.currentAbility == PlayerAbility.playerAbilities.superPower && uiManager.currentUI == UIType.none) //tempFlag 변수 나중에 스크립트 번호로 바꾸기
         {
             if (GameManager.Instance.progress >= 5 && GameManager.Instance.progress < 6)
                 Tutorial_Use_SuperPower();      
@@ -159,13 +159,14 @@ public class PlayerInteraction : Interaction
 
     public void Tutorial_Use_E()
     {
-        if (GameManager.Instance.progress < 6)
-            GameManager.Instance.progress = 6;
+        
         player.SetInteractionUI(Events[4]);
     }
 
     public void Tutorial_Use_SuperPower()
     {
+        if (GameManager.Instance.progress < 6)
+            GameManager.Instance.progress = 6;
         player.SetInteractionUI(Events[6]);
        
     }

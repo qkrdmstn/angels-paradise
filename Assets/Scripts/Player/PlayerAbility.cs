@@ -87,7 +87,7 @@ public class PlayerAbility : MonoBehaviour
     void Update()
     {
 
-        if (GameManager.Instance.progress >= 6)
+        if (GameManager.Instance.progress >= 5)
         {
             if (Input.GetKey(KeyCode.Alpha4) && currentAbility != playerAbilities.normal && uiManager.currentUI == UIType.none)
                 SetPlayerAbility(playerAbilities.normal);

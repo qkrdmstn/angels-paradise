@@ -128,7 +128,7 @@ public class UIManager : MonoBehaviour //UI on/off ´ã´ç
     void Update()
     {
         //abilityUI
-        if (Input.GetKey(KeyCode.E) && currentUI == UIType.none && GameManager.Instance.progress >= 6)
+        if (Input.GetKey(KeyCode.E) && currentUI == UIType.none && GameManager.Instance.progress >= 5)
         {
             setActiveUI(UIType.ability);    
         }
