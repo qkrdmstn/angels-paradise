@@ -34,10 +34,6 @@ public class ImageUI : MonoBehaviour
             {
                 return sprites[3];
             }
-            else if (ability.GetPlayerAbility() == PlayerAbility.playerAbilities.hacking)
-            {
-                return sprites[4];
-            }
             else
             {
                 return sprites[0];

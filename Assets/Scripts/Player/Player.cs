@@ -80,6 +80,7 @@ public class Player : MonoBehaviour
     public IEnumerator AutoMoveCoroutine(Vector3 targetPos)
     {
         animator.SetBool("Walking", true);
+        animator.SetBool("Running", false);
         keyDown = true;
         Vector3 temp = targetPos - this.transform.position;
         Vector3 n = temp.normalized;
@@ -99,6 +100,7 @@ public class Player : MonoBehaviour
         }
 
         animator.SetBool("Walking", false);
+        animator.SetBool("Running", false);
         keyDown = false;
     }
 

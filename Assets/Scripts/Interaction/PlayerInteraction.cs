@@ -107,8 +107,7 @@ public class PlayerInteraction : Interaction
     IEnumerator BaseMent()
     {
         //기계 앞까지 걷기
-
-        Vector3 targetPos = new Vector3(54.48358f, 108.1249f, transform.position.z);
+        Vector3 targetPos = new Vector3(54.42257f, 108.1249f, transform.position.z);
         Player.Instance.StartCoroutine(Player.Instance.AutoMoveCoroutine(targetPos));
         yield return new WaitUntil(() => (this.transform.position - targetPos).magnitude < 0.5f);
         GameManager.Instance.progress = 4;
