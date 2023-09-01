@@ -128,11 +128,11 @@ public class UIManager : MonoBehaviour //UI on/off ´ã´ç
             setActiveUI(UIType.ability);    
         }
 
-        //emotionUI
-        if (Input.GetKey(KeyCode.F) && currentUI == UIType.none)
-        {
-            setActiveUI(UIType.emotion);   
-        }
+        ////emotionUI
+        //if (Input.GetKey(KeyCode.F) && currentUI == UIType.none)
+        //{
+        //    setActiveUI(UIType.emotion);   
+        //}
 
         //inventory
         if (Input.GetKeyDown(KeyCode.Q) && currentUI == UIType.none)

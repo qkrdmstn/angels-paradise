@@ -68,7 +68,10 @@ public class DialogueUI : MonoBehaviour //대화 UI
         else
         {
             nameBox.SetActive(true);
-            faceImage.SetActive(true);
+            if(talkData[index1].name.Trim() != "도움말") //임시
+                faceImage.SetActive(true);
+            else
+                faceImage.SetActive(false);
         }
         speaker.text = talkData[index1].name;
         context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
@@ -120,7 +123,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk)
+        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk && !haveOption)
         {
             isKeyDown = true;
             if (index1 < talkData.Length && index2 + 1 < talkData[index1].constexts.Length) //대사 업데이트
@@ -138,7 +141,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
             {
                 uiManager.setInActiveUI(); //UI 비활성화
             }
-
+            //Debug.Log(index1 + " " + index2);
         }
         else
             isKeyDown = false;

@@ -94,6 +94,7 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
 
     public void LoadNewDialogue(string eventName)
     {
+        UIClose();
         uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
     }
@@ -103,8 +104,7 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
         if (GameManager.Instance.progress < 2)
         {
             LoadNewDialogue("창고를 나서다");           
-        }     
-  
+        }
         StartCoroutine(ExitStorageCoroutine());    
     }
 
@@ -115,11 +115,11 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
             yield return new WaitUntil(() => (uiManager.currentUI == UIType.none)); //스크립트 끝날 때까지 기다리기
             GameManager.Instance.progress = 2;
         }          
-        else
-            UIClose();
+       
         theFade.FadeOut();
         yield return new WaitForSeconds(1f);
         player.transform.position = new Vector3(-10, 15, 0);
+        UIClose();
         theFade.FadeIn();
     }
 
