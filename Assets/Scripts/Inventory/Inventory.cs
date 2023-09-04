@@ -39,7 +39,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        SlotCnt = 4;
+        SlotCnt = 16;
         items = DataManager.instance.nowPlayer.items; // 아이템 불러오기
         onChangeItem.Invoke(); // 불러온 아이템 인벤토리에 그리기
     }
