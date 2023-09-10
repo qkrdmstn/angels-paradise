@@ -63,21 +63,17 @@ public class DialogueUI : MonoBehaviour //대화 UI
         if (talkData[index1].name.Trim() == ".")
         {
             nameBox.SetActive(false);
-            faceImage.SetActive(false);
         }
         else
         {
             nameBox.SetActive(true);
-            if(talkData[index1].name.Trim() != "도움말") //임시
-                faceImage.SetActive(true);
-            else
-                faceImage.SetActive(false);
         }
         speaker.text = talkData[index1].name;
         context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
 
         SetOption(talkData[index1].options[index2]);
-       
+        SetImage(talkData[index1].images[index2]);
+
         if (index1 + 1 >= talkData.Length && index2 + 1 >= talkData[index1].constexts.Length)
             nextImage.SetActive(false);
         else
@@ -111,6 +107,19 @@ public class DialogueUI : MonoBehaviour //대화 UI
             haveOption = false;
         }
             
+    }
+
+    public void SetImage(string imageName)
+    {
+        if(imageName.Trim()!="")
+        {
+            faceImage.SetActive(true);
+            faceImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + imageName);
+        }
+        else
+        {
+            faceImage.SetActive(false);
+        }
     }
 
     // Start is called before the first frame update
