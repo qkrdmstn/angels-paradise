@@ -114,11 +114,16 @@ public class DialogueUI : MonoBehaviour //¥Î»≠ UI
         if(imageName.Trim()!="")
         {
             faceImage.SetActive(true);
-            faceImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + imageName);
+            string PATH = "Sprites/" + imageName.Trim();
+            faceImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(PATH);
+            context.GetComponent<RectTransform>().anchoredPosition = new Vector3(300, 0, 0);
+            context.GetComponent<RectTransform>().sizeDelta = new Vector2(1500, 200);
         }
         else
         {
             faceImage.SetActive(false);
+            context.GetComponent<RectTransform>().anchoredPosition = new Vector3(20, 0, 0);
+            context.GetComponent<RectTransform>().sizeDelta = new Vector2(1800, 200);
         }
     }
 

@@ -6,7 +6,7 @@ public class test : MonoBehaviour
 {
     private void Start()
     {
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/" + "A");
+        this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + "A");
     }
 
     // Update is called once per frame
