@@ -178,9 +178,11 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
+        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.none) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
         {
-            if (rayHit.Length != 0 && uiManager.currentUI == UIType.none)
+            for (int k = 0; k < rayHit.Length; k++)
+                Debug.Log(rayHit[k]);
+            if (rayHit.Length != 0)
             {
                 for (int i = 0; i < rayHit.Length; i++) //닿은 콜라이더 반복문으로 조사
                 {
@@ -214,8 +216,8 @@ public class Player : MonoBehaviour
         InteractionEvent Event = hit.collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
         if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
         {
-            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.talk); //UI 활성화
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달     
         }
         else if (Event.eventType == InteractionType.Image)
         {
@@ -242,8 +244,8 @@ public class Player : MonoBehaviour
     {
         if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
         {
-            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
             uiManager.setActiveUI(UIType.talk); //UI 활성화
+            uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(Event); //UI로 event 전달
         }
         else if (Event.eventType == InteractionType.Image)
         {

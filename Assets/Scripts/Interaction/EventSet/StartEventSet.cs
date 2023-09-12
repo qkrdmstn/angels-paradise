@@ -94,11 +94,16 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
 
     public void LoadNewDialogue(string eventName)
     {
-        UIClose();
+        StartCoroutine(LoadNewDialogueCoroutine(eventName));
+    }
+
+    IEnumerator LoadNewDialogueCoroutine(string eventName)
+    {
+        yield return new WaitUntil(()=>!uiManager.dialogueUI.GetComponent<DialogueUI>().isTyping);
+        //UIClose();
         uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
     }
-
     public void ExitStorage() //창고 나가기
     {
         if (GameManager.Instance.progress < 2)

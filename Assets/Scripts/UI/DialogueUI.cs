@@ -13,6 +13,10 @@ public class DialogueUI : MonoBehaviour //대화 UI
     public Text context;
     private UIManager uiManager;
     public bool isKeyDown = false;
+    //타이핑 효과
+    public float typingDelay = 0.015f;
+    public bool isTyping;
+
 
     //Image
     public GameObject nextImage;
@@ -69,7 +73,8 @@ public class DialogueUI : MonoBehaviour //대화 UI
             nameBox.SetActive(true);
         }
         speaker.text = talkData[index1].name;
-        context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
+        //context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
+        StartCoroutine(SetContext(talkData[index1].constexts[index2]));
 
         SetOption(talkData[index1].options[index2]);
         SetImage(talkData[index1].images[index2]);
@@ -80,6 +85,18 @@ public class DialogueUI : MonoBehaviour //대화 UI
             nextImage.SetActive(true);
     }
 
+   IEnumerator SetContext(string a)
+    {
+        isTyping = true;
+        context.text = string.Empty;
+        for(int i=0; i<a.Length; i++)
+        {
+            context.text += a[i];
+            yield return new WaitForSeconds(typingDelay);
+        }
+        isTyping = false;
+
+    }
     public void SetOption(string options)
     {
         if (options.Trim() != "") //선택지가 유효하면,
@@ -137,7 +154,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk && !haveOption)
+        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk && !haveOption && !isTyping)
         {
             isKeyDown = true;
             if (index1 < talkData.Length && index2 + 1 < talkData[index1].constexts.Length) //대사 업데이트
