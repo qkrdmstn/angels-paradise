@@ -25,8 +25,6 @@ public class PlayerInteraction : Interaction
         inventory = GameObject.FindObjectOfType<Inventory>();
         theFade = FindObjectOfType<FadeManager>();
 
-        if (GameManager.Instance.progress < 1)
-            GameStartEvent();
     }
 
     private void Update()
@@ -36,8 +34,8 @@ public class PlayerInteraction : Interaction
             if (GameManager.Instance.progress >= 5 && GameManager.Instance.progress < 6)
                 Tutorial_Use_SuperPower();      
         }
-
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("PlayerBound") && collision.name == "StorageFRoad2")

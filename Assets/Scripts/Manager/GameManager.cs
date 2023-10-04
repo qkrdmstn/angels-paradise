@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance = null;
 
     public int progress { get; set; }
+    public int point;
 
     void Awake()
     {
