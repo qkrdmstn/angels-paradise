@@ -77,8 +77,8 @@ public class DialogueUI : MonoBehaviour //´ëÈ­ UI
         StartCoroutine(SetContext(talkData[index1].constexts[index2]));
 
         SetOption(talkData[index1].options[index2]);
-        SetImage(talkData[index1].images[index2]);
-
+        //SetImage(talkData[index1].images[index2]);
+        
         if (index1 + 1 >= talkData.Length && index2 + 1 >= talkData[index1].constexts.Length)
             nextImage.SetActive(false);
         else

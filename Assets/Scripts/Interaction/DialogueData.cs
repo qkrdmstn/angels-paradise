@@ -9,7 +9,7 @@ public struct TalkData
     public string name;
     public string[] constexts;
     public string[] options;
-    public string[] images;
+    //public string[] images;
 }
 
 [System.Serializable]
@@ -65,7 +65,7 @@ public class DialogueData : MonoBehaviour
             {
                 List<string> contextList = new List<string>();
                 List<string> optionList = new List<string>();
-                List<string> imageList = new List<string>();
+                //List<string> imageList = new List<string>();
 
                 TalkData talkData;
                 talkData.name = rowValues[1]; //구조체에 이름 저장
@@ -74,7 +74,7 @@ public class DialogueData : MonoBehaviour
                 {
                     contextList.Add(rowValues[2].ToString());  //대사 저장
                     optionList.Add(rowValues[3].ToString()); //선택지 저장
-                    imageList.Add(rowValues[4].ToString());
+                    //imageList.Add(rowValues[4].ToString());
                     //Debug.Log(i); 에러 찾기
 
                     if (++i < rows.Length)
@@ -91,7 +91,7 @@ public class DialogueData : MonoBehaviour
 
                 talkData.constexts = contextList.ToArray(); 
                 talkData.options = optionList.ToArray(); 
-                talkData.images = imageList.ToArray(); //이름, 대사, 선택지, 이미지로 묶어서 talkData 구조체 완성
+                //talkData.images = imageList.ToArray(); //이름, 대사, 선택지, 이미지로 묶어서 talkData 구조체 완성
                 talkDataList.Add(talkData); //하나의 이벤트에 해당하는 대사들 저장
             }
             DialogueDictionary.Add(eventName, talkDataList.ToArray()); //이벤트 이름 - 대사들 로 key,value 묶어서 딕셔너리 추가
