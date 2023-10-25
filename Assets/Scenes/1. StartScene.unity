@@ -1014,6 +1014,7 @@ GameObject:
   - component: {fileID: 153854586}
   - component: {fileID: 153854587}
   - component: {fileID: 153854588}
+  - component: {fileID: 153854589}
   m_Layer: 6
   m_Name: Brother
   m_TagString: NPC
@@ -1103,6 +1104,22 @@ MonoBehaviour:
   Events:
   - eventType: 0
     eventName: "\uC624\uBE60"
+--- !u!58 &153854589
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153854585}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!224 &176165162 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 54299191942345788, guid: 3c574a06d9843384b892fea4b59454e7, type: 3}
@@ -1401,6 +1418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 216229250}
   - component: {fileID: 216229251}
+  - component: {fileID: 216229252}
   m_Layer: 6
   m_Name: Dog
   m_TagString: NPC
@@ -1475,6 +1493,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &216229252
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216229249}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000047683716, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1001 &243862928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8231,9 +8265,10 @@ GameObject:
   m_Component:
   - component: {fileID: 614664810}
   - component: {fileID: 614664811}
+  - component: {fileID: 614664812}
   m_Layer: 6
   m_Name: Dad
-  m_TagString: NPC
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8305,6 +8340,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &614664812
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614664809}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &630906024
 GameObject:
   m_ObjectHideFlags: 0
@@ -8827,9 +8878,9 @@ RectTransform:
   m_Children:
   - {fileID: 1882878200}
   - {fileID: 345858949}
-  - {fileID: 1915333261}
   - {fileID: 1905012441}
   - {fileID: 2039304955}
+  - {fileID: 1915333261}
   - {fileID: 8076316078746039017}
   - {fileID: 1418627028632961087}
   - {fileID: 397688824616471097}
@@ -9256,6 +9307,7 @@ GameObject:
   - component: {fileID: 798420842}
   - component: {fileID: 798420843}
   - component: {fileID: 798420844}
+  - component: {fileID: 798420845}
   m_Layer: 6
   m_Name: Sister
   m_TagString: NPC
@@ -9345,6 +9397,22 @@ MonoBehaviour:
   Events:
   - eventType: 0
     eventName: "\uC5B8\uB2C8"
+--- !u!58 &798420845
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798420841}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &871547892
 GameObject:
   m_ObjectHideFlags: 0
@@ -10683,7 +10751,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 206430723e60aa74c81ca03a6209e839, type: 3}
   - {fileID: 4900000, guid: f681fb8b765c3a54aaf3811a02a0494a, type: 3}
   - {fileID: 4900000, guid: 3fe34a1d761ee164c82a5b62379706cc, type: 3}
-  - {fileID: 4900000, guid: 37fe177d01173b6469646422427de835, type: 3}
+  - {fileID: 4900000, guid: 50b7cb4afeb41ba4caf5f67ae3a9c6b8, type: 3}
   tempText: 
   csvText: 
   rows: []
@@ -11951,6 +12019,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1577606533}
   - component: {fileID: 1577606534}
+  - component: {fileID: 1577606535}
+  - component: {fileID: 1577606536}
   m_Layer: 6
   m_Name: FlowerPot
   m_TagString: NPC
@@ -12025,6 +12095,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1577606535
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577606532}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &1577606536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577606532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93fb65c165754564787ac5b4868a523f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - eventType: 0
+    eventName: "\uC5C4\uB9C8"
 --- !u!224 &1598050471 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 982279044067948350, guid: aea6a6ee8c25b664ba789fbb12fb7cea, type: 3}
@@ -13182,6 +13283,7 @@ GameObject:
   - component: {fileID: 1826200098}
   - component: {fileID: 1826200099}
   - component: {fileID: 1826200100}
+  - component: {fileID: 1826200101}
   m_Layer: 6
   m_Name: Mom
   m_TagString: NPC
@@ -13271,6 +13373,22 @@ MonoBehaviour:
   Events:
   - eventType: 0
     eventName: "\uC5C4\uB9C8"
+--- !u!58 &1826200101
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826200097}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!224 &1857507603 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 54299191942345788, guid: 3c574a06d9843384b892fea4b59454e7, type: 3}
@@ -14079,7 +14197,7 @@ RectTransform:
   m_Children:
   - {fileID: 1243322125}
   m_Father: {fileID: 757350375}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16900,7 +17018,7 @@ RectTransform:
   m_Children:
   - {fileID: 768092685}
   m_Father: {fileID: 757350375}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -59924,7 +60042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &4577853861004208619
 Rigidbody2D:
   serializedVersion: 4
@@ -59985,7 +60103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &4577853861015876041
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60153,7 +60271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4577853861377137024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60263,7 +60381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &4577853861506714451
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60477,7 +60595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &4577853862391071323
 Rigidbody2D:
   serializedVersion: 4
@@ -60593,7 +60711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4577853862497192716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60676,7 +60794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &4577853862607019113
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60763,7 +60881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4577853862726970071
 Transform:
   m_ObjectHideFlags: 0
@@ -60914,7 +61032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &4577853862938592301
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60990,7 +61108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &4577853863091223539
 BoxCollider2D:
   m_ObjectHideFlags: 0
