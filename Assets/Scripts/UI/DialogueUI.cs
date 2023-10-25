@@ -13,6 +13,10 @@ public class DialogueUI : MonoBehaviour //대화 UI
     public Text context;
     private UIManager uiManager;
     public bool isKeyDown = false;
+    //타이핑 효과
+    public float typingDelay = 0.015f;
+    public bool isTyping;
+
 
     //Image
     public GameObject nextImage;
@@ -63,27 +67,36 @@ public class DialogueUI : MonoBehaviour //대화 UI
         if (talkData[index1].name.Trim() == ".")
         {
             nameBox.SetActive(false);
-            faceImage.SetActive(false);
         }
         else
         {
             nameBox.SetActive(true);
-            if(talkData[index1].name.Trim() != "도움말") //임시
-                faceImage.SetActive(true);
-            else
-                faceImage.SetActive(false);
         }
         speaker.text = talkData[index1].name;
-        context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
+        //context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
+        StartCoroutine(SetContext(talkData[index1].constexts[index2]));
 
         SetOption(talkData[index1].options[index2]);
-       
+        //SetImage(talkData[index1].images[index2]);
+        
         if (index1 + 1 >= talkData.Length && index2 + 1 >= talkData[index1].constexts.Length)
             nextImage.SetActive(false);
         else
             nextImage.SetActive(true);
     }
 
+   IEnumerator SetContext(string a)
+    {
+        isTyping = true;
+        context.text = string.Empty;
+        for(int i=0; i<a.Length; i++)
+        {
+            context.text += a[i];
+            yield return new WaitForSeconds(typingDelay);
+        }
+        isTyping = false;
+
+    }
     public void SetOption(string options)
     {
         if (options.Trim() != "") //선택지가 유효하면,
@@ -113,6 +126,24 @@ public class DialogueUI : MonoBehaviour //대화 UI
             
     }
 
+    public void SetImage(string imageName)
+    {
+        if(imageName.Trim()!="")
+        {
+            faceImage.SetActive(true);
+            string PATH = "Sprites/" + imageName.Trim();
+            faceImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(PATH);
+            context.GetComponent<RectTransform>().anchoredPosition = new Vector3(300, 0, 0);
+            context.GetComponent<RectTransform>().sizeDelta = new Vector2(1500, 200);
+        }
+        else
+        {
+            faceImage.SetActive(false);
+            context.GetComponent<RectTransform>().anchoredPosition = new Vector3(20, 0, 0);
+            context.GetComponent<RectTransform>().sizeDelta = new Vector2(1800, 200);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -123,7 +154,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk && !haveOption)
+        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.talk && !haveOption && !isTyping)
         {
             isKeyDown = true;
             if (index1 < talkData.Length && index2 + 1 < talkData[index1].constexts.Length) //대사 업데이트
