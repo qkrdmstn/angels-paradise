@@ -12,8 +12,6 @@ public class CurrentDispenser : ElctronicObject
 
     protected override void NormalInteraction()
     {
-        Debug.Log("Nomral");
-        uiManager.setActiveUI(UIType.currentDispenser);
     }
 
     public void RotateClockwise() //userInteractive로 반환받은 콜라이더를 회전시키기 // Rotate the collider returned by userInteractive

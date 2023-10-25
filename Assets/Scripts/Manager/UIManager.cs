@@ -6,21 +6,15 @@ using UnityEngine.UI;
 public enum UIType
 {
     none,
-    ability,
-    emotion,
     inventory,
     talk,
     image,
     textInput,
-    currentDispenser
 }
 
 public class UIManager : MonoBehaviour //UI on/off 담당
 {
     //ui 변수
-    public GameObject abilityUI;
-    public GameObject emotionUI;
-    public GameObject currentDispenserUI;
     public GameObject inventoryUI;
     public GameObject dialogueUI;
     public GameObject imageUI;
@@ -37,11 +31,7 @@ public class UIManager : MonoBehaviour //UI on/off 담당
 
     public void setActiveUI(UIType uiType)
     {
-        if (uiType == UIType.ability)
-            ui = abilityUI;
-        else if (uiType == UIType.emotion)
-            ui = emotionUI;
-        else if (uiType == UIType.inventory)
+        if (uiType == UIType.inventory)
             ui = inventoryUI;
         else if (uiType == UIType.talk)
             ui = dialogueUI;
@@ -49,8 +39,6 @@ public class UIManager : MonoBehaviour //UI on/off 담당
             ui = imageUI;
         else if (uiType == UIType.textInput)
             ui = textInputUI;
-        else if (uiType == UIType.currentDispenser)
-            ui = currentDispenserUI;
 
         //if(uiType == UIType.ability || uiType == UIType.emotion) //follow Player
         //    ui.transform.position = Camera.main.WorldToScreenPoint(player.transform.position + new Vector3(0, 0.75f, 0));
@@ -64,9 +52,6 @@ public class UIManager : MonoBehaviour //UI on/off 담당
 
     public void setInActiveUI()
     {
-        abilityUI.SetActive(false);
-        emotionUI.SetActive(false);
-        currentDispenserUI.SetActive(false);
         inventoryUI.SetActive(false);
         textInputUI.SetActive(false);
 
@@ -127,17 +112,6 @@ public class UIManager : MonoBehaviour //UI on/off 담당
     // Update is called once per frame
     void Update()
     {
-        //abilityUI
-        if (Input.GetKey(KeyCode.E) && currentUI == UIType.none && GameManager.Instance.progress >= 5)
-        {
-            setActiveUI(UIType.ability);    
-        }
-
-        ////emotionUI
-        //if (Input.GetKey(KeyCode.F) && currentUI == UIType.none)
-        //{
-        //    setActiveUI(UIType.emotion);   
-        //}
 
         //inventory
         if (Input.GetKeyDown(KeyCode.I) && currentUI == UIType.none)
