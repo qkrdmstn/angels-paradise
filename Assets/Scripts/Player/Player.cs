@@ -214,6 +214,8 @@ public class Player : MonoBehaviour
     public void SetInteractionUI(RaycastHit2D hit)
     {
         InteractionEvent Event = hit.collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+        if (Event == null)
+            return;
         if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
         {
             uiManager.setActiveUI(UIType.talk); //UI 활성화

@@ -7,8 +7,8 @@ public class SisInteraction : Interaction
 
     public override InteractionEvent GetEvent()
     {
-        if (GameManager.Instance.progress >= 5)
-            GameManager.Instance.progress++;
+        if (GameManager.Instance.progress1 < 2)
+            GameManager.Instance.progress1++;
         return Events[0];
     }
 }

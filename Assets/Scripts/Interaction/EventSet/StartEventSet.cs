@@ -38,30 +38,11 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
                 actionNames[0] = ExitStorage; //응
                 actionNames[1] = UIClose; //아니
                 break;
-            case "거래":
-                actionNames[0] = Transaction; //응
+            case "거실 화분":
+                actionNames[0] = FlowerPot;
                 break;
-            case "배터리 넣기":
-                actionNames[0] = InsertBattery; //응
-                break;
-            case "심장 건네주기":
-                actionNames[0] = GiveHeart; //응
-                break;
-            case "기쁨 감정 받기":
-                actionNames[0] = gladEmotionComplete; //응
-                actionNames[1] = UIClose; //아니
-                break;
-            case "노아 대화 1":
-                actionNames[0] = () => LoadNewDialogue("노아 대화 2");
-                actionNames[1] = () => LoadNewDialogue("노아 대화 3");
-                actionNames[2] = () => LoadNewDialogue("노아 대화 4");
-                actionNames[3] = () => LoadNewDialogue("노아 대화 5");
-                break;
-            case "노아 대화 1.5":
-                actionNames[0] = () => LoadNewDialogue("노아 대화 2");
-                actionNames[1] = () => LoadNewDialogue("노아 대화 3");
-                actionNames[2] = () => LoadNewDialogue("노아 대화 4");
-                actionNames[3] = () => LoadNewDialogue("노아 대화 5");
+            case "집 나온 맥스":
+                actionNames[0] = GoOutMax;
                 break;
             default:
                 for (int i = 0; i < num; i++)
@@ -127,40 +108,26 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
         theFade.FadeIn();
     }
 
-    public void Transaction() //거래 선택지
+    public void FlowerPot()
     {
-        Debug.Log("거래,응");
-        inventory.RemoveItem("안젤라의 개발일지");
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("거래2"); //UI로 event 전달
-        uiManager.setActiveUI(UIType.talk); //UI 활성화
+        LoadNewDialogue("파헤쳐진 화분");
+        GameManager.Instance.progress1++; //구역1 진행률 3로
+    }
+    public void GoOutMax()
+    {
+        LoadNewDialogue("맥스 아래 쪽지");
+        GameManager.Instance.progress1++; //구역1 진행률 4로
+        
+        //GameObject dog = FindObjectOfType<DogMax>().gameObject;
+        //dog.transform.position = new Vector3(10, 18, 0);
+        //Destroy(dog);
     }
 
-    public void InsertBattery() //배터리 넣기 선택지
+    public void PostGet()
     {
-        inventory.RemoveItem("배터리");
-        if (GameManager.Instance.progress < 5)
-            GameManager.Instance.progress = 5;
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("몰리 재가동"); //UI로 event 전달
-        uiManager.setActiveUI(UIType.talk); //UI 활성화
+        LoadNewDialogue("지폐 획득");
+        GameManager.Instance.progress1++; //구역1 진행률 5로
     }
-
-    public void GiveHeart() //심장 건네주기 선택지
-    {
-        inventory.RemoveItem("인공 심장");
-        if (GameManager.Instance.progress < 8)
-            GameManager.Instance.progress = 8;
-        UIClose();
-        //수술 기계 위에 심장 올려놓는 애니메이션 추가
-    }
-
-    public void gladEmotionComplete()
-    {
-        LoadNewDialogue("기쁨 감정 받기 완료");
-        //여기에서 감정 추가
-        if(GameManager.Instance.progress < 10)
-            GameManager.Instance.progress = 10;
-    }
-
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();

@@ -44,6 +44,8 @@ public class DialogueUI : MonoBehaviour //대화 UI
 
     public void SetCurrentEvent(InteractionEvent _event)
     {
+        if (_event == null)
+            return;
         IndexInit();
         currentEvent = _event.eventName;
         talkData = DialogueData.GetDialogue(currentEvent); //대화 데이터 로드
