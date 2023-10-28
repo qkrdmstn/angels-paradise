@@ -10,6 +10,7 @@ public class FadeManager : MonoBehaviour {
     public Image white;
     public Image black;
     private Color color;
+    public bool isFade;
 
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
     
@@ -40,6 +41,7 @@ public class FadeManager : MonoBehaviour {
 
     public void FadeOut(float _speed = 0.02f)
     {
+        isFade = true;
         StopAllCoroutines();
         StartCoroutine(FadeOutCoroutine(_speed));
     }
@@ -60,6 +62,7 @@ public class FadeManager : MonoBehaviour {
     {
         StopAllCoroutines();
         StartCoroutine(FadeInCoroutine(_speed));
+        isFade = false;
     }
     IEnumerator FadeInCoroutine(float _speed)
     {

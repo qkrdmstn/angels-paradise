@@ -1750,7 +1750,7 @@ GameObject:
   - component: {fileID: 334764516}
   - component: {fileID: 334764517}
   - component: {fileID: 334764518}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Triangle
   m_TagString: EventObj
   m_Icon: {fileID: 0}
@@ -1765,7 +1765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334764514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17, y: -0.8, z: 0.11300759}
+  m_LocalPosition: {x: 45.4, y: 3.6, z: 0.11300759}
   m_LocalScale: {x: 1.6364, y: 1.6364, z: 1.6364}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14160,6 +14160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   white: {fileID: 991567399}
   black: {fileID: 1035215604}
+  isFade: 0
 --- !u!1001 &1887871055
 PrefabInstance:
   m_ObjectHideFlags: 0

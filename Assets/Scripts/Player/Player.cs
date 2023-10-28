@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.none) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
+        if (Input.GetKeyUp(KeyCode.Space) && uiManager.currentUI == UIType.none && FadeManager.Instance.isFade == false) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
         {
             for (int k = 0; k < rayHit.Length; k++)
                 Debug.Log(rayHit[k]);

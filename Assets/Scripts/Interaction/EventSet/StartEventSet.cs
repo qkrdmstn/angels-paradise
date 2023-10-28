@@ -13,6 +13,7 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     private FadeManager theFade;
     private Inventory inventory;
 
+
     public void SetOptionEvent(string eventName, int num)
     {
         InitOptionEvent(); //이전에 등록된 OnClickEvent 제거
@@ -43,6 +44,9 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
                 break;
             case "집 나온 맥스":
                 actionNames[0] = GoOutMax;
+                break;
+            case "두번째 꼬부랑길":
+                actionNames[0] = PostGet;
                 break;
             default:
                 for (int i = 0; i < num; i++)
@@ -115,12 +119,35 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     }
     public void GoOutMax()
     {
-        LoadNewDialogue("맥스 아래 쪽지");
+        StartCoroutine(GoOutMaxCoroutine());
         GameManager.Instance.progress1++; //구역1 진행률 4로
         
-        //GameObject dog = FindObjectOfType<DogMax>().gameObject;
-        //dog.transform.position = new Vector3(10, 18, 0);
         //Destroy(dog);
+    }
+
+    IEnumerator GoOutMaxCoroutine()
+    {
+        FadeManager.Instance.FadeOut();
+
+        postInteraction[] asd = FindObjectsOfType<postInteraction>();
+        GameObject dog = null;
+        for (int i = 0; i < asd.Length; i++)
+        {
+            if (asd[i].condition == 3)
+            {
+                dog = asd[i].gameObject;
+                break;
+            }
+        }
+        if (dog == null)
+            Debug.LogWarning("Dog is NULL");
+        dog.transform.position = new Vector3(10, 18, 0);
+
+        yield return new WaitForSeconds(0.5f);
+        FadeManager.Instance.FadeIn();
+
+        yield return new WaitUntil(() => (FadeManager.Instance.isFade));
+        LoadNewDialogue("맥스 아래 쪽지");
     }
 
     public void PostGet()
