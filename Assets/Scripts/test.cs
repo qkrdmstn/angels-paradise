@@ -6,12 +6,16 @@ public class test : MonoBehaviour
 {
     private void Start()
     {
-        this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + "A");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //outputText = inputText.Replace("\"\"", "\"");
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            GameManager.Instance.progress1 = 2;
+            gameObject.transform.position = new Vector3(3, 17, 0);
+        }    
     }
 }

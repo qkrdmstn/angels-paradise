@@ -115,12 +115,14 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     public void FlowerPot()
     {
         LoadNewDialogue("파헤쳐진 화분");
-        GameManager.Instance.progress1++; //구역1 진행률 3로
+        if(GameManager.Instance.progress1 < 3)
+            GameManager.Instance.progress1++; //구역1 진행률 3로
     }
     public void GoOutMax()
     {
         StartCoroutine(GoOutMaxCoroutine());
-        GameManager.Instance.progress1++; //구역1 진행률 4로
+        if (GameManager.Instance.progress1 < 4)
+            GameManager.Instance.progress1++; //구역1 진행률 4로
         
         //Destroy(dog);
     }
@@ -146,7 +148,7 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
         yield return new WaitForSeconds(0.5f);
         FadeManager.Instance.FadeIn();
 
-        yield return new WaitUntil(() => (FadeManager.Instance.isFade));
+        //yield return new WaitUntil(() => (FadeManager.Instance.isFade));
         LoadNewDialogue("맥스 아래 쪽지");
     }
 

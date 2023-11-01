@@ -181,7 +181,6 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.none) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
         {
-            Debug.Log("Key Space");
             for (int k = 0; k < rayHit.Length; k++)
                 Debug.Log(rayHit[k]);
             if (rayHit.Length != 0)
@@ -288,6 +287,7 @@ public class Player : MonoBehaviour
 
     public void SetPlayerBound(BoxCollider2D newBound)
     {
+        Debug.Log("Bound");
         bound = newBound;
         minBound = bound.bounds.min;
         maxBound = bound.bounds.max;
