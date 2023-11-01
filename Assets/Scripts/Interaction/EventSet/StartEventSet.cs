@@ -48,6 +48,21 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
             case "두번째 꼬부랑길":
                 actionNames[0] = PostGet;
                 break;
+            case "수다쟁이 부인 0":
+                actionNames[0] = () => LoadNewDialogue("수다쟁이 부인 1-1");
+                actionNames[1] = () => LoadNewDialogue("수다쟁이 부인 1-2");
+                actionNames[2] = () => LoadNewDialogue("수다쟁이 부인 1-3");
+                break;
+            case "수다쟁이 부인 1-2":
+                actionNames[0] = () => LoadNewDialogue("수다쟁이 부인 2-1");
+                actionNames[1] = () => LoadNewDialogue("수다쟁이 부인 2-2");
+                actionNames[2] = () => LoadNewDialogue("수다쟁이 부인 2-3");
+                break;
+            case "수다쟁이 부인 2-2":
+                actionNames[0] = () => LoadNewDialogue("수다쟁이 부인 3-1");
+                actionNames[1] = () => LoadNewDialogue("수다쟁이 부인 3-2");
+                actionNames[2] = () => LoadNewDialogue("수다쟁이 부인 3-3");
+                break;
             default:
                 for (int i = 0; i < num; i++)
                     actionNames[i] = UIClose;

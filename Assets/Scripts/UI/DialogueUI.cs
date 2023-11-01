@@ -20,7 +20,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
 
     //Image
     public GameObject nextImage;
-    public GameObject faceImage;
+    //public GameObject faceImage;
 
     //선택지
     private int numOption = 5;
@@ -128,23 +128,23 @@ public class DialogueUI : MonoBehaviour //대화 UI
             
     }
 
-    public void SetImage(string imageName)
-    {
-        if(imageName.Trim()!="")
-        {
-            faceImage.SetActive(true);
-            string PATH = "Sprites/" + imageName.Trim();
-            faceImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(PATH);
-            context.GetComponent<RectTransform>().anchoredPosition = new Vector3(300, 0, 0);
-            context.GetComponent<RectTransform>().sizeDelta = new Vector2(1500, 200);
-        }
-        else
-        {
-            faceImage.SetActive(false);
-            context.GetComponent<RectTransform>().anchoredPosition = new Vector3(20, 0, 0);
-            context.GetComponent<RectTransform>().sizeDelta = new Vector2(1800, 200);
-        }
-    }
+    //public void SetImage(string imageName)
+    //{
+    //    if(imageName.Trim()!="")
+    //    {
+    //        faceImage.SetActive(true);
+    //        string PATH = "Sprites/" + imageName.Trim();
+    //        faceImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(PATH);
+    //        context.GetComponent<RectTransform>().anchoredPosition = new Vector3(300, 0, 0);
+    //        context.GetComponent<RectTransform>().sizeDelta = new Vector2(1500, 200);
+    //    }
+    //    else
+    //    {
+    //        faceImage.SetActive(false);
+    //        context.GetComponent<RectTransform>().anchoredPosition = new Vector3(20, 0, 0);
+    //        context.GetComponent<RectTransform>().sizeDelta = new Vector2(1800, 200);
+    //    }
+    //}
 
     // Start is called before the first frame update
     void Start()
