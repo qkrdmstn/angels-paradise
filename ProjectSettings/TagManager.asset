@@ -57,3 +57,6 @@ TagManager:
   - name: Weather
     uniqueID: 3235663965
     locked: 0
+  - name: Player
+    uniqueID: 771373613
+    locked: 0

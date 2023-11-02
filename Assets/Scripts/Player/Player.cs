@@ -178,6 +178,7 @@ public class Player : MonoBehaviour
             }
         }
 
+
         if (Input.GetKeyDown(KeyCode.Space) && uiManager.currentUI == UIType.none) // Space -> Ray 쏘기 -> 정보 저장 및 불러오기
         {
             for (int k = 0; k < rayHit.Length; k++)
@@ -214,6 +215,8 @@ public class Player : MonoBehaviour
     public void SetInteractionUI(RaycastHit2D hit)
     {
         InteractionEvent Event = hit.collider.GetComponent<Interaction>().GetEvent(); //상호작용 오브젝트의 이벤트 get
+        if (Event == null)
+            return;
         if (Event.eventType == InteractionType.Dialogue) //상호작용이 대화형이라면, 
         {
             uiManager.setActiveUI(UIType.talk); //UI 활성화
@@ -284,6 +287,7 @@ public class Player : MonoBehaviour
 
     public void SetPlayerBound(BoxCollider2D newBound)
     {
+        Debug.Log("Bound");
         bound = newBound;
         minBound = bound.bounds.min;
         maxBound = bound.bounds.max;

@@ -6,12 +6,21 @@ public class test : MonoBehaviour
 {
     private void Start()
     {
-        this.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/" + "A");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //outputText = inputText.Replace("\"\"", "\"");
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            GameManager.Instance.progress1 = 2;
+            gameObject.transform.position = new Vector3(3, 17, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameManager.Instance.progress1 = 5;
+            gameObject.transform.position = new Vector3(260, 54, 0);
+        }
     }
 }

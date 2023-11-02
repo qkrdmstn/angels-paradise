@@ -13,6 +13,7 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     private FadeManager theFade;
     private Inventory inventory;
 
+
     public void SetOptionEvent(string eventName, int num)
     {
         InitOptionEvent(); //이전에 등록된 OnClickEvent 제거
@@ -38,30 +39,29 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
                 actionNames[0] = ExitStorage; //응
                 actionNames[1] = UIClose; //아니
                 break;
-            case "거래":
-                actionNames[0] = Transaction; //응
+            case "거실 화분":
+                actionNames[0] = FlowerPot;
                 break;
-            case "배터리 넣기":
-                actionNames[0] = InsertBattery; //응
+            case "집 나온 맥스":
+                actionNames[0] = GoOutMax;
                 break;
-            case "심장 건네주기":
-                actionNames[0] = GiveHeart; //응
+            case "두번째 꼬부랑길":
+                actionNames[0] = PostGet;
                 break;
-            case "기쁨 감정 받기":
-                actionNames[0] = gladEmotionComplete; //응
-                actionNames[1] = UIClose; //아니
+            case "수다쟁이 부인 0":
+                actionNames[0] = () => LoadNewDialogue("수다쟁이 부인 1-1");
+                actionNames[1] = () => LoadNewDialogue("수다쟁이 부인 1-2");
+                actionNames[2] = () => LoadNewDialogue("수다쟁이 부인 1-3");
                 break;
-            case "노아 대화 1":
-                actionNames[0] = () => LoadNewDialogue("노아 대화 2");
-                actionNames[1] = () => LoadNewDialogue("노아 대화 3");
-                actionNames[2] = () => LoadNewDialogue("노아 대화 4");
-                actionNames[3] = () => LoadNewDialogue("노아 대화 5");
+            case "수다쟁이 부인 1-2":
+                actionNames[0] = () => LoadNewDialogue("수다쟁이 부인 2-1");
+                actionNames[1] = () => LoadNewDialogue("수다쟁이 부인 2-2");
+                actionNames[2] = () => LoadNewDialogue("수다쟁이 부인 2-3");
                 break;
-            case "노아 대화 1.5":
-                actionNames[0] = () => LoadNewDialogue("노아 대화 2");
-                actionNames[1] = () => LoadNewDialogue("노아 대화 3");
-                actionNames[2] = () => LoadNewDialogue("노아 대화 4");
-                actionNames[3] = () => LoadNewDialogue("노아 대화 5");
+            case "수다쟁이 부인 2-2":
+                actionNames[0] = () => LoadNewDialogue("수다쟁이 부인 3-1");
+                actionNames[1] = () => LoadNewDialogue("수다쟁이 부인 3-2");
+                actionNames[2] = () => LoadNewDialogue("수다쟁이 부인 3-3");
                 break;
             default:
                 for (int i = 0; i < num; i++)
@@ -123,44 +123,55 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
         UIClose();
         theFade.FadeOut();
         yield return new WaitForSeconds(1f);
-        player.transform.position = new Vector3(-15, 15, 0);
+        player.transform.position = new Vector3(-12, 24, 0);
         theFade.FadeIn();
     }
 
-    public void Transaction() //거래 선택지
+    public void FlowerPot()
     {
-        Debug.Log("거래,응");
-        inventory.RemoveItem("안젤라의 개발일지");
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("거래2"); //UI로 event 전달
-        uiManager.setActiveUI(UIType.talk); //UI 활성화
+        LoadNewDialogue("파헤쳐진 화분");
+        if(GameManager.Instance.progress1 < 3)
+            GameManager.Instance.progress1++; //구역1 진행률 3로
+    }
+    public void GoOutMax()
+    {
+        StartCoroutine(GoOutMaxCoroutine());
+        if (GameManager.Instance.progress1 < 4)
+            GameManager.Instance.progress1++; //구역1 진행률 4로
+        
+        //Destroy(dog);
     }
 
-    public void InsertBattery() //배터리 넣기 선택지
+    IEnumerator GoOutMaxCoroutine()
     {
-        inventory.RemoveItem("배터리");
-        if (GameManager.Instance.progress < 5)
-            GameManager.Instance.progress = 5;
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent("몰리 재가동"); //UI로 event 전달
-        uiManager.setActiveUI(UIType.talk); //UI 활성화
+        FadeManager.Instance.FadeOut();
+
+        postInteraction[] asd = FindObjectsOfType<postInteraction>();
+        GameObject dog = null;
+        for (int i = 0; i < asd.Length; i++)
+        {
+            if (asd[i].condition == 3)
+            {
+                dog = asd[i].gameObject;
+                break;
+            }
+        }
+        if (dog == null)
+            Debug.LogWarning("Dog is NULL");
+        dog.transform.position = new Vector3(10, 18, 0);
+
+        yield return new WaitForSeconds(0.5f);
+        FadeManager.Instance.FadeIn();
+
+        //yield return new WaitUntil(() => (FadeManager.Instance.isFade));
+        LoadNewDialogue("맥스 아래 쪽지");
     }
 
-    public void GiveHeart() //심장 건네주기 선택지
+    public void PostGet()
     {
-        inventory.RemoveItem("인공 심장");
-        if (GameManager.Instance.progress < 8)
-            GameManager.Instance.progress = 8;
-        UIClose();
-        //수술 기계 위에 심장 올려놓는 애니메이션 추가
+        LoadNewDialogue("지폐 획득");
+        GameManager.Instance.progress1++; //구역1 진행률 5로
     }
-
-    public void gladEmotionComplete()
-    {
-        LoadNewDialogue("기쁨 감정 받기 완료");
-        //여기에서 감정 추가
-        if(GameManager.Instance.progress < 10)
-            GameManager.Instance.progress = 10;
-    }
-
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
