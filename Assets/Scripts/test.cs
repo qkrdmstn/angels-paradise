@@ -14,12 +14,12 @@ public class test : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.H))
         {
-            GameManager.Instance.progress1 = 2;
+            GameManager.Instance.etcProgress[0] = 2;
             gameObject.transform.position = new Vector3(3, 17, 0);
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
-            GameManager.Instance.progress1 = 5;
+            GameManager.Instance.etcProgress[0] = 5;
             gameObject.transform.position = new Vector3(260, 54, 0);
         }
     }

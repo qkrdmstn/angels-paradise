@@ -31,11 +31,7 @@ public class PlayerInteraction : Interaction
 
     private void Update()
     {
-        if (playerAbility.currentAbility == PlayerAbility.playerAbilities.superPower && uiManager.currentUI == UIType.none) //tempFlag 변수 나중에 스크립트 번호로 바꾸기
-        {
-            if (GameManager.Instance.progress >= 5 && GameManager.Instance.progress < 6)
-                Tutorial_Use_SuperPower();      
-        }
+
 
     }
     private void OnTriggerEnter2D(Collider2D collision)

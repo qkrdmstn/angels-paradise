@@ -9,10 +9,8 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
 {
     public Button[] optionButton;
     private UIManager uiManager;
-    private GameObject player;
-    private FadeManager theFade;
     private Inventory inventory;
-
+    private trainPuzzleManager tPuzzle;
 
     public void SetOptionEvent(string eventName, int num)
     {
@@ -63,6 +61,43 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
                 actionNames[1] = () => LoadNewDialogue("수다쟁이 부인 3-2");
                 actionNames[2] = () => LoadNewDialogue("수다쟁이 부인 3-3");
                 break;
+            case "여행객 등장":
+                actionNames[0] = TrainRoadPuzzleStart;
+                actionNames[1] = () => LoadNewDialogue("철로 퍼즐 다음에");
+                break;
+            case "건너가기001":
+                actionNames[0] = () => TrainPuzzleToggle(2);
+                actionNames[1] = () => TrainPuzzleToggle(3);
+                break;
+            case "건너가기010":
+                actionNames[0] = () => TrainPuzzleToggle(1);
+                actionNames[1] = () => TrainPuzzleToggle(3);
+                break;
+            case "건너가기011":
+                actionNames[0] = () => TrainPuzzleToggle(1);
+                actionNames[1] = () => TrainPuzzleToggle(2);
+                actionNames[2] = () => TrainPuzzleToggle(3);
+                break;
+            case "건너가기100":
+                actionNames[0] = () => TrainPuzzleToggle(0);
+                actionNames[1] = () => TrainPuzzleToggle(3);
+                break;
+            case "건너가기101":
+                actionNames[0] = () => TrainPuzzleToggle(0);
+                actionNames[1] = () => TrainPuzzleToggle(2);
+                actionNames[2] = () => TrainPuzzleToggle(3);
+                break;
+            case "건너가기110":
+                actionNames[0] = () => TrainPuzzleToggle(0);
+                actionNames[1] = () => TrainPuzzleToggle(1);
+                actionNames[2] = () => TrainPuzzleToggle(3);
+                break;
+            case "건너가기111":
+                actionNames[0] = () => TrainPuzzleToggle(0);
+                actionNames[1] = () => TrainPuzzleToggle(1);
+                actionNames[2] = () => TrainPuzzleToggle(2);
+                actionNames[3] = () => TrainPuzzleToggle(3);
+                break;
             default:
                 for (int i = 0; i < num; i++)
                     actionNames[i] = UIClose;
@@ -104,6 +139,7 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
         uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
     }
+
     public void ExitStorage() //창고 나가기
     {
         if (GameManager.Instance.progress < 2)
@@ -121,23 +157,24 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
             GameManager.Instance.progress = 2;
         }
         UIClose();
-        theFade.FadeOut();
+        FadeManager.Instance.FadeOut();
         yield return new WaitForSeconds(1f);
-        player.transform.position = new Vector3(-12, 24, 0);
-        theFade.FadeIn();
+        Player.Instance.transform.position = new Vector3(-12, 24, 0);
+        FadeManager.Instance.FadeIn();
     }
 
     public void FlowerPot()
     {
         LoadNewDialogue("파헤쳐진 화분");
-        if(GameManager.Instance.progress1 < 3)
-            GameManager.Instance.progress1++; //구역1 진행률 3로
+        if(GameManager.Instance.etcProgress[0] < 3)
+            GameManager.Instance.etcProgress[0]++; //구역1 진행률 3로
     }
+
     public void GoOutMax()
     {
         StartCoroutine(GoOutMaxCoroutine());
-        if (GameManager.Instance.progress1 < 4)
-            GameManager.Instance.progress1++; //구역1 진행률 4로
+        if (GameManager.Instance.etcProgress[0] < 4)
+            GameManager.Instance.etcProgress[0]++; //구역1 진행률 4로
         
         //Destroy(dog);
     }
@@ -170,13 +207,58 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     public void PostGet()
     {
         LoadNewDialogue("지폐 획득");
-        GameManager.Instance.progress1++; //구역1 진행률 5로
+        GameManager.Instance.etcProgress[0]++; //구역1 진행률 5로
     }
+
+    public void TrainRoadPuzzleStart()
+    {
+        LoadNewDialogue("철로 퍼즐 시작");
+        GameManager.Instance.etcProgress[2]++; //etcProgress[2]를 1로
+        
+    }    
+
+    public void TrainPuzzleToggle(int index)
+    {
+        tPuzzle.toggleState(index);
+        StartCoroutine(TrainRoadToCross());
+        UIClose();
+
+        if (tPuzzle.state[0] && tPuzzle.state[1] && tPuzzle.state[2])
+        {
+            Debug.Log("Clear");
+            LoadNewDialogue("철로 퍼즐 완료");
+            GameManager.Instance.etcProgress[2]++; //2로 설정
+        }
+        else if (tPuzzle.state[0] == tPuzzle.state[1] && tPuzzle.state[0] != tPuzzle.state[2]) //개 & 고양이만 남은 경우
+        {
+            StartCoroutine(RollBackTrainPuzzle());
+        }
+        else if (tPuzzle.state[1] == tPuzzle.state[2] && tPuzzle.state[2] != tPuzzle.state[0]) //고양이 & 새만 남은 경우
+        {
+            StartCoroutine(RollBackTrainPuzzle());
+        }
+    }
+
+    IEnumerator TrainRoadToCross()
+    {
+        FadeManager.Instance.FadeOut();
+        yield return new WaitForSeconds(0.5f);
+        tPuzzle.MoveAnimal();
+        yield return new WaitForSeconds(0.5f);
+        FadeManager.Instance.FadeIn();
+    }
+
+    IEnumerator RollBackTrainPuzzle()
+    {
+        yield return new WaitForSeconds(2f);
+        tPuzzle.rollbackState();
+        StartCoroutine(TrainRoadToCross());
+    }
+
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        theFade = FindObjectOfType<FadeManager>();
         inventory = FindObjectOfType<Inventory>();
+        tPuzzle = FindObjectOfType<trainPuzzleManager>();
     }
 }
