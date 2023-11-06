@@ -14,8 +14,8 @@ public class animalInteraction : Interaction
             return null;
         }
 
-        InteractionEvent e = new InteractionEvent();
-        e.eventType = InteractionType.Dialogue;
+        InteractionEvent _event = new InteractionEvent();
+        _event.eventType = InteractionType.Dialogue;
         string eName = "건너가기";
 
         if (puzzleManager.state[3] == puzzleManager.state[0]) //player와 상태가 같으면 1, 아니면 0
@@ -33,11 +33,11 @@ public class animalInteraction : Interaction
         else
             eName += "0";
 
-        e.eventName = eName;
-        Debug.Log(e);
-        Debug.Log(e.eventName);
-        Debug.Log(e.eventType);
-        return e;
+        _event.eventName = eName;
+        Debug.Log(_event);
+        Debug.Log(_event.eventName);
+        Debug.Log(_event.eventType);
+        return _event;
     }
 
     // Start is called before the first frame update

@@ -76,6 +76,7 @@ public class DialogueUI : MonoBehaviour //대화 UI
         }
         speaker.text = talkData[index1].name;
         //context.text = talkData[index1].constexts[index2]; //이름, 내용을 텍스트로 설정
+        Debug.Log("setcont");
         StartCoroutine(SetContext(talkData[index1].constexts[index2]));
 
         SetOption(talkData[index1].options[index2]);

@@ -18,7 +18,11 @@ public class trainPuzzleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            for (int i = 0; i < 4; i++)
+                state[i] = true;
+        }
     }
 
     public void toggleState(int index)
@@ -26,10 +30,10 @@ public class trainPuzzleManager : MonoBehaviour
         if (index < 0 || index > 3)
             Debug.LogWarning("indexError");
 
-        for(int i=0; i<3; i++)
-        {
-            beforeState[i] = state[i];
-        }
+        //for(int i=0; i<3; i++)
+        //{
+        //    beforeState[i] = state[i];
+        //}
 
         if (index != 3) //index = 3 -> 아무도 데리고 가지 않는다.
         {
@@ -43,6 +47,12 @@ public class trainPuzzleManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
             state[i] = beforeState[i];
         state[3] = !state[3];
+    }
+
+    public void InitState()
+    {
+        for (int i = 0; i < 4; i++)
+            state[i] = false;
     }
 
     public void MoveAnimal()

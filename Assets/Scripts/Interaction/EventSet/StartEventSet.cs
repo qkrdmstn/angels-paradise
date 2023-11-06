@@ -136,8 +136,8 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
     {
         yield return new WaitUntil(()=>!uiManager.dialogueUI.GetComponent<DialogueUI>().isTyping);
         //UIClose();
-        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
         uiManager.setActiveUI(UIType.talk); //UI 활성화
+        uiManager.dialogueUI.GetComponent<DialogueUI>().SetCurrentEvent(eventName); //UI로 event 전달
     }
 
     public void ExitStorage() //창고 나가기
@@ -219,24 +219,19 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
 
     public void TrainPuzzleToggle(int index)
     {
+        UIClose();
         tPuzzle.toggleState(index);
         StartCoroutine(TrainRoadToCross());
-        UIClose();
 
-        if (tPuzzle.state[0] && tPuzzle.state[1] && tPuzzle.state[2])
-        {
-            Debug.Log("Clear");
-            LoadNewDialogue("철로 퍼즐 완료");
-            GameManager.Instance.etcProgress[2]++; //2로 설정
-        }
-        else if (tPuzzle.state[0] == tPuzzle.state[1] && tPuzzle.state[0] != tPuzzle.state[2]) //개 & 고양이만 남은 경우
+        if (tPuzzle.state[0] == tPuzzle.state[1] && tPuzzle.state[0] != tPuzzle.state[3]) //개 & 고양이만 남고, 플레이어 X
         {
             StartCoroutine(RollBackTrainPuzzle());
         }
-        else if (tPuzzle.state[1] == tPuzzle.state[2] && tPuzzle.state[2] != tPuzzle.state[0]) //고양이 & 새만 남은 경우
+        else if (tPuzzle.state[1] == tPuzzle.state[2] && tPuzzle.state[2] != tPuzzle.state[3]) //고양이 & 새만 남고, 플레이어 X
         {
             StartCoroutine(RollBackTrainPuzzle());
         }
+
     }
 
     IEnumerator TrainRoadToCross()
@@ -246,12 +241,19 @@ public class StartEventSet : MonoBehaviour //스타트 씬의 선택지 관리
         tPuzzle.MoveAnimal();
         yield return new WaitForSeconds(0.5f);
         FadeManager.Instance.FadeIn();
+
+        if (tPuzzle.state[0] && tPuzzle.state[1] && tPuzzle.state[2])
+        {
+            Debug.Log("Clear");
+            LoadNewDialogue("철로 퍼즐 완료");
+            GameManager.Instance.etcProgress[2]++; //2로 설정
+        }
     }
 
     IEnumerator RollBackTrainPuzzle()
     {
         yield return new WaitForSeconds(2f);
-        tPuzzle.rollbackState();
+        tPuzzle.InitState();
         StartCoroutine(TrainRoadToCross());
     }
 
