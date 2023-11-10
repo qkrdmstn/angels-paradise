@@ -17,6 +17,9 @@ TagManager:
   - CameraBound
   - PlayerBound
   - Portal
+  - RedObstacle
+  - YellowObstacle
+  - FootHold
   layers:
   - Default
   - TransparentFX
