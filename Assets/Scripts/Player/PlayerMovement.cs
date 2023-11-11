@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    public float moveSpeed = 5.0f;
-    private bool isMoving = false;
+    [Header("이동 관련")]
+    public Rigidbody2D rb;    
+    public bool isMoving = false;
     private Vector2 moveDirection = Vector2.zero;
+    public float moveSpeed = 5.0f;
     public float interactionDistance = 1.5f;
     private Animator animator;
+
+    [Header("발판 퍼즐 관련")]
     private bool isRedActive = true;  // 초기에는 빨강이 활성화
     private int interactionCount = 0;  // FootHold와 상호작용한 횟수를 추적
     private GameObject[] redObstacles;  // 빨간색 오브젝트 리스트

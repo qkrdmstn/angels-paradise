@@ -15,8 +15,9 @@ public class PortalCollision : MonoBehaviour
             {
                 // Player 컴포넌트를 비활성화합니다.
                 player.enabled = false;
-
+                playerMovement.isMoving = false;
                 // PlayerMovement 컴포넌트를 활성화하고 이동을 멈춥니다.
+                playerMovement.moveSpeed = 5;
                 playerMovement.enabled = true;
             }
         }
