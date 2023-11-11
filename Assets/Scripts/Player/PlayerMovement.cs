@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("이동 관련")]
     public Rigidbody2D rb;    
     public bool isMoving = false;
-    private Vector2 moveDirection = Vector2.zero;
+    private Vector3 moveDirection;
     public float moveSpeed = 5.0f;
     public float interactionDistance = 1.5f;
     private Animator animator;
@@ -36,7 +36,8 @@ public class PlayerMovement : MonoBehaviour
         // 방향키 또는 WASD 키 중 하나라도 입력되면 이동합니다.
         if (!isMoving && (horizontalInput != 0 || verticalInput != 0))
         {
-            moveDirection = new Vector2(horizontalInput, verticalInput);
+            
+            moveDirection = new Vector3(horizontalInput, verticalInput,0);
             isMoving = true;
         }
 
@@ -80,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
         if (isMoving)
         {
             rb.velocity = moveDirection.normalized * moveSpeed;
+            animator.SetFloat("DirX", moveDirection.x);
+            animator.SetFloat("DirY", moveDirection.y);
         }
     }
 
@@ -87,6 +90,6 @@ public class PlayerMovement : MonoBehaviour
     {
         // 이동 중에 충돌 발생 시 이동을 멈춥니다.
         isMoving = false;
-        rb.velocity = Vector2.zero;
+        rb.velocity = Vector3.zero;
     }
 }
