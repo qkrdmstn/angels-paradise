@@ -5,26 +5,17 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("이동 관련")]
-    public Rigidbody2D rb;    
+    public Rigidbody2D rb; // portal t/f 때문에 public으로 선언
     public bool isMoving = false;
     private Vector3 moveDirection;
     public float moveSpeed = 5.0f;
     public float interactionDistance = 1.5f;
     private Animator animator;
 
-    [Header("발판 퍼즐 관련")]
-    private bool isRedActive = true;  // 초기에는 빨강이 활성화
-    private int interactionCount = 0;  // FootHold와 상호작용한 횟수를 추적
-    private GameObject[] redObstacles;  // 빨간색 오브젝트 리스트
-    private GameObject[] yellowObstacles;  // 노란색 오브젝트 리스트
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
-        redObstacles = GameObject.FindGameObjectsWithTag("RedObstacle");
-        yellowObstacles = GameObject.FindGameObjectsWithTag("YellowObstacle");
     }
 
     void Update()
@@ -41,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
             isMoving = true;
         }
 
-        RaycastHit2D rayHit = Physics2D.Raycast(rb.position, moveDirection, interactionDistance, LayerMask.GetMask("Object"));
+        // 스페이스바로 버튼 누를 경우 (Istrigger X)
+        /*RaycastHit2D rayHit = Physics2D.Raycast(rb.position, moveDirection, interactionDistance, LayerMask.GetMask("Object"));
         Debug.DrawRay(rb.position, moveDirection.normalized * interactionDistance, Color.green);
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -53,27 +45,7 @@ public class PlayerMovement : MonoBehaviour
                 ToggleObstacles();
                 Debug.Log("확인용");
             }
-        }
-    }
-
-    void ToggleObstacles()
-    {
-        // 현재 상태에 따라 빨간색 또는 노란색을 활성화합니다.
-        foreach (GameObject redObstacle in redObstacles)
-        {
-            redObstacle.SetActive(!isRedActive);
-        }
-
-        foreach (GameObject yellowObstacle in yellowObstacles)
-        {
-            yellowObstacle.SetActive(isRedActive);
-        }
-
-        // 다음에 토글할 턴을 업데이트합니다.
-        interactionCount++;
-
-        // interactionCount가 2의 배수일 때마다 isRedActive를 반전시킵니다.
-        isRedActive = interactionCount % 2 == 0;
+        }*/
     }
 
     void FixedUpdate()
