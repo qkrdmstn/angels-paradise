@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+  hgaohgao  void OnCollisionEnter2D(Collision2D collision)
     {
         // 이동 중에 충돌 발생 시 이동을 멈춥니다.
         isMoving = false;
